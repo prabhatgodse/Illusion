@@ -1,0 +1,494 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+# Multi/Sub Material__277 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__6
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
+illum 2
+map_Kd -o -0.1 0.0 0.0 -s 1.0 1.2 1.0 ADIDAS5-.JPG
+#
+# Multi/Sub Material__277 done 
+#
+# Multi/Sub Material__266 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__266 done 
+#
+# Multi/Sub Material__255 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__255 done 
+#
+# Multi/Sub Material__244 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__244 done 
+#
+# Multi/Sub Material__233 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__233 done 
+#
+# Multi/Sub Material__222 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__222 done 
+#
+newmtl Material__13
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+# Multi/Sub Material__211 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__211 done 
+#
+# Multi/Sub Material__200 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__200 done 
+#
+# Multi/Sub Material__189 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__189 done 
+#
+# Multi/Sub Material__178 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__178 done 
+#
+# Multi/Sub Material__167 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__3
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDASLO.GIF
+#
+# Multi/Sub Material__167 done 
+#
+# Multi/Sub Material__156 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__156 done 
+#
+# Multi/Sub Material__145 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__145 done 
+#
+# Multi/Sub Material__134 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__134 done 
+#
+# Multi/Sub Material__123 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__123 done 
+#
+# Multi/Sub Material__112 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__112 done 
+#
+# Multi/Sub Material__101 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__5
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS5-.JPG
+#
+# Multi/Sub Material__101 done 
+#
+# Multi/Sub Material__90 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__90 done 
+#
+# Multi/Sub Material__79 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__79 done 
+#
+# Multi/Sub Material__68 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__68 done 
+#
+# Multi/Sub Material__57 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__57 done 
+#
+# Multi/Sub Material__46 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__46 done 
+#
+# Multi/Sub Material__35 (2) to come 
+#
+newmtl Material__2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+#
+newmtl Material__4
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.0
+illum 2
+map_Kd ADIDAS6.JPG
+#
+# Multi/Sub Material__35 done 
+#
+# EOF

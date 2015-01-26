@@ -1,0 +1,93 @@
+precision highp float;
+
+    varying vec4 mvPosition;
+    varying vec4 shadowTexCoord;
+
+    varying vec2 vTextureCoord;
+    varying vec3 transformedNormal;
+
+    uniform sampler2D uSampler;
+    uniform sampler2D uDepthSampler;
+
+    uniform float uAlpha;
+    uniform float uPhongComponent;
+
+    varying vec3 vLightWeighting;
+    uniform vec3 uLightingDirection;
+    uniform vec3 pointLightPosition;
+
+    uniform vec3 uAmbientColor;
+    uniform vec3 uPointLightDiffuseColor;
+    uniform vec3 uPointLightSpecularColor;
+
+    uniform bool checkDepth;
+    float rand(vec2 co){
+        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+    }
+
+    vec4 pack (float depth)
+    {
+        const vec4 bitSh = vec4(256.0 * 256.0 * 256.0,
+                           256.0 * 256.0,
+                           256.0,
+                          1.0);
+        const vec4 bitMsk = vec4(0,
+                             1.0 / 256.0,
+                             1.0 / 256.0,
+                                 1.0 / 256.0);
+        vec4 comp = fract(depth * bitSh);
+        comp -= comp.xxyz * bitMsk;
+        return comp;
+    }
+
+    float unpack (vec4 colour)
+    {
+        const vec4 bitShifts = vec4(1.0 / (256.0 * 256.0 * 256.0),
+                        1.0 / (256.0 * 256.0),
+                        1.0 / 256.0,
+                        1);
+        return dot(colour, bitShifts);
+    }
+    void main(void) {
+        //Point light effects due to surface normals.
+        if(checkDepth) {
+            float normalizedDistance = mvPosition.z / mvPosition.w;
+            //Scale from 0-1
+            normalizedDistance = (normalizedDistance + 1.0) / 2.0;
+            // bias remove artifacts
+            normalizedDistance += 0.0005;
+
+            //Pack value into 32-bit RGBA
+            gl_FragColor = pack(normalizedDistance);
+        } else {
+            //Get depth
+            vec4 depth = shadowTexCoord / 45.0;//shadowTexCoord.w;
+            //scale + bias
+            depth = (depth + 1.0) / 2.0;
+            depth.z += 0.0005;
+
+            vec3 lightDirection = normalize(pointLightPosition - mvPosition.xyz);
+
+            //Get the specular effects due to light
+            vec3 normal = normalize(transformedNormal);
+            vec3 eyeDirection = normalize(-mvPosition.xyz);
+            vec3 reflectionDirection = reflect(-lightDirection, normal);
+            float specularLightWeighting = pow(max(dot(reflectionDirection, eyeDirection), 0.0), uPhongComponent);
+
+            float diffuseLightWeighting = max(dot(transformedNormal, lightDirection), 0.0);
+
+            vec3 vLightWeighting = uAmbientColor + uPointLightDiffuseColor * diffuseLightWeighting + uPointLightSpecularColor * specularLightWeighting;
+            vec4 textureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+
+            float shadow = unpack(texture2D(uDepthSampler, depth.st));
+
+            if(shadow > depth.z) {
+               gl_FragColor = vec4(textureColor.rgb * vLightWeighting, textureColor.a * uAlpha);
+            }
+            else {
+                //gl_FragColor = vec4(shadow, shadow, shadow, 1.0);
+                gl_FragColor = vec4(textureColor.rgb * vLightWeighting, textureColor.a * uAlpha);
+            }
+
+        }
+    }

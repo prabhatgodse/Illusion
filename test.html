@@ -1,0 +1,44 @@
+<html>
+<head>
+<script type="text/javascript" src="http://lib.ivank.net/ivank.js"></script>
+    <script type="text/javascript" src="http://k3d.ivank.net/K3D.js"></script>
+    <script type="text/javascript">
+
+    function Start()
+    {
+         K3D.load("scene/mini.obj", loaded);		// loading file ...
+         }
+
+    function loaded(data)
+    {
+        console.log(data);
+        return;
+          var m = K3D.parse.fromOBJ(data);	// done !
+                       var stage = new Stage("c");
+                       var s = new Sprite();
+                       stage.addChild(s);
+
+                       s.x = stage.stageWidth/2;
+                       s.y = stage.stageHeight/2 + 200;
+                       s.z = 300;
+                       s.scaleX = s.scaleY = s.scaleZ = 5;
+
+                       //	I need to index vertices and UVT with the same indices... 0, 1, 2, ...
+        var vts = K3D.edit.unwrap(m.i_verts, m.c_verts, 3);
+
+        //  In my engine, Y goes down, but in my model, Y goes up
+        K3D.edit.transform(vts, K3D.mat.scale(1,-1,1));
+        var uvt = K3D.edit.unwrap(m.i_uvt  , m.c_uvt  , 2);
+        var ind = [];
+        for(var i=0; i<m.i_verts.length; i++) ind.push(i);
+
+        s.graphics.beginBitmapFill(new BitmapData("raptor.jpg"));
+        s.graphics.drawTriangles3D(vts, ind, uvt);
+
+        stage.addEventListener(Event.ENTER_FRAME,
+                function(e) { s.rotationY += 0.01*(stage.mouseX - stage.stageWidth/2); } );
+            }
+         </script>
+    </head>
+<body onload="Start();"><canvas id="c"></canvas></body>
+</html>
