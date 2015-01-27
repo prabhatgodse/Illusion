@@ -26,7 +26,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="72" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="465">
+            <state line="7" column="72" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="525">
               <folding />
             </state>
           </provider>
@@ -35,135 +35,26 @@
       <file leaf-file-name="shader_fragment" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shader_fragment">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="42" selection-start="1117" selection-end="1117" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1260">
+            <state line="56" column="35" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1710">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shader_vertex" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="shader_vertex" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shader_vertex">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="1" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
+            <state line="28" column="1" selection-start="645" selection-end="645" vertical-scroll-proportion="0.6060606" vertical-offset="0" max-vertical-offset="693">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="illusion.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="illusion.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/illusion.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="943" column="17" selection-start="32829" selection-end="32829" vertical-scroll-proportion="0.8917749" vertical-offset="4902" max-vertical-offset="5640">
-              <folding>
-                <element signature="e#0#46#0" expanded="false" />
-                <element signature="n#!!block;n#initGL#0" expanded="false" />
-                <element signature="e#121#253#0" expanded="false" />
-                <element signature="e#264#271#0" expanded="false" />
-                <element signature="e#285#348#0" expanded="false" />
-                <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-                <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-                <element signature="e#460#496#0" expanded="false" />
-                <element signature="e#549#618#0" expanded="false" />
-                <element signature="e#646#713#0" expanded="false" />
-                <element signature="e#719#755#0" expanded="false" />
-                <element signature="e#902#986#0" expanded="false" />
-                <element signature="e#1130#1462#0" expanded="false" />
-                <element signature="e#1218#1455#0" expanded="false" />
-                <element signature="n#!!block;n#initShaders#0" expanded="false" />
-                <element signature="e#1781#1835#0" expanded="false" />
-                <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-                <element signature="e#5535#5583#0" expanded="false" />
-                <element signature="e#5689#5691#0" expanded="false" />
-                <element signature="e#5850#5903#0" expanded="false" />
-                <element signature="e#5969#5971#0" expanded="false" />
-                <element signature="e#6135#6190#0" expanded="false" />
-                <element signature="e#6257#6259#0" expanded="false" />
-                <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-                <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-                <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-                <element signature="e#8362#8405#0" expanded="false" />
-                <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-                <element signature="e#9168#9170#0" expanded="false" />
-                <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-                <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-                <element signature="e#9333#9495#0" expanded="false" />
-                <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-                <element signature="e#9661#9745#0" expanded="false" />
-                <element signature="e#9671#9693#0" expanded="false" />
-                <element signature="e#9780#9842#0" expanded="false" />
-                <element signature="e#9848#9876#0" expanded="false" />
-                <element signature="e#9910#9961#0" expanded="false" />
-                <element signature="e#9995#10048#0" expanded="false" />
-                <element signature="e#10082#10189#0" expanded="false" />
-                <element signature="e#10223#10330#0" expanded="false" />
-                <element signature="e#10365#10415#0" expanded="false" />
-                <element signature="e#10449#10501#0" expanded="false" />
-                <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-                <element signature="e#10653#10760#0" expanded="false" />
-                <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-                <element signature="e#10822#10858#0" expanded="false" />
-                <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-                <element signature="e#10916#11484#0" expanded="false" />
-                <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-                <element signature="e#11576#11679#0" expanded="false" />
-                <element signature="e#11699#11800#0" expanded="false" />
-                <element signature="e#11804#11806#0" expanded="false" />
-                <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-                <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-                <element signature="n#!!block;n#degToRad#0" expanded="false" />
-                <element signature="e#12097#12099#0" expanded="false" />
-                <element signature="e#12385#12387#0" expanded="false" />
-                <element signature="e#12576#12605#0" expanded="false" />
-                <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-                <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-                <element signature="e#14851#14918#0" expanded="false" />
-                <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-                <element signature="e#16472#16510#0" expanded="false" />
-                <element signature="e#16632#16738#0" expanded="false" />
-                <element signature="e#16786#16895#0" expanded="false" />
-                <element signature="e#16937#16977#0" expanded="false" />
-                <element signature="e#17010#17041#0" expanded="false" />
-                <element signature="e#17078#17122#0" expanded="false" />
-                <element signature="e#17162#17170#0" expanded="false" />
-                <element signature="e#17262#17305#0" expanded="false" />
-                <element signature="e#17433#17499#0" expanded="false" />
-                <element signature="e#18016#19895#0" expanded="false" />
-                <element signature="e#18214#18355#0" expanded="false" />
-                <element signature="e#18438#18508#0" expanded="false" />
-                <element signature="e#18514#18583#0" expanded="false" />
-                <element signature="e#18973#19044#0" expanded="false" />
-                <element signature="e#19050#19122#0" expanded="false" />
-                <element signature="e#19188#19517#0" expanded="false" />
-                <element signature="e#20760#21148#0" expanded="false" />
-                <element signature="e#21025#21066#0" expanded="false" />
-                <element signature="e#21102#21142#0" expanded="false" />
-                <element signature="e#21847#22101#0" expanded="false" />
-                <element signature="e#22134#22372#0" expanded="false" />
-                <element signature="e#22401#22479#0" expanded="false" />
-                <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-                <element signature="e#22955#22976#0" expanded="false" />
-                <element signature="e#23408#23461#0" expanded="false" />
-                <element signature="e#25269#25292#0" expanded="false" />
-                <element signature="e#25628#25658#0" expanded="false" />
-                <element signature="e#25663#25713#0" expanded="false" />
-                <element signature="e#26361#26383#0" expanded="false" />
-                <element signature="e#26509#26715#0" expanded="false" />
-                <element signature="e#26721#26846#0" expanded="false" />
-                <element signature="e#27515#27720#0" expanded="false" />
-                <element signature="e#27525#27578#0" expanded="false" />
-                <element signature="e#27842#27863#0" expanded="false" />
-                <element signature="n#!!block;n#animateLight#0" expanded="false" />
-                <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-                <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-                <element signature="e#29670#29731#0" expanded="false" />
-                <element signature="e#29780#29830#0" expanded="false" />
-                <element signature="n#!!block;n#animate#0" expanded="false" />
-                <element signature="e#29918#30246#0" expanded="false" />
-                <element signature="e#29988#30130#0" expanded="false" />
-                <element signature="e#30016#30058#0" expanded="false" />
-                <element signature="e#30079#30120#0" expanded="false" />
-                <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-              </folding>
+            <state line="943" column="17" selection-start="33540" selection-end="33540" vertical-scroll-proportion="0.0" vertical-offset="14145" max-vertical-offset="15210">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -180,7 +71,7 @@
       <file leaf-file-name="MedievalBarrel_OBJ.obj" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scene/MedievalBarrel/MedievalBarrel_OBJ.obj">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="599" column="2" selection-start="15878" selection-end="15880" vertical-scroll-proportion="0.0" vertical-offset="8763" max-vertical-offset="29835">
+            <state line="599" column="2" selection-start="15878" selection-end="15880" vertical-scroll-proportion="0.0" vertical-offset="8985" max-vertical-offset="29835">
               <folding />
             </state>
           </provider>
@@ -213,7 +104,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="790" />
   </component>
@@ -259,38 +150,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Illusion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebGLPlayGround" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Illusion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebGLPlayGround" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Illusion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tank" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -374,7 +233,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="790" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="790" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -439,116 +298,7 @@
     <entry file="file://$PROJECT_DIR$/illusion.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="5" selection-start="1016" selection-end="1016" vertical-scroll-proportion="0.0" vertical-offset="615" max-vertical-offset="14100">
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-            <element signature="n#!!block;n#initGL#0" expanded="false" />
-            <element signature="e#121#253#0" expanded="false" />
-            <element signature="e#264#271#0" expanded="false" />
-            <element signature="e#285#348#0" expanded="false" />
-            <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="e#460#496#0" expanded="false" />
-            <element signature="e#549#618#0" expanded="false" />
-            <element signature="e#646#713#0" expanded="false" />
-            <element signature="e#719#755#0" expanded="false" />
-            <element signature="e#902#986#0" expanded="false" />
-            <element signature="e#1130#1462#0" expanded="false" />
-            <element signature="e#1218#1455#0" expanded="false" />
-            <element signature="n#!!block;n#initShaders#0" expanded="false" />
-            <element signature="e#1781#1835#0" expanded="false" />
-            <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-            <element signature="e#5535#5583#0" expanded="false" />
-            <element signature="e#5689#5691#0" expanded="false" />
-            <element signature="e#5850#5903#0" expanded="false" />
-            <element signature="e#5969#5971#0" expanded="false" />
-            <element signature="e#6135#6190#0" expanded="false" />
-            <element signature="e#6257#6259#0" expanded="false" />
-            <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-            <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-            <element signature="e#8362#8405#0" expanded="false" />
-            <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-            <element signature="e#9168#9170#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-            <element signature="e#9333#9495#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-            <element signature="e#9661#9745#0" expanded="false" />
-            <element signature="e#9671#9693#0" expanded="false" />
-            <element signature="e#9780#9842#0" expanded="false" />
-            <element signature="e#9848#9876#0" expanded="false" />
-            <element signature="e#9910#9961#0" expanded="false" />
-            <element signature="e#9995#10048#0" expanded="false" />
-            <element signature="e#10082#10189#0" expanded="false" />
-            <element signature="e#10223#10330#0" expanded="false" />
-            <element signature="e#10365#10415#0" expanded="false" />
-            <element signature="e#10449#10501#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-            <element signature="e#10653#10760#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-            <element signature="e#10822#10858#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-            <element signature="e#10916#11484#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-            <element signature="e#11576#11679#0" expanded="false" />
-            <element signature="e#11699#11800#0" expanded="false" />
-            <element signature="e#11804#11806#0" expanded="false" />
-            <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-            <element signature="n#!!block;n#degToRad#0" expanded="false" />
-            <element signature="e#12097#12099#0" expanded="false" />
-            <element signature="e#12385#12387#0" expanded="false" />
-            <element signature="e#12576#12605#0" expanded="false" />
-            <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-            <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-            <element signature="e#14851#14918#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-            <element signature="e#16472#16510#0" expanded="false" />
-            <element signature="e#16632#16738#0" expanded="false" />
-            <element signature="e#16786#16895#0" expanded="false" />
-            <element signature="e#16937#16977#0" expanded="false" />
-            <element signature="e#17010#17041#0" expanded="false" />
-            <element signature="e#17078#17122#0" expanded="false" />
-            <element signature="e#17162#17170#0" expanded="false" />
-            <element signature="e#17262#17305#0" expanded="false" />
-            <element signature="e#17433#17499#0" expanded="false" />
-            <element signature="e#18016#19895#0" expanded="false" />
-            <element signature="e#18214#18355#0" expanded="false" />
-            <element signature="e#18438#18508#0" expanded="false" />
-            <element signature="e#18514#18583#0" expanded="false" />
-            <element signature="e#18973#19044#0" expanded="false" />
-            <element signature="e#19050#19122#0" expanded="false" />
-            <element signature="e#19188#19517#0" expanded="false" />
-            <element signature="e#20760#21148#0" expanded="false" />
-            <element signature="e#21025#21066#0" expanded="false" />
-            <element signature="e#21102#21142#0" expanded="false" />
-            <element signature="e#21847#22101#0" expanded="false" />
-            <element signature="e#22134#22372#0" expanded="false" />
-            <element signature="e#22401#22479#0" expanded="false" />
-            <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-            <element signature="e#22955#22976#0" expanded="false" />
-            <element signature="e#23408#23461#0" expanded="false" />
-            <element signature="e#25269#25292#0" expanded="false" />
-            <element signature="e#25628#25658#0" expanded="false" />
-            <element signature="e#25663#25713#0" expanded="false" />
-            <element signature="e#26361#26383#0" expanded="false" />
-            <element signature="e#26509#26715#0" expanded="false" />
-            <element signature="e#26721#26846#0" expanded="false" />
-            <element signature="e#27515#27720#0" expanded="false" />
-            <element signature="e#27525#27578#0" expanded="false" />
-            <element signature="e#27842#27863#0" expanded="false" />
-            <element signature="n#!!block;n#animateLight#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-            <element signature="e#29670#29731#0" expanded="false" />
-            <element signature="e#29780#29830#0" expanded="false" />
-            <element signature="n#!!block;n#animate#0" expanded="false" />
-            <element signature="e#29918#30246#0" expanded="false" />
-            <element signature="e#29988#30130#0" expanded="false" />
-            <element signature="e#30016#30058#0" expanded="false" />
-            <element signature="e#30079#30120#0" expanded="false" />
-            <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -574,116 +324,7 @@
     <entry file="file://$PROJECT_DIR$/illusion.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="58" column="49" selection-start="1249" selection-end="1258" vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="13845">
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-            <element signature="n#!!block;n#initGL#0" expanded="false" />
-            <element signature="e#121#253#0" expanded="false" />
-            <element signature="e#264#271#0" expanded="false" />
-            <element signature="e#285#348#0" expanded="false" />
-            <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="e#460#496#0" expanded="false" />
-            <element signature="e#549#618#0" expanded="false" />
-            <element signature="e#646#713#0" expanded="false" />
-            <element signature="e#719#755#0" expanded="false" />
-            <element signature="e#902#986#0" expanded="false" />
-            <element signature="e#1130#1462#0" expanded="false" />
-            <element signature="e#1218#1455#0" expanded="false" />
-            <element signature="n#!!block;n#initShaders#0" expanded="false" />
-            <element signature="e#1781#1835#0" expanded="false" />
-            <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-            <element signature="e#5535#5583#0" expanded="false" />
-            <element signature="e#5689#5691#0" expanded="false" />
-            <element signature="e#5850#5903#0" expanded="false" />
-            <element signature="e#5969#5971#0" expanded="false" />
-            <element signature="e#6135#6190#0" expanded="false" />
-            <element signature="e#6257#6259#0" expanded="false" />
-            <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-            <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-            <element signature="e#8362#8405#0" expanded="false" />
-            <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-            <element signature="e#9168#9170#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-            <element signature="e#9333#9495#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-            <element signature="e#9661#9745#0" expanded="false" />
-            <element signature="e#9671#9693#0" expanded="false" />
-            <element signature="e#9780#9842#0" expanded="false" />
-            <element signature="e#9848#9876#0" expanded="false" />
-            <element signature="e#9910#9961#0" expanded="false" />
-            <element signature="e#9995#10048#0" expanded="false" />
-            <element signature="e#10082#10189#0" expanded="false" />
-            <element signature="e#10223#10330#0" expanded="false" />
-            <element signature="e#10365#10415#0" expanded="false" />
-            <element signature="e#10449#10501#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-            <element signature="e#10653#10760#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-            <element signature="e#10822#10858#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-            <element signature="e#10916#11484#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-            <element signature="e#11576#11679#0" expanded="false" />
-            <element signature="e#11699#11800#0" expanded="false" />
-            <element signature="e#11804#11806#0" expanded="false" />
-            <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-            <element signature="n#!!block;n#degToRad#0" expanded="false" />
-            <element signature="e#12097#12099#0" expanded="false" />
-            <element signature="e#12385#12387#0" expanded="false" />
-            <element signature="e#12576#12605#0" expanded="false" />
-            <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-            <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-            <element signature="e#14851#14918#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-            <element signature="e#16472#16510#0" expanded="false" />
-            <element signature="e#16632#16738#0" expanded="false" />
-            <element signature="e#16786#16895#0" expanded="false" />
-            <element signature="e#16937#16977#0" expanded="false" />
-            <element signature="e#17010#17041#0" expanded="false" />
-            <element signature="e#17078#17122#0" expanded="false" />
-            <element signature="e#17162#17170#0" expanded="false" />
-            <element signature="e#17262#17305#0" expanded="false" />
-            <element signature="e#17433#17499#0" expanded="false" />
-            <element signature="e#18016#19895#0" expanded="false" />
-            <element signature="e#18214#18355#0" expanded="false" />
-            <element signature="e#18438#18508#0" expanded="false" />
-            <element signature="e#18514#18583#0" expanded="false" />
-            <element signature="e#18973#19044#0" expanded="false" />
-            <element signature="e#19050#19122#0" expanded="false" />
-            <element signature="e#19188#19517#0" expanded="false" />
-            <element signature="e#20760#21148#0" expanded="false" />
-            <element signature="e#21025#21066#0" expanded="false" />
-            <element signature="e#21102#21142#0" expanded="false" />
-            <element signature="e#21847#22101#0" expanded="false" />
-            <element signature="e#22134#22372#0" expanded="false" />
-            <element signature="e#22401#22479#0" expanded="false" />
-            <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-            <element signature="e#22955#22976#0" expanded="false" />
-            <element signature="e#23408#23461#0" expanded="false" />
-            <element signature="e#25269#25292#0" expanded="false" />
-            <element signature="e#25628#25658#0" expanded="false" />
-            <element signature="e#25663#25713#0" expanded="false" />
-            <element signature="e#26361#26383#0" expanded="false" />
-            <element signature="e#26509#26715#0" expanded="false" />
-            <element signature="e#26721#26846#0" expanded="false" />
-            <element signature="e#27515#27720#0" expanded="false" />
-            <element signature="e#27525#27578#0" expanded="false" />
-            <element signature="e#27842#27863#0" expanded="false" />
-            <element signature="n#!!block;n#animateLight#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-            <element signature="e#29670#29731#0" expanded="false" />
-            <element signature="e#29780#29830#0" expanded="false" />
-            <element signature="n#!!block;n#animate#0" expanded="false" />
-            <element signature="e#29918#30246#0" expanded="false" />
-            <element signature="e#29988#30130#0" expanded="false" />
-            <element signature="e#30016#30058#0" expanded="false" />
-            <element signature="e#30079#30120#0" expanded="false" />
-            <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -714,116 +355,7 @@
     <entry file="file://$PROJECT_DIR$/illusion.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="483" column="5" selection-start="15282" selection-end="15282" vertical-scroll-proportion="0.0" vertical-offset="7245" max-vertical-offset="13845">
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-            <element signature="n#!!block;n#initGL#0" expanded="false" />
-            <element signature="e#121#253#0" expanded="false" />
-            <element signature="e#264#271#0" expanded="false" />
-            <element signature="e#285#348#0" expanded="false" />
-            <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="e#460#496#0" expanded="false" />
-            <element signature="e#549#618#0" expanded="false" />
-            <element signature="e#646#713#0" expanded="false" />
-            <element signature="e#719#755#0" expanded="false" />
-            <element signature="e#902#986#0" expanded="false" />
-            <element signature="e#1130#1462#0" expanded="false" />
-            <element signature="e#1218#1455#0" expanded="false" />
-            <element signature="n#!!block;n#initShaders#0" expanded="false" />
-            <element signature="e#1781#1835#0" expanded="false" />
-            <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-            <element signature="e#5535#5583#0" expanded="false" />
-            <element signature="e#5689#5691#0" expanded="false" />
-            <element signature="e#5850#5903#0" expanded="false" />
-            <element signature="e#5969#5971#0" expanded="false" />
-            <element signature="e#6135#6190#0" expanded="false" />
-            <element signature="e#6257#6259#0" expanded="false" />
-            <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-            <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-            <element signature="e#8362#8405#0" expanded="false" />
-            <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-            <element signature="e#9168#9170#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-            <element signature="e#9333#9495#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-            <element signature="e#9661#9745#0" expanded="false" />
-            <element signature="e#9671#9693#0" expanded="false" />
-            <element signature="e#9780#9842#0" expanded="false" />
-            <element signature="e#9848#9876#0" expanded="false" />
-            <element signature="e#9910#9961#0" expanded="false" />
-            <element signature="e#9995#10048#0" expanded="false" />
-            <element signature="e#10082#10189#0" expanded="false" />
-            <element signature="e#10223#10330#0" expanded="false" />
-            <element signature="e#10365#10415#0" expanded="false" />
-            <element signature="e#10449#10501#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-            <element signature="e#10653#10760#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-            <element signature="e#10822#10858#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-            <element signature="e#10916#11484#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-            <element signature="e#11576#11679#0" expanded="false" />
-            <element signature="e#11699#11800#0" expanded="false" />
-            <element signature="e#11804#11806#0" expanded="false" />
-            <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-            <element signature="n#!!block;n#degToRad#0" expanded="false" />
-            <element signature="e#12097#12099#0" expanded="false" />
-            <element signature="e#12385#12387#0" expanded="false" />
-            <element signature="e#12576#12605#0" expanded="false" />
-            <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-            <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-            <element signature="e#14851#14918#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-            <element signature="e#16472#16510#0" expanded="false" />
-            <element signature="e#16632#16738#0" expanded="false" />
-            <element signature="e#16786#16895#0" expanded="false" />
-            <element signature="e#16937#16977#0" expanded="false" />
-            <element signature="e#17010#17041#0" expanded="false" />
-            <element signature="e#17078#17122#0" expanded="false" />
-            <element signature="e#17162#17170#0" expanded="false" />
-            <element signature="e#17262#17305#0" expanded="false" />
-            <element signature="e#17433#17499#0" expanded="false" />
-            <element signature="e#18016#19895#0" expanded="false" />
-            <element signature="e#18214#18355#0" expanded="false" />
-            <element signature="e#18438#18508#0" expanded="false" />
-            <element signature="e#18514#18583#0" expanded="false" />
-            <element signature="e#18973#19044#0" expanded="false" />
-            <element signature="e#19050#19122#0" expanded="false" />
-            <element signature="e#19188#19517#0" expanded="false" />
-            <element signature="e#20760#21148#0" expanded="false" />
-            <element signature="e#21025#21066#0" expanded="false" />
-            <element signature="e#21102#21142#0" expanded="false" />
-            <element signature="e#21847#22101#0" expanded="false" />
-            <element signature="e#22134#22372#0" expanded="false" />
-            <element signature="e#22401#22479#0" expanded="false" />
-            <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-            <element signature="e#22955#22976#0" expanded="false" />
-            <element signature="e#23408#23461#0" expanded="false" />
-            <element signature="e#25269#25292#0" expanded="false" />
-            <element signature="e#25628#25658#0" expanded="false" />
-            <element signature="e#25663#25713#0" expanded="false" />
-            <element signature="e#26361#26383#0" expanded="false" />
-            <element signature="e#26509#26715#0" expanded="false" />
-            <element signature="e#26721#26846#0" expanded="false" />
-            <element signature="e#27515#27720#0" expanded="false" />
-            <element signature="e#27525#27578#0" expanded="false" />
-            <element signature="e#27842#27863#0" expanded="false" />
-            <element signature="n#!!block;n#animateLight#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-            <element signature="e#29670#29731#0" expanded="false" />
-            <element signature="e#29780#29830#0" expanded="false" />
-            <element signature="n#!!block;n#animate#0" expanded="false" />
-            <element signature="e#29918#30246#0" expanded="false" />
-            <element signature="e#29988#30130#0" expanded="false" />
-            <element signature="e#30016#30058#0" expanded="false" />
-            <element signature="e#30079#30120#0" expanded="false" />
-            <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -854,116 +386,7 @@
     <entry file="file://$PROJECT_DIR$/illusion.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="581" column="39" selection-start="18881" selection-end="18881" vertical-scroll-proportion="0.0" vertical-offset="8715" max-vertical-offset="13200">
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-            <element signature="n#!!block;n#initGL#0" expanded="false" />
-            <element signature="e#121#253#0" expanded="false" />
-            <element signature="e#264#271#0" expanded="false" />
-            <element signature="e#285#348#0" expanded="false" />
-            <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="e#460#496#0" expanded="false" />
-            <element signature="e#549#618#0" expanded="false" />
-            <element signature="e#646#713#0" expanded="false" />
-            <element signature="e#719#755#0" expanded="false" />
-            <element signature="e#902#986#0" expanded="false" />
-            <element signature="e#1130#1462#0" expanded="false" />
-            <element signature="e#1218#1455#0" expanded="false" />
-            <element signature="n#!!block;n#initShaders#0" expanded="false" />
-            <element signature="e#1781#1835#0" expanded="false" />
-            <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-            <element signature="e#5535#5583#0" expanded="false" />
-            <element signature="e#5689#5691#0" expanded="false" />
-            <element signature="e#5850#5903#0" expanded="false" />
-            <element signature="e#5969#5971#0" expanded="false" />
-            <element signature="e#6135#6190#0" expanded="false" />
-            <element signature="e#6257#6259#0" expanded="false" />
-            <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-            <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-            <element signature="e#8362#8405#0" expanded="false" />
-            <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-            <element signature="e#9168#9170#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-            <element signature="e#9333#9495#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-            <element signature="e#9661#9745#0" expanded="false" />
-            <element signature="e#9671#9693#0" expanded="false" />
-            <element signature="e#9780#9842#0" expanded="false" />
-            <element signature="e#9848#9876#0" expanded="false" />
-            <element signature="e#9910#9961#0" expanded="false" />
-            <element signature="e#9995#10048#0" expanded="false" />
-            <element signature="e#10082#10189#0" expanded="false" />
-            <element signature="e#10223#10330#0" expanded="false" />
-            <element signature="e#10365#10415#0" expanded="false" />
-            <element signature="e#10449#10501#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-            <element signature="e#10653#10760#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-            <element signature="e#10822#10858#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-            <element signature="e#10916#11484#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-            <element signature="e#11576#11679#0" expanded="false" />
-            <element signature="e#11699#11800#0" expanded="false" />
-            <element signature="e#11804#11806#0" expanded="false" />
-            <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-            <element signature="n#!!block;n#degToRad#0" expanded="false" />
-            <element signature="e#12097#12099#0" expanded="false" />
-            <element signature="e#12385#12387#0" expanded="false" />
-            <element signature="e#12576#12605#0" expanded="false" />
-            <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-            <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-            <element signature="e#14851#14918#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-            <element signature="e#16472#16510#0" expanded="false" />
-            <element signature="e#16632#16738#0" expanded="false" />
-            <element signature="e#16786#16895#0" expanded="false" />
-            <element signature="e#16937#16977#0" expanded="false" />
-            <element signature="e#17010#17041#0" expanded="false" />
-            <element signature="e#17078#17122#0" expanded="false" />
-            <element signature="e#17162#17170#0" expanded="false" />
-            <element signature="e#17262#17305#0" expanded="false" />
-            <element signature="e#17433#17499#0" expanded="false" />
-            <element signature="e#18016#19895#0" expanded="false" />
-            <element signature="e#18214#18355#0" expanded="false" />
-            <element signature="e#18438#18508#0" expanded="false" />
-            <element signature="e#18514#18583#0" expanded="false" />
-            <element signature="e#18973#19044#0" expanded="false" />
-            <element signature="e#19050#19122#0" expanded="false" />
-            <element signature="e#19188#19517#0" expanded="false" />
-            <element signature="e#20760#21148#0" expanded="false" />
-            <element signature="e#21025#21066#0" expanded="false" />
-            <element signature="e#21102#21142#0" expanded="false" />
-            <element signature="e#21847#22101#0" expanded="false" />
-            <element signature="e#22134#22372#0" expanded="false" />
-            <element signature="e#22401#22479#0" expanded="false" />
-            <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-            <element signature="e#22955#22976#0" expanded="false" />
-            <element signature="e#23408#23461#0" expanded="false" />
-            <element signature="e#25269#25292#0" expanded="false" />
-            <element signature="e#25628#25658#0" expanded="false" />
-            <element signature="e#25663#25713#0" expanded="false" />
-            <element signature="e#26361#26383#0" expanded="false" />
-            <element signature="e#26509#26715#0" expanded="false" />
-            <element signature="e#26721#26846#0" expanded="false" />
-            <element signature="e#27515#27720#0" expanded="false" />
-            <element signature="e#27525#27578#0" expanded="false" />
-            <element signature="e#27842#27863#0" expanded="false" />
-            <element signature="n#!!block;n#animateLight#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-            <element signature="e#29670#29731#0" expanded="false" />
-            <element signature="e#29780#29830#0" expanded="false" />
-            <element signature="n#!!block;n#animate#0" expanded="false" />
-            <element signature="e#29918#30246#0" expanded="false" />
-            <element signature="e#29988#30130#0" expanded="false" />
-            <element signature="e#30016#30058#0" expanded="false" />
-            <element signature="e#30079#30120#0" expanded="false" />
-            <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -991,16 +414,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frag_shader">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="26" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0" vertical-offset="790" max-vertical-offset="1470">
-          <folding />
-        </state>
+        <state line="29" column="26" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0" vertical-offset="790" max-vertical-offset="1470" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/glMatrix-0.9.5.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="12444" selection-end="12444" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
+        <state line="32" column="0" selection-start="12444" selection-end="12444" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene/airbus/Singapore Airlines/A380_part3.tga">
@@ -1025,11 +444,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webgl-utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="14" selection-start="3586" selection-end="3590" vertical-scroll-proportion="0.3328336" vertical-offset="1248" max-vertical-offset="2715">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
+        <state line="98" column="14" selection-start="3586" selection-end="3590" vertical-scroll-proportion="0.3328336" vertical-offset="1248" max-vertical-offset="2715" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene/Chair/Chair.3ds">
@@ -1040,20 +455,6 @@
     <entry file="file://$PROJECT_DIR$/scene/weight/weight.obj">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23006" column="62" selection-start="652786" selection-end="652786" vertical-scroll-proportion="17.47186" vertical-offset="332982" max-vertical-offset="345495" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shader_vertex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="1" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shader_fragment">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="42" selection-start="1117" selection-end="1117" vertical-scroll-proportion="0.0" vertical-offset="580" max-vertical-offset="1260">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene/Chair/Chair.mtl">
@@ -1088,9 +489,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="44" selection-start="535" selection-end="535" vertical-scroll-proportion="0.38116592" vertical-offset="0" max-vertical-offset="735">
-          <folding />
-        </state>
+        <state line="17" column="44" selection-start="535" selection-end="535" vertical-scroll-proportion="0.38116592" vertical-offset="0" max-vertical-offset="735" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene/cube.txt">
@@ -1151,117 +550,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/illusion.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="943" column="17" selection-start="32829" selection-end="32829" vertical-scroll-proportion="0.8917749" vertical-offset="4902" max-vertical-offset="5640">
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-            <element signature="n#!!block;n#initGL#0" expanded="false" />
-            <element signature="e#121#253#0" expanded="false" />
-            <element signature="e#264#271#0" expanded="false" />
-            <element signature="e#285#348#0" expanded="false" />
-            <element signature="n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="n#!!block;n#getShader#0;n#!!block;n#initShaderCode#0" expanded="false" />
-            <element signature="e#460#496#0" expanded="false" />
-            <element signature="e#549#618#0" expanded="false" />
-            <element signature="e#646#713#0" expanded="false" />
-            <element signature="e#719#755#0" expanded="false" />
-            <element signature="e#902#986#0" expanded="false" />
-            <element signature="e#1130#1462#0" expanded="false" />
-            <element signature="e#1218#1455#0" expanded="false" />
-            <element signature="n#!!block;n#initShaders#0" expanded="false" />
-            <element signature="e#1781#1835#0" expanded="false" />
-            <element signature="n#!!block;n#handleLoadedTexture#0" expanded="false" />
-            <element signature="e#5535#5583#0" expanded="false" />
-            <element signature="e#5689#5691#0" expanded="false" />
-            <element signature="e#5850#5903#0" expanded="false" />
-            <element signature="e#5969#5971#0" expanded="false" />
-            <element signature="e#6135#6190#0" expanded="false" />
-            <element signature="e#6257#6259#0" expanded="false" />
-            <element signature="n#!!block;n#initTextureFrameBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#mvPushMatrix#0" expanded="false" />
-            <element signature="n#!!block;n#mvPopMatrix#0" expanded="false" />
-            <element signature="e#8362#8405#0" expanded="false" />
-            <element signature="n#!!block;n#setMatrixUniforms#0" expanded="false" />
-            <element signature="e#9168#9170#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyDown#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeyUp#0" expanded="false" />
-            <element signature="e#9333#9495#0" expanded="false" />
-            <element signature="n#!!block;n#handleKeys#0" expanded="false" />
-            <element signature="e#9661#9745#0" expanded="false" />
-            <element signature="e#9671#9693#0" expanded="false" />
-            <element signature="e#9780#9842#0" expanded="false" />
-            <element signature="e#9848#9876#0" expanded="false" />
-            <element signature="e#9910#9961#0" expanded="false" />
-            <element signature="e#9995#10048#0" expanded="false" />
-            <element signature="e#10082#10189#0" expanded="false" />
-            <element signature="e#10223#10330#0" expanded="false" />
-            <element signature="e#10365#10415#0" expanded="false" />
-            <element signature="e#10449#10501#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseDown#0" expanded="false" />
-            <element signature="e#10653#10760#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseUp#0" expanded="false" />
-            <element signature="e#10822#10858#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseMove#0" expanded="false" />
-            <element signature="e#10916#11484#0" expanded="false" />
-            <element signature="n#!!block;n#handleMouseWheel#0" expanded="false" />
-            <element signature="e#11576#11679#0" expanded="false" />
-            <element signature="e#11699#11800#0" expanded="false" />
-            <element signature="e#11804#11806#0" expanded="false" />
-            <element signature="n#!!block;n#toggleTransparency#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAnimation#0" expanded="false" />
-            <element signature="n#!!block;n#degToRad#0" expanded="false" />
-            <element signature="e#12097#12099#0" expanded="false" />
-            <element signature="e#12385#12387#0" expanded="false" />
-            <element signature="e#12576#12605#0" expanded="false" />
-            <element signature="n#!!block;n#initBuffers#0" expanded="false" />
-            <element signature="n#!!block;n#initIllusionLighting#0" expanded="false" />
-            <element signature="e#14851#14918#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Geometry#0" expanded="false" />
-            <element signature="e#16472#16510#0" expanded="false" />
-            <element signature="e#16632#16738#0" expanded="false" />
-            <element signature="e#16786#16895#0" expanded="false" />
-            <element signature="e#16937#16977#0" expanded="false" />
-            <element signature="e#17010#17041#0" expanded="false" />
-            <element signature="e#17078#17122#0" expanded="false" />
-            <element signature="e#17162#17170#0" expanded="false" />
-            <element signature="e#17262#17305#0" expanded="false" />
-            <element signature="e#17433#17499#0" expanded="false" />
-            <element signature="e#18016#19895#0" expanded="false" />
-            <element signature="e#18214#18355#0" expanded="false" />
-            <element signature="e#18438#18508#0" expanded="false" />
-            <element signature="e#18514#18583#0" expanded="false" />
-            <element signature="e#18973#19044#0" expanded="false" />
-            <element signature="e#19050#19122#0" expanded="false" />
-            <element signature="e#19188#19517#0" expanded="false" />
-            <element signature="e#20760#21148#0" expanded="false" />
-            <element signature="e#21025#21066#0" expanded="false" />
-            <element signature="e#21102#21142#0" expanded="false" />
-            <element signature="e#21847#22101#0" expanded="false" />
-            <element signature="e#22134#22372#0" expanded="false" />
-            <element signature="e#22401#22479#0" expanded="false" />
-            <element signature="n#!!block;n#drawOrigScene#0" expanded="false" />
-            <element signature="e#22955#22976#0" expanded="false" />
-            <element signature="e#23408#23461#0" expanded="false" />
-            <element signature="e#25269#25292#0" expanded="false" />
-            <element signature="e#25628#25658#0" expanded="false" />
-            <element signature="e#25663#25713#0" expanded="false" />
-            <element signature="e#26361#26383#0" expanded="false" />
-            <element signature="e#26509#26715#0" expanded="false" />
-            <element signature="e#26721#26846#0" expanded="false" />
-            <element signature="e#27515#27720#0" expanded="false" />
-            <element signature="e#27525#27578#0" expanded="false" />
-            <element signature="e#27842#27863#0" expanded="false" />
-            <element signature="n#!!block;n#animateLight#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Animator_Add#0" expanded="false" />
-            <element signature="n#!!block;n#Illusion_Fire_Animations#0" expanded="false" />
-            <element signature="e#29670#29731#0" expanded="false" />
-            <element signature="e#29780#29830#0" expanded="false" />
-            <element signature="n#!!block;n#animate#0" expanded="false" />
-            <element signature="e#29918#30246#0" expanded="false" />
-            <element signature="e#29988#30130#0" expanded="false" />
-            <element signature="e#30016#30058#0" expanded="false" />
-            <element signature="e#30079#30120#0" expanded="false" />
-            <element signature="n#!!block;n#callback#0;n#!!block;n#initIllusion#0" expanded="false" />
-          </folding>
+        <state line="943" column="17" selection-start="33540" selection-end="33540" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8040">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shader_fragment">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="35" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shader_vertex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="1" selection-start="645" selection-end="645" vertical-scroll-proportion="0.6060606" vertical-offset="0" max-vertical-offset="693">
+          <folding />
         </state>
       </provider>
     </entry>

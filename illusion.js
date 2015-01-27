@@ -43,9 +43,9 @@ function initShaderCode(callback) {
     }
     var shaderFragmentCode = "";
     var shaderVertexCode = "";
-    jQuery.get("shader_fragment", function(data) {
+    jQuery.get("shader_fragment.frag", function(data) {
         shaderFragmentCode = data;
-        jQuery.get("shader_vertex", function(data) {
+        jQuery.get("shader_vertex.vert", function(data) {
             shaderVertexCode = data;
             var frag = getShader(shaderFragmentCode, "fragment");
             var vert = getShader(shaderVertexCode, "vertex");
@@ -818,12 +818,12 @@ function drawScene() {
     mat4.identity(mMatrix);
     mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
     mat4.multiply(vMatrix, cameraRotateMatrix);
-    for (var idx in Illusion_ObjectList) {
-        Illusion_ObjectList[idx].renderObject();
+    //for (var idx in Illusion_ObjectList) {
+        Illusion_ObjectList[1].renderObject();
         setMatrixUniforms();
-        gl.drawElements(gl.TRIANGLES, Illusion_ObjectList[idx].geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
+        gl.drawElements(gl.TRIANGLES, Illusion_ObjectList[1].geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
         ext.bindVertexArrayOES(null);
-    }
+    //}
 }
 
 
@@ -960,8 +960,10 @@ function initIllusion() {
     document.onmousemove = handleMouseMove;
     document.onmousewheel = handleMouseWheel;
 
-    var state1 = IllusionLibrary.createState("Phong shader");  // alerts 'bla'
-    state1.setTexture();
+    var state1 = IllusionLibrary.newMaterial("Phong shader");  // alerts 'bla'
+    state1.createTextureWithUrl("hard_water_tex_id", "Textures/hardWater.jpg");
+
+
     //mySingleton.publicMethod();
     //console.log(ss.key);
 
