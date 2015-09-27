@@ -3,6 +3,8 @@
  */
 var gl;
 var currentlyPressesKeys = {};
+var Illusion = {};
+var shaderProgram;
 
 function initGL(canvas) {
     try {
@@ -15,106 +17,6 @@ function initGL(canvas) {
         alert("Could not initialise WebGL, sorry :-(");
     }
 }
-
-function initShaderCode(callback) {
-    function getShader(shaderScript, type) {
-        if (!shaderScript) {
-            return null;
-        }
-        var shader;
-        if (type == "fragment") {
-            shader = gl.createShader(gl.FRAGMENT_SHADER);
-        } else if (type == "vertex") {
-            shader = gl.createShader(gl.VERTEX_SHADER);
-        } else {
-            return null;
-        }
-
-        gl.shaderSource(shader, shaderScript);
-        gl.compileShader(shader);
-
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-
-            console.log(gl.getShaderInfoLog(shader));
-            return null;
-        }
-
-        return shader;
-    }
-    var shaderFragmentCode = "";
-    var shaderVertexCode = "";
-    jQuery.get("shader_fragment.frag", function(data) {
-        shaderFragmentCode = data;
-        jQuery.get("shader_vertex.vert", function(data) {
-            shaderVertexCode = data;
-            var frag = getShader(shaderFragmentCode, "fragment");
-            var vert = getShader(shaderVertexCode, "vertex");
-            initShaders(vert, frag);
-            callback();
-        })
-    })
-}
-var shaderProgram;
-
-function initShaders(vertexShader, fragmentShader) {
-    shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        alert("Could not initialise shaders");
-    }
-
-    gl.useProgram(shaderProgram);
-    shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-    gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-
-    shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
-    gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
-
-    shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "aVertexNormal");
-    gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
-
-    shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
-    shaderProgram.mMatrixUniform = gl.getUniformLocation(shaderProgram, "uMMatrix");
-    shaderProgram.vMatrixUniform = gl.getUniformLocation(shaderProgram, "uVMatrix");
-    shaderProgram.lightMVMatrix =  gl.getUniformLocation(shaderProgram, "lightMVMatrix");
-    shaderProgram.nMatrixUniform = gl.getUniformLocation(shaderProgram, "uNMatrix");
-    shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
-    shaderProgram.samplerDepthUniform = gl.getUniformLocation(shaderProgram, "uDepthSampler");
-    shaderProgram.alphaUniform = gl.getUniformLocation(shaderProgram, "uAlpha");
-    shaderProgram.layerTexture = gl.getUniformLocation(shaderProgram, "layerTextures");
-    shaderProgram.ambientColorUniform = gl.getUniformLocation(shaderProgram, "uAmbientColor");
-    shaderProgram.pointLightPosition = gl.getUniformLocation(shaderProgram, "pointLightPosition");
-    shaderProgram.pointLightDiffuseColor = gl.getUniformLocation(shaderProgram, "uPointLightDiffuseColor");
-    shaderProgram.pointLightSpecularColor = gl.getUniformLocation(shaderProgram, "uPointLightSpecularColor");
-    shaderProgram.phongComponent = gl.getUniformLocation(shaderProgram, "uPhongComponent");
-    shaderProgram.materialDiffuseColor = gl.getUniformLocation(shaderProgram, "uMaterialDiffuseColor");
-    shaderProgram.materialSpecularColor = gl.getUniformLocation(shaderProgram, "uMaterialSpecularColor");
-    shaderProgram.useTexture = gl.getUniformLocation(shaderProgram, "useTexture");
-
-    shaderProgram.pointLights = [];
-    shaderProgram.pointLights[0] = {position:{}, diffuseColor:{}, specularColor:{}};
-    shaderProgram.pointLights[0].position = gl.getUniformLocation(shaderProgram, "point_lights[0].position");
-    shaderProgram.pointLights[0].diffuseColor = gl.getUniformLocation(shaderProgram, "point_lights[0].diffuseColor");
-    shaderProgram.pointLights[0].specularColor = gl.getUniformLocation(shaderProgram, "point_lights[0].specularColor");
-
-    shaderProgram.pointLights[1] = {position:{}, diffuseColor:{}, specularColor:{}};
-    shaderProgram.pointLights[1].position = gl.getUniformLocation(shaderProgram, "point_lights[1].position");
-    shaderProgram.pointLights[1].diffuseColor = gl.getUniformLocation(shaderProgram, "point_lights[1].diffuseColor");
-    shaderProgram.pointLights[1].specularColor = gl.getUniformLocation(shaderProgram, "point_lights[1].specularColor");
-
-    //Link Spot lights to GLSL code
-    shaderProgram.spotLights = [];
-    shaderProgram.spotLights[0] = {position:{}, direction:{}, coneAngle:{}, spotColor:{}, linearAtt:{}};
-    shaderProgram.spotLights[0].position = gl.getUniformLocation(shaderProgram, "spot_lights[0].position");
-    shaderProgram.spotLights[0].direction = gl.getUniformLocation(shaderProgram, "spot_lights[0].direction");
-    shaderProgram.spotLights[0].coneAngle = gl.getUniformLocation(shaderProgram, "spot_lights[0].coneAngle");
-    shaderProgram.spotLights[0].spotColor = gl.getUniformLocation(shaderProgram, "spot_lights[0].color");
-    shaderProgram.spotLights[0].linearAtt = gl.getUniformLocation(shaderProgram, "spot_lights[0].linearAtt");
-}
-
 
 function handleLoadedTexture(texture) {
     gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -615,7 +517,7 @@ function initObjects() {
     teapot_object.setSpecularColor(0.2, 0.2, 0.2);
     teapot_object.setPhongComponent(20.0);
     teapot_object.addTexture(stoneFloorTexture);
-    teapot_object.isTransparent = true;
+    teapot_object.isTransparent = false;
     teapot_object.alpha = 0.8;
     //teapot_object.addTexture(hardWaterTexture);
     teapot_object.setDiffuseColor(0.4, 0.72, 0.34);
@@ -818,12 +720,14 @@ function drawScene() {
     mat4.identity(mMatrix);
     mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
     mat4.multiply(vMatrix, cameraRotateMatrix);
-    //for (var idx in Illusion_ObjectList) {
-        Illusion_ObjectList[1].renderObject();
+    for (var idx in Illusion_ObjectList) {
+        var iObject = Illusion_ObjectList[idx];
+        iObject.renderObject();
+        // Illusion_ObjectList[1].renderObject();
         setMatrixUniforms();
-        gl.drawElements(gl.TRIANGLES, Illusion_ObjectList[1].geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
+        gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
         ext.bindVertexArrayOES(null);
-    //}
+    }
 }
 
 
@@ -859,7 +763,7 @@ function Illusion_Fire_Animations() {
         Illusion_ObjectList[idx].animationCallback();
     }
     for (var idx in Illusion_Animation_Handler) {
-        Illusion_Animation_Handler[idx]();
+        //Illusion_Animation_Handler[idx]();
     }
 }
 function animate() {
@@ -936,13 +840,20 @@ function webGLStart() {
 
 function initIllusion() {
     var canvas = document.getElementById("prabhat-canvas");
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
     //Set default texture file name
     currentTextureId = 0;
     initGL(canvas);
     ext = gl.getExtension("OES_vertex_array_object");
     //initShaders();
-    initShaderCode(callback);
+
+
+    Illusion.ShaderComposer.getShaderByMask(0, callback);
+
+    //initShaderCode(callback);
     function callback() {
+        shaderProgram = Illusion.ShaderComposer.shaderProgram;
         initTextureFrameBuffer();
         initFrameBuffer();
         initTexture();
@@ -959,52 +870,4 @@ function initIllusion() {
     document.onmouseup = handleMouseUp;
     document.onmousemove = handleMouseMove;
     document.onmousewheel = handleMouseWheel;
-
-    var state1 = IllusionLibrary.newMaterial("Phong shader");  // alerts 'bla'
-    state1.createTextureWithUrl("hard_water_tex_id", "Textures/hardWater.jpg");
-
-
-    //mySingleton.publicMethod();
-    //console.log(ss.key);
-
-    //Twitter API
-//     $.ajax({
-//     url: "https://api.twitter.com/1.1/followers/ids.json?q=namo",
-//     type: "GET",
-//     data: { cursor: "-1", 
-//             screen_name: "twitterapi" },
-//     cache: false,
-//     dataType: 'json',
-
-//     success: function(data) { alert('hello!'); console.log(data);},
-//     error: function(html) { alert(html); },
-//     headers: {'Authorization':'OAuth', 
-//         'oauth_consumer_key' : "HdFdA3C3pzTBzbHvPMPw", 
-//         'oauth_nonce' : "4148fa6e3dca3c3d22a8315dfb4ea5bb", 
-//         'oauth_signature' : 'uDZP2scUz6FUKwFie4FtCtJfdNE%3D', 
-//         'oauth_signature_method' : "HMAC-SHA1", 
-//         'oauth_timestamp' : "1359955650", 
-//         'oauth_token' : '1127121421-aPHZHQ5BCUoqfHER2UYhQYUEm0zPEMr9xJYizXl', 
-//         'oauth_version' : '1.0'}
-// });
-
-
-function setHeader(xhr) {
-    if(xhr && xhr.overrideMimeType) {
-        xhr.overrideMimeType("application/j-son;charset=UTF-8");
-    }
-
-    //var nonce = freshNonce();
-    //var timestamp = freshTimestamp();
-    //var signature = sign(nonce,timestamp);
-
-    //alert(signature);
-    //alert(accessToken+"-"+consumerKey);
-    //alert(oauth_version+"-"+oauth_signature_method);
-    xhr.setRequestHeader('Authorization','OAuth');
-    xhr.setRequestHeader('key', 'ncjns8QuSCFkJTQWBUlsXOhoT');
-    xhr.setRequestHeader('secret', 'tef28qsyKbP3WD3fUoGVfsmW4D6ve27Sblts8qWCLuVX2Kbtr3');
-    xhr.setRequestHeader('oauth_token_secret','ShN57hUAXkJizcjXp2sFdsYjBi9GQXuaCQYSxL61eEdzu%3D');
-    xhr.setRequestHeader('oauth_token', '17711498-DRV4ssmHcLPE8O1vbl5XXmdmz7K4fsPVj06wmeGod');
-}
 }
