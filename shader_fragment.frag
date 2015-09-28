@@ -54,7 +54,7 @@ vec3 calculateSpotlightColor(vec3 pos) {
 
     vec4 spotDirMV = vec4(0.0, 0.0, -1.0, 1.0);
     float coneVertexAngle = dot( spotDirMV.xyz, sDir);
-    if(coneVertexAngle > 0.186 ) {//spot_lights[0].coneAngle) {
+    if(coneVertexAngle > 0.86 ) {//spot_lights[0].coneAngle) {
         return spot_lights[0].color;
     }
     return vec3(0.0, 0.0, 0.0);

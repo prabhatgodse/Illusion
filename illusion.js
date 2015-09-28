@@ -5,12 +5,14 @@ var gl;
 var currentlyPressesKeys = {};
 var Illusion = {};
 var shaderProgram;
+var ext;
 
 function initGL(canvas) {
     try {
         gl = canvas.getContext("webgl");
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
+        ext = gl.getExtension("OES_vertex_array_object");
     } catch (e) {
     }
     if (!gl) {
@@ -281,7 +283,7 @@ var yawRate = 0;
 
 var xPos = 0;
 var yPos = 0;
-var zPos = 0;
+var zPos = 100;
 
 var xRot = 25;
 var yRot = 0;
@@ -321,7 +323,6 @@ var transparentAlpha = 1.0;
 var phongComponent = 50.0;
 
 var lightModulator = 1;
-var ext;
 
 function initBuffers() {
     // Start setting up VAO (vertex array object)
@@ -329,8 +330,8 @@ function initBuffers() {
         var each_illusion = Illusion_ObjectList[idx];
         ext.bindVertexArrayOES(each_illusion.vao);
 
-        var vertexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        each_illusion.vertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, each_illusion.vertexBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(each_illusion.geo.vertices), gl.STATIC_DRAW);
         gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
@@ -392,127 +393,15 @@ function Illusion_Geometry() {
     this.indices = [];
 }
 
-function Illusion_Group(id) {
-    this.vao = ext.createVertexArrayOES();
-    this.geo = new Illusion_Geometry();
-    this.id = id;
-    this.diffuseColor = {r:0.0, g:0.0, b:0.0};
-    this.specularColor = {r:0.0, g:0.0, b:0.0};
-    this.phongComponent = 10.0;  //The shineness factor of the specular color.
-    this.alpha = 1.0;
-    this.isTransparent = false;
-    this.textureArray = [];
-
-    this.translateMatrix = [0.0, 0.0, 0.0];
-    this.scaleMatrix = [1.0, 1.0, 1.0];
-    this.rotateX = 0.0;
-    this.rotateY = 0.0;
-    this.rotateZ = 0.0;
-
-    //Order in which objects are rendered.
-    // 1: meaning this object is rendered first
-    this.renderOrder = 1.0;
-    this.setDiffuseColor = function(r, g, b) {
-        this.diffuseColor.r = r;
-        this.diffuseColor.g = g;
-        this.diffuseColor.b = b;
-    };
-    this.setSpecularColor = function(r, g, b) {
-        this.specularColor.r = r;
-        this.specularColor.g = g;
-        this.specularColor.b = b;
-    }
-    this.setPhongComponent = function(p) {
-        self.phongComponent = p;
-    }
-    this.setAlpha = function(a) {
-        self.alpha = a;
-    }
-    this.addTexture = function(tex) {
-        this.textureArray.push(tex);
-    }
-
-    this.createAnimation = function() {
-
-    }
-
-    this.animationCallback = function(){};
-
-    this.applyTransformations = function(mat) {
-        this.translateMatrix = mat;
-    }
-    this.applyScaling = function(mat) {
-        this.scaleMatrix = mat;
-    }
-
-    this.makeTransparentWithAlpha = function(a) {
-        this.isTransparent = true;
-        this.alpha = a;
-    }
-
-    this.buildGeometryWithObjFile = function(obj_file_path) {
-        var thisObj = this;
-        jQuery.get(obj_file_path, function(data) {
-            var mesh = new obj_loader.Mesh(data);
-            thisObj.geo.vertices = mesh.vertices;
-            thisObj.geo.normals = mesh.vertexNormals;
-            thisObj.geo.uvs = mesh.textures;
-            thisObj.geo.indices = mesh.indices;
-            ILLUSION_LOADED_OBJECT_COUNT += 1;
-            webGLStart();
-        });
-    }
-
-    this.renderObject = function() {
-        if (this.isTransparent) {
-            gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-            gl.enable(gl.BLEND);
-            gl.uniform1f(shaderProgram.alphaUniform, this.alpha);
-        } else {
-            gl.enable(gl.DEPTH_TEST)
-            gl.disable(gl.BLEND);
-            gl.uniform1f(shaderProgram.alphaUniform, 1.0);
-        }
-        //Set the material base colors
-        if (this.textureArray.length == 0) {
-            gl.uniform1i(shaderProgram.useTexture, false);
-        } else {
-            gl.uniform1i(shaderProgram.useTexture, true);
-        }
-        gl.uniform3f(shaderProgram.materialDiffuseColor, this.diffuseColor.r, this.diffuseColor.g, this.diffuseColor.b);
-        gl.uniform3f(shaderProgram.materialSpecularColor, this.specularColor.r, this.specularColor.g, this.specularColor.b);
-        gl.uniform1f(shaderProgram.phongComponent, this.phongComponent);
-        //Set the textures
-        if  (this.textureArray.length > 1) {
-            gl.uniform1i(shaderProgram.layerTexture, true);
-        } else {
-            gl.uniform1i(shaderProgram.layerTexture, false);
-        }
-        var tIdx = 0;
-        for (var idx in this.textureArray) {
-            gl.activeTexture(gl.TEXTURE0 + tIdx);
-            gl.bindTexture(gl.TEXTURE_2D, this.textureArray[idx]);
-            if(tIdx == 0)
-                gl.uniform1i(shaderProgram.samplerUniform, idx);
-            else
-                gl.uniform1i(shaderProgram.samplerDepthUniform, idx);
-            tIdx += 1;
-        }
-        mat4.identity(mMatrix);
-        mat4.translate(mMatrix, this.translateMatrix);
-        mat4.scale(mMatrix, this.scaleMatrix);
-        mat4.rotate(mMatrix, degToRad(this.rotateX), [1, 0, 0]);
-        mat4.rotate(mMatrix, degToRad(this.rotateY), [0, 1, 0]);
-        mat4.rotate(mMatrix, degToRad(this.rotateZ), [0, 0, 1]);
-
-        ext.bindVertexArrayOES(this.vao);
-    }
-};
+var animTime = 0;
+var diffTime = 0;
+var prevTime = 0;
+var G = -9.8;
 
 var Illusion_ObjectList = [];
 var scaleFactor = 1.0;
 function initObjects() {
-    var teapot_object = new Illusion_Group("teapot");
+    var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
     teapot_object.setSpecularColor(0.2, 0.2, 0.2);
     teapot_object.setPhongComponent(20.0);
@@ -525,24 +414,46 @@ function initObjects() {
     teapot_object.applyScaling([0.5, 0.5, 0.5]);
     teapot_object.buildGeometryWithObjFile('/scene/teapot.txt');
 
-    var medival_barrel_object = new Illusion_Group("medival-barrel");
+    var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
     medival_barrel_object.addTexture(hazeTexture);
-    medival_barrel_object.applyTransformations([-15.0, -5.0, 8.0]);
+    medival_barrel_object.applyTransformations([-15.0, 0.0, 8.0]);
+    medival_barrel_object.velocity = 9.0;
     medival_barrel_object.animationCallback = function() {
         this.rotateY += 2;
         this.scaleMatrix[0] += 0.03 * scaleFactor;
-        this.scaleMatrix[1] += 0.03 * scaleFactor;
-        this.scaleMatrix[2] += 0.03 * scaleFactor;
+        //this.scaleMatrix[1] += 0.03 * scaleFactor;
+        //this.scaleMatrix[2] += 0.03 * scaleFactor;
         //Toggle the scaling from 0.5 - 2.5;
         if(this.scaleMatrix[0] > 2.5) {
             scaleFactor = -1;
         } else if(this.scaleMatrix[0] < 0.5) {
             scaleFactor = 1;
         }
+
+        var timeNow = new Date().getTime();
+
+        if(animTime == 0) {
+            animTime = timeNow;
+        } else {
+            diffTime = (timeNow - animTime)/1000.0;
+            dT = timeNow - prevTime;
+            dT /= 1000.0;   //Convert to seconds
+
+            medival_barrel_object.velocity = medival_barrel_object.velocity + G * dT;
+
+            //if(medival_barrel_object.velocity >=0) {
+                var displacement = medival_barrel_object.velocity * dT;
+                this.translateMatrix[1] += displacement;
+            //}
+            if(medival_barrel_object.translateMatrix[1] <=0) {
+                medival_barrel_object.velocity = Math.abs(medival_barrel_object.velocity);
+            }
+        }
+        prevTime = timeNow;
     }
     medival_barrel_object.buildGeometryWithObjFile('scene/MedievalBarrel/MedievalBarrel_OBJ.OBJ');
 
-    var tank_object = new Illusion_Group("tank");
+    var tank_object = new Illusion.ShapeNode("tank");
     //tank_object.addTexture(hazeTexture);
     tank_object.applyTransformations([10.0, -1.0, 8.0]);
     tank_object.setDiffuseColor(0.5, 0.15, 0.15);
@@ -556,7 +467,7 @@ function initObjects() {
     tank_object.buildGeometryWithObjFile('scene/mini.obj');
 
 
-    var floor_object = new Illusion_Group("floor");
+    var floor_object = new Illusion.ShapeNode("floor");
     floor_object.addTexture(grassTexture);
     floor_object.geo.vertices = [
                                     -20.0, -8.0, -20.0,
@@ -577,6 +488,18 @@ function initObjects() {
         0.0, 1.0
     ];
     floor_object.geo.indices = [0, 3, 1,    1, 3, 2];
+
+    floor_object.animationCallback = function() {
+        //ext.bindVertexArrayOES(this.vao);
+
+        this.geo.vertices[0] = Math.sin((new Date().getTime())/700.0) * 10.0;
+        this.geo.vertices[1] = Math.cos((new Date().getTime())/700.0) * 10.0;
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
+
+        //ext.bindVertexArrayOES(null);
+    }
+
     ILLUSION_LOADED_OBJECT_COUNT += 1;
 
     Illusion_ObjectList.push(floor_object);
@@ -823,6 +746,7 @@ function initFrameBuffer() {
     gl.bindRenderbuffer(gl.RENDERBUFFER, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 }
+
 var ILLUSION_MAX_OBJECT_COUNT = 4;
 var ILLUSION_LOADED_OBJECT_COUNT = 0;
 
@@ -845,7 +769,6 @@ function initIllusion() {
     //Set default texture file name
     currentTextureId = 0;
     initGL(canvas);
-    ext = gl.getExtension("OES_vertex_array_object");
     //initShaders();
 
 
