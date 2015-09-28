@@ -122,5 +122,7 @@
         mat4.rotate(mMatrix, degToRad(this.rotateZ), [0, 0, 1]);
 
         ext.bindVertexArrayOES(this.vao);
+        //gl.drawElements(gl.TRIANGLES, this.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
+        //ext.bindVertexArrayOES(null);
     }
 })();

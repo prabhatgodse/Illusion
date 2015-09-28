@@ -6,6 +6,7 @@ var currentlyPressesKeys = {};
 var Illusion = {};
 var shaderProgram;
 var ext;
+var canvas;
 
 function initGL(canvas) {
     try {
@@ -393,8 +394,48 @@ function Illusion_Geometry() {
     this.indices = [];
 }
 
+function basicCube(BoxW) {
+    var cube = new Illusion_Geometry();
+    cube.vertices = [
+                                    -BoxW, -BoxW, BoxW,
+                                    BoxW, -BoxW, BoxW,
+                                    BoxW, BoxW, BoxW,
+                                    -BoxW, BoxW, BoxW,
+                                    BoxW, -BoxW, -BoxW,
+                                    -BoxW, -BoxW, -BoxW,
+                                    -BoxW, BoxW, -BoxW,
+                                    BoxW, BoxW, -BoxW
+                                ];
+    cube.normals = [
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0,
+                                    0.0, 1.0, 0.0
+                                ];
+    cube.uvs = [
+        0.0, 0.0,
+        0.0, 1.0,
+        1.0, 1.0,
+        1.0, 0.0,
+        0.0, 0.0,
+        0.0, 1.0,
+        1.0, 1.0,
+        1.0, 0.0
+    ];
+    cube.indices = [0, 1, 2,    2, 3, 0,
+                                7, 2, 1,    7, 1, 4,
+                                6, 5, 0,    3, 6, 0,
+                                6, 3, 2,    7, 6, 2,
+                                5, 4, 1,    0, 5, 1,
+                                6, 7, 4,    6, 4, 5];
+    return cube;
+}
+
 var animTime = 0;
-var diffTime = 0;
 var prevTime = 0;
 var G = -9.8;
 
@@ -416,8 +457,8 @@ function initObjects() {
 
     var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
     medival_barrel_object.addTexture(hazeTexture);
-    medival_barrel_object.applyTransformations([-15.0, 0.0, 8.0]);
-    medival_barrel_object.velocity = 9.0;
+    medival_barrel_object.applyTransformations([-15.0, 30.0, 8.0]);
+    medival_barrel_object.velocity = 0.0;
     medival_barrel_object.animationCallback = function() {
         this.rotateY += 2;
         this.scaleMatrix[0] += 0.03 * scaleFactor;
@@ -432,21 +473,18 @@ function initObjects() {
 
         var timeNow = new Date().getTime();
 
-        if(animTime == 0) {
-            animTime = timeNow;
-        } else {
-            diffTime = (timeNow - animTime)/1000.0;
+        if(prevTime > 0) {
             dT = timeNow - prevTime;
-            dT /= 1000.0;   //Convert to seconds
-
+            dT /= 500.0;   //Convert to seconds
             medival_barrel_object.velocity = medival_barrel_object.velocity + G * dT;
 
             //if(medival_barrel_object.velocity >=0) {
                 var displacement = medival_barrel_object.velocity * dT;
                 this.translateMatrix[1] += displacement;
             //}
-            if(medival_barrel_object.translateMatrix[1] <=0) {
-                medival_barrel_object.velocity = Math.abs(medival_barrel_object.velocity);
+            if(medival_barrel_object.translateMatrix[1] <0) {
+                medival_barrel_object.velocity = Math.abs(medival_barrel_object.velocity) * 0.6;
+                medival_barrel_object.translateMatrix[1] = 0;
             }
         }
         prevTime = timeNow;
@@ -461,33 +499,17 @@ function initObjects() {
     tank_object.setPhongComponent(15.0);
     tank_object.rotateX = -90;
     tank_object.rotateZ = -45;
-    tank_object.applyScaling([0.05, 0.05, 0.05]);
+    tank_object.applyScaling([0.5, 0.5, 0.5]);
     //tank_object.buildGeometryWithObjFile('scene/tank/Tiger_I.obj');
-    //tank_object.buildGeometryWithObjFile('scene/sphere.obj');
-    tank_object.buildGeometryWithObjFile('scene/mini.obj');
+    tank_object.buildGeometryWithObjFile('scene/sphere.obj');
+    // tank_object.buildGeometryWithObjFile('scene/mini.obj');
 
 
+    var BoxW = 5.0;
     var floor_object = new Illusion.ShapeNode("floor");
     floor_object.addTexture(grassTexture);
-    floor_object.geo.vertices = [
-                                    -20.0, -8.0, -20.0,
-                                    20.0, -8.0, -20.0,
-                                    20.0, -8.0, 20.0,
-                                    -20.0, -8.0, 20.0
-                                ];
-    floor_object.geo.normals = [
-                                    0.0, 1.0, 0.0,
-                                    0.0, 1.0, 0.0,
-                                    0.0, 1.0, 0.0,
-                                    0.0, 1.0, 0.0
-                                ];
-    floor_object.geo.uvs = [
-        0.0, 0.0,
-        1.0, 0.0,
-        1.0, 1.0,
-        0.0, 1.0
-    ];
-    floor_object.geo.indices = [0, 3, 1,    1, 3, 2];
+    floor_object.applyTransformations([0.0, 15.0, 8.0]);
+    floor_object.geo = basicCube(BoxW);
 
     floor_object.animationCallback = function() {
         //ext.bindVertexArrayOES(this.vao);
@@ -497,7 +519,7 @@ function initObjects() {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
 
-        //ext.bindVertexArrayOES(null);
+        ext.bindVertexArrayOES(null);
     }
 
     ILLUSION_LOADED_OBJECT_COUNT += 1;
@@ -645,9 +667,10 @@ function drawScene() {
     mat4.multiply(vMatrix, cameraRotateMatrix);
     for (var idx in Illusion_ObjectList) {
         var iObject = Illusion_ObjectList[idx];
+
         iObject.renderObject();
-        // Illusion_ObjectList[1].renderObject();
         setMatrixUniforms();
+        // Illusion_ObjectList[1].renderObject();
         gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
         ext.bindVertexArrayOES(null);
     }
@@ -712,6 +735,12 @@ function animate() {
 
 function tick() {
     requestAnimFrame(tick);
+    //Re-frame the canvas on screen size change.
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    gl.viewportWidth = canvas.width;
+    gl.viewportHeight = canvas.height;
+
     handleKeys();
     drawScene();
     if(enableAnimation)
@@ -763,9 +792,10 @@ function webGLStart() {
 
 
 function initIllusion() {
-    var canvas = document.getElementById("prabhat-canvas");
+    canvas = document.getElementById("prabhat-canvas");
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
+
     //Set default texture file name
     currentTextureId = 0;
     initGL(canvas);
@@ -777,8 +807,8 @@ function initIllusion() {
     //initShaderCode(callback);
     function callback() {
         shaderProgram = Illusion.ShaderComposer.shaderProgram;
-        initTextureFrameBuffer();
-        initFrameBuffer();
+        //initTextureFrameBuffer();
+        //initFrameBuffer();
         initTexture();
         initObjects();
     }
