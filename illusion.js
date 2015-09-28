@@ -329,34 +329,7 @@ function initBuffers() {
     // Start setting up VAO (vertex array object)
     for (var idx in Illusion_ObjectList) {
         var each_illusion = Illusion_ObjectList[idx];
-        ext.bindVertexArrayOES(each_illusion.vao);
-
-        each_illusion.vertexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, each_illusion.vertexBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(each_illusion.geo.vertices), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-
-        var normalBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(each_illusion.geo.normals), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
-        gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
-
-        var textureUV = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, textureUV);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(each_illusion.geo.uvs), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
-        gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-
-        var indexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(each_illusion.geo.indices), gl.STATIC_DRAW);
-
-        //Finished setting up VAO for this object
-        ext.bindVertexArrayOES(null);
-        gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+        each_illusion.initBuffers();
     }
 }
 
@@ -441,6 +414,7 @@ var G = -9.8;
 
 var Illusion_ObjectList = [];
 var scaleFactor = 1.0;
+
 function initObjects() {
     var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
@@ -494,14 +468,14 @@ function initObjects() {
     var tank_object = new Illusion.ShapeNode("tank");
     //tank_object.addTexture(hazeTexture);
     tank_object.applyTransformations([10.0, -1.0, 8.0]);
-    tank_object.setDiffuseColor(0.5, 0.15, 0.15);
+    tank_object.setDiffuseColor(0.5, 0.35, 0.15);
     tank_object.setSpecularColor(0.15, 0.15, 0.15);
     tank_object.setPhongComponent(15.0);
     tank_object.rotateX = -90;
     tank_object.rotateZ = -45;
     tank_object.applyScaling([0.5, 0.5, 0.5]);
     //tank_object.buildGeometryWithObjFile('scene/tank/Tiger_I.obj');
-    tank_object.buildGeometryWithObjFile('scene/sphere.obj');
+    tank_object.buildGeometryWithObjFile('scene/box.obj');
     // tank_object.buildGeometryWithObjFile('scene/mini.obj');
 
 
@@ -524,10 +498,16 @@ function initObjects() {
 
     ILLUSION_LOADED_OBJECT_COUNT += 1;
 
+    var object1 = new Illusion.ShapeNode("object1");
+    object1.setDiffuseColor(0.3, 0.6, 0.45);
+    object1.applyTransformations([0.0, -5.0, 0.0]);
+    object1.buildGeometryWithObjFile('scene/box.obj');
+
     Illusion_ObjectList.push(floor_object);
     Illusion_ObjectList.push(teapot_object);
     Illusion_ObjectList.push(medival_barrel_object);
     Illusion_ObjectList.push(tank_object);
+    Illusion_ObjectList.push(object1);
     //Illusion_Animator_Add(animateLight);
 }
 
@@ -776,7 +756,7 @@ function initFrameBuffer() {
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 }
 
-var ILLUSION_MAX_OBJECT_COUNT = 4;
+var ILLUSION_MAX_OBJECT_COUNT = 5;
 var ILLUSION_LOADED_OBJECT_COUNT = 0;
 
 function webGLStart() {

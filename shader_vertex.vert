@@ -22,8 +22,8 @@ uniform bool isLighting;
 uniform bool layerTextures;
 
 void main(void) {
-    mvPosition =  uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
-    gl_Position = uPMatrix * mvPosition;
+    mvPosition =  uMMatrix * vec4(aVertexPosition, 1.0);
+    gl_Position = uPMatrix * uVMatrix * mvPosition;
     vTextureCoord = aTextureCoord;
 
     //Transform the point normal due to rotation

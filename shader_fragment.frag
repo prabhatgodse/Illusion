@@ -49,7 +49,7 @@ uniform vec3 uMaterialSpecularColor;
 //Based on the cone angle.
 vec3 calculateSpotlightColor(vec3 pos) {
     float sDistance = distance(pos, spot_lights[0].position);
-    vec4 spotPosMV = vec4(0.0, 0.0, 5.0, 1.0);
+    vec4 spotPosMV = vec4(0.0, 0.0, 30.0, 1.0);
     vec3 sDir = normalize(pos - spotPosMV.xyz );
 
     vec4 spotDirMV = vec4(0.0, 0.0, -1.0, 1.0);

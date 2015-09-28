@@ -21,6 +21,9 @@
 	    // 1: meaning this object is rendered first
 	    this.renderOrder = 1.0;
 	    this.vertexBuffer = 0;
+        this.normalBuffer = 0;
+        this.textureBuffer = 0;
+        this.indexBuffer = 0;
 	}
 
     Illusion.ShapeNode.prototype.setDiffuseColor = function(r, g, b) {
@@ -74,6 +77,7 @@
             thisObj.geo.normals = mesh.vertexNormals;
             thisObj.geo.uvs = mesh.textures;
             thisObj.geo.indices = mesh.indices;
+            //thisObj.initBuffers();
             ILLUSION_LOADED_OBJECT_COUNT += 1;
             webGLStart();
         });
@@ -124,5 +128,36 @@
         ext.bindVertexArrayOES(this.vao);
         //gl.drawElements(gl.TRIANGLES, this.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
         //ext.bindVertexArrayOES(null);
+    }
+
+    Illusion.ShapeNode.prototype.initBuffers = function() {
+        ext.bindVertexArrayOES(this.vao);
+
+        this.vertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+
+        this.normalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.normals), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+        gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
+
+        this.textureBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.textureBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.uvs), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+        gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+
+        this.indexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.geo.indices), gl.STATIC_DRAW);
+
+        //Finished setting up VAO for this object
+        ext.bindVertexArrayOES(null);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     }
 })();
