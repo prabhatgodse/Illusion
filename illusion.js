@@ -352,11 +352,11 @@ function initIllusionLighting() {
     gl.uniform3f(shaderProgram.pointLights[1].specularColor, 0.25, 0.27, 0.20);
 
     //Apply the spot lights
-    gl.uniform3f(shaderProgram.spotLights[0].position, 0.0, 10.0, 0.0);
+    gl.uniform3f(shaderProgram.spotLights[0].position, 0.0, 30.0, 0.0);
     gl.uniform3f(shaderProgram.spotLights[0].direction, 0.0, -1.0, 0.0);
     gl.uniform3f(shaderProgram.spotLights[0].spotColor, 0.8, 0.8, 0.0);
 
-    gl.uniform1f(shaderProgram.spotLights[0].coneAngle, degToRad(120));
+    gl.uniform1f(shaderProgram.spotLights[0].coneAngle, degToRad(6));
     gl.uniform1f(shaderProgram.spotLights[0].linearAtt, 2);
 }
 
@@ -500,6 +500,7 @@ function initObjects() {
 
     var object1 = new Illusion.ShapeNode("object1");
     object1.setDiffuseColor(0.3, 0.6, 0.45);
+    object1.applyScaling([500.0, 2.0, 500.0]);
     object1.applyTransformations([0.0, -5.0, 0.0]);
     object1.buildGeometryWithObjFile('scene/box.obj');
 

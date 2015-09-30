@@ -24,6 +24,7 @@
         this.normalBuffer = 0;
         this.textureBuffer = 0;
         this.indexBuffer = 0;
+        this.shaderProgram = 0;
 	}
 
     Illusion.ShapeNode.prototype.setDiffuseColor = function(r, g, b) {

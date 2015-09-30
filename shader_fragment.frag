@@ -49,12 +49,12 @@ uniform vec3 uMaterialSpecularColor;
 //Based on the cone angle.
 vec3 calculateSpotlightColor(vec3 pos) {
     float sDistance = distance(pos, spot_lights[0].position);
-    vec4 spotPosMV = vec4(0.0, 0.0, 30.0, 1.0);
+    vec3 spotPosMV = spot_lights[0].position;
     vec3 sDir = normalize(pos - spotPosMV.xyz );
 
-    vec4 spotDirMV = vec4(0.0, 0.0, -1.0, 1.0);
+    vec4 spotDirMV = vec4(0.0, -1.0, 5.0, 1.0);
     float coneVertexAngle = dot( spotDirMV.xyz, sDir);
-    if(coneVertexAngle > 0.86 ) {//spot_lights[0].coneAngle) {
+    if(coneVertexAngle > (1.0 - spot_lights[0].coneAngle) ) {
         return spot_lights[0].color;
     }
     return vec3(0.0, 0.0, 0.0);
@@ -86,7 +86,7 @@ void main(void) {
         vLightWeighting += point_lights[0].specularColor * specularLightWeighting;
 
         //Calculate spot light parameters
-        vLightWeighting += calculateSpotlightColor(mvPosition.xyz);
+        vLightWeighting += calculateSpotlightColor(mvPosition.xyz) * diffuseLightWeighting;
 
         //float distance_attenuation = distance(pointLightPosition, mvPosition.xyz) * 10.0;
         vec4 fragColor = vec4(0.0, 0.0, 0.0, 1.0);
