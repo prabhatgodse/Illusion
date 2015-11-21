@@ -25,6 +25,8 @@
         this.textureBuffer = 0;
         this.indexBuffer = 0;
         this.shaderProgram = 0;
+
+        this.material = 0;
 	}
 
     Illusion.ShapeNode.prototype.setDiffuseColor = function(r, g, b) {
@@ -85,6 +87,7 @@
     }
 
     Illusion.ShapeNode.prototype.renderObject = function() {
+        gl.useProgram(shaderProgram);
         if (this.isTransparent) {
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
             gl.enable(gl.BLEND);
@@ -100,9 +103,10 @@
         } else {
             gl.uniform1i(shaderProgram.useTexture, true);
         }
-        gl.uniform3f(shaderProgram.materialDiffuseColor, this.diffuseColor.r, this.diffuseColor.g, this.diffuseColor.b);
-        gl.uniform3f(shaderProgram.materialSpecularColor, this.specularColor.r, this.specularColor.g, this.specularColor.b);
-        gl.uniform1f(shaderProgram.phongComponent, this.phongComponent);
+
+        gl['uniform3f'](shaderProgram.materialDiffuseColor, this.diffuseColor.r, this.diffuseColor.g, this.diffuseColor.b);
+        gl['uniform3f'](shaderProgram.materialSpecularColor, this.specularColor.r, this.specularColor.g, this.specularColor.b);
+        gl['uniform1f'](shaderProgram.phongComponent, this.phongComponent);
         //Set the textures
         if  (this.textureArray.length > 1) {
             gl.uniform1i(shaderProgram.layerTexture, true);

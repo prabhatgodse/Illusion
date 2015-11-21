@@ -69,13 +69,11 @@ void main(void) {
         vec3 eyeDirection = normalize(-mvPosition.xyz);
         vec3 lightDirection = vec3(0.0, 0.0, 0.0);
 
-        float diffuseLightWeighting = 0.0;
-
-        vec3 vLightWeighting = uAmbientColor;
-        for(int i = 0; i < 2; i++) {
+        vec3 vLightWeighting = vec3(0.0);
+        for(int i = 0; i < 1; i++) {
             lightDirection = normalize(point_lights[i].position - mvPosition.xyz);
-             diffuseLightWeighting += max(dot(normal, lightDirection), 0.0);
-            vLightWeighting += point_lights[i].diffuseColor * diffuseLightWeighting;
+            float dotND = max(dot(normal, lightDirection), 0.0);
+            vLightWeighting += point_lights[i].diffuseColor * dotND;
         }
         //Calculate specular light weight
         lightDirection = normalize(point_lights[0].position - mvPosition.xyz);
@@ -86,7 +84,7 @@ void main(void) {
         vLightWeighting += point_lights[0].specularColor * specularLightWeighting;
 
         //Calculate spot light parameters
-        vLightWeighting += calculateSpotlightColor(mvPosition.xyz) * diffuseLightWeighting;
+        vLightWeighting += calculateSpotlightColor(mvPosition.xyz);
 
         //float distance_attenuation = distance(pointLightPosition, mvPosition.xyz) * 10.0;
         vec4 fragColor = vec4(0.0, 0.0, 0.0, 1.0);
@@ -102,7 +100,7 @@ void main(void) {
 
             fragColor = vec4(textureColor.rgb * vLightWeighting, textureColor.a * uAlpha);
         } else {
-            fragColor = vec4( uMaterialDiffuseColor * diffuseLightWeighting + (uMaterialSpecularColor + point_lights[0].specularColor) * specularLightWeighting, uAlpha);
+            fragColor = vec4( uMaterialDiffuseColor * vLightWeighting + (uMaterialSpecularColor + point_lights[0].specularColor) * specularLightWeighting + uAmbientColor, uAlpha);
         }
         gl_FragColor = fragColor;
     }

@@ -296,9 +296,9 @@ mat4.identity(cameraRotateMatrix);
 
 //
 //Lighting variables.
-var ambientR = 0.2;
-var ambientG = 0.2;
-var ambientB = 0.2;
+var ambientR = 0.02;
+var ambientG = 0.02;
+var ambientB = 0.02;
 
 var enableTransparency = false;
 var enableShadows = true;
@@ -316,9 +316,9 @@ var pointLightSpecularColorR = 0.15;
 var pointLightSpecularColorG = 0.15;
 var pointLightSpecularColorB = 0.15;
 
-var pointLightPositionX = 10.0;
+var pointLightPositionX = 0.0;
 var pointLightPositionY = 10.0;
-var pointLightPositionZ = 10.0;
+var pointLightPositionZ = 0.0;
 
 var transparentAlpha = 1.0;
 var phongComponent = 50.0;
@@ -348,15 +348,15 @@ function initIllusionLighting() {
     gl.uniform1f(shaderProgram.phongComponent, phongComponent);
 
     gl.uniform3f(shaderProgram.pointLights[1].position, -10.0, -10.0, -10.0);
-    gl.uniform3f(shaderProgram.pointLights[1].diffuseColor, 0.12, 0.17, 0.18);
+    gl.uniform3f(shaderProgram.pointLights[1].diffuseColor, 0.12, 0.07, 0.12);
     gl.uniform3f(shaderProgram.pointLights[1].specularColor, 0.25, 0.27, 0.20);
 
     //Apply the spot lights
-    gl.uniform3f(shaderProgram.spotLights[0].position, 0.0, 30.0, 0.0);
-    gl.uniform3f(shaderProgram.spotLights[0].direction, 0.0, -1.0, 0.0);
-    gl.uniform3f(shaderProgram.spotLights[0].spotColor, 0.8, 0.8, 0.0);
+    gl.uniform3f(shaderProgram.spotLights[0].position, 50.0, 3.0, 5.0);
+    gl.uniform3f(shaderProgram.spotLights[0].direction, 0.0, 1.0, 0.0);
+    gl.uniform3f(shaderProgram.spotLights[0].spotColor, 0.8, 0.1, 0.0);
 
-    gl.uniform1f(shaderProgram.spotLights[0].coneAngle, degToRad(6));
+    gl.uniform1f(shaderProgram.spotLights[0].coneAngle, degToRad(120));
     gl.uniform1f(shaderProgram.spotLights[0].linearAtt, 2);
 }
 
@@ -510,121 +510,6 @@ function initObjects() {
     Illusion_ObjectList.push(tank_object);
     Illusion_ObjectList.push(object1);
     //Illusion_Animator_Add(animateLight);
-}
-
-
-function drawOrigScene() {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    //Attach depth buffer
-    //gl.activeTexture(gl.TEXTURE1);
-    //gl.bindTexture(gl.TEXTURE_2D, rrtTexture);
-    //gl.uniform1i(shaderProgram.samplerDepthUniform, 1);
-
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-    mat4.identity(vMatrix);
-    mat4.identity(mMatrix);
-
-    mat4.translate(vMatrix, [-0.0, 0.0, -zPos]);
-    mat4.multiply(vMatrix, cameraRotateMatrix);
-    mat4.scale(vMatrix, [1.0, -1.0, 1.0]);
-    //mat4.rotate(mvMatrix, degToRad(-pitch), [1, 0, 0]);
-    //mat4.rotate(mvMatrix, degToRad(-yaw), [0, 1, 0]);
-    //xPos -= Math.sin(degToRad(yaw)) * speed;
-    //zPos -= Math.cos(degToRad(yaw)) * speed;
-    //mat4.multiply(mvMatrix, cameraRotateMatrix);
-    //mat4.translate(mvMatrix, [-xPos, -yPos, -zPos]);
-
-    setMatrixUniforms();
-
-    //Apply scene lighting effects
-//    gl.uniform3f(shaderProgram.ambientColorUniform, ambientR, ambientG, ambientB);
-//
-//    //Apply light position
-//    gl.uniform3f(shaderProgram.pointLightPosition, pointLightPositionX, pointLightPositionY, pointLightPositionZ );
-//
-//    //Apply point light colors.
-//    gl.uniform3f(shaderProgram.pointLightDiffuseColor, pointLightDiffuseColorR, pointLightDiffuseColorG, pointLightDiffuseColorB);
-//    gl.uniform3f(shaderProgram.pointLightSpecularColor, pointLightSpecularColorR, pointLightSpecularColorG, pointLightSpecularColorB);
-//    gl.uniform1f(shaderProgram.phongComponent, phongComponent);
-//
-//    //Apply scene vertex positions
-//    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
-//    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-//
-//    //Apply the scene vertex normals
-//    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexNormalBuffer);
-//    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, cubeVertexNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
-//
-//    //Apply scene texture co-ordinates
-//    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer);
-//    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
-//    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
-
-    gl.enable(gl.DEPTH_TEST)
-    gl.disable(gl.BLEND);
-    gl.uniform1f(shaderProgram.alphaUniform, 1.0);
-
-
-    //Draw object 1: Barrel
-    //Set the textures
-    gl.uniform1i(shaderProgram.layerTexture, false);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, stoneFloorTexture);
-    gl.uniform1i(shaderProgram.samplerUniform, 0);
-    gl.drawElements(gl.TRIANGLES, multipleObjectIndexLength[1], gl.UNSIGNED_SHORT, multipleObjectIndices[1] * 2);
-
-    /*
-     Prepare Teapot
-     */
-    //mat4.rotate(mMatrix, degToRad(xRot), [0, 1, 0]);
-    //mat4.translate(mMatrix, [degToRad(xRot*0)+20, 10.0, 0.0]);
-    mat4.translate(mMatrix, [10, 0.0, 0.0]);
-    setMatrixUniforms();
-
-    gl.uniform1i(shaderProgram.layerTexture, true);
-    //Bind the first texture
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, stoneFloorTexture);
-    gl.uniform1i(shaderProgram.samplerUniform, 0);
-
-    //Bind a second texture
-    gl.activeTexture(gl.TEXTURE1);
-    gl.bindTexture(gl.TEXTURE_2D, hazeTexture);
-    gl.uniform1i(shaderProgram.samplerDepthUniform, 1);
-
-    //Draw object 0: Teapot
-    gl.drawElements(gl.TRIANGLES, multipleObjectIndexLength[0], gl.UNSIGNED_SHORT, 0);
-
-
-    //Draw object 2: Floor
-    //Alpha blending & transparency effects
-    mat4.identity(mMatrix);
-    setMatrixUniforms();
-    if (enableTransparency) {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_CONSTANT_ALPHA);
-        //gl.disable(gl.DEPTH_TEST);
-        gl.enable(gl.BLEND);
-        gl.uniform1f(shaderProgram.alphaUniform, transparentAlpha);
-    } else {
-        gl.enable(gl.DEPTH_TEST)
-        gl.disable(gl.BLEND);
-        gl.uniform1f(shaderProgram.alphaUniform, 1.0);
-    }
-    //Set the textures
-    gl.uniform1i(shaderProgram.layerTexture, false);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, grassTexture);
-    gl.uniform1i(shaderProgram.samplerUniform, 0);
-
-
-    //gl.drawElements(gl.TRIANGLES, multipleObjectIndexLength[2], gl.UNSIGNED_SHORT, multipleObjectIndices[2] * 2);    //IMP: always multiple by 2. Since the size of unsigned_short
-
-    //Render the scene to texture
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, rrtTexture);
-    gl.generateMipmap(gl.TEXTURE_2D);
-    gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
 function drawScene() {
@@ -783,6 +668,11 @@ function initIllusion() {
     //initShaders();
 
 
+    //Build Material & Shaders
+    var mat1 = new Illusion.Material({});
+    mat1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag");
+    
+    
     Illusion.ShaderComposer.getShaderByMask(0, callback);
 
     //initShaderCode(callback);

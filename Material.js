@@ -1,64 +1,104 @@
-var MaterialLibrary = function(){
- 
-	/*private variables and methods (not accessible directly through the  mySingleton namespace): */
- 
-	function Material(id) {
-		this.id = id;
-		console.log("State created", id);
-	}
-	Material.prototype.createTextureWithUrl = function(id, url) {
-		this.texture = new Texture(id, url);
-		this.texture.init();
-	}
-	Material.prototype.setTexture = function(tex) {
-		this.texture = tex;
+(function() {
+	Illusion.Material = function(params) {
+		this.uniforms = {};
+		this.shaderProgram = 0;
 	}
 
-	function newMaterial(id){
-		var ss = new Material(id);
-		return ss;
+	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
+		var shaderFragmentCode = "";
+	    var shaderVertexCode = "";
+	    var self = this;
+
+	    jQuery.get(fragUrl, function(data) {
+	        shaderFragmentCode = data;
+	        jQuery.get(vertUrl, function(data) {
+	            shaderVertexCode = data;
+	            self.addShader(shaderVertexCode, shaderFragmentCode);
+	            if(ok) ok();
+	        });
+	    });
 	}
 
-	/** A Generic texture class
+	Illusion.Material.prototype.compileShader = function(shaderScript, type) {
+		if (!shaderScript) {
+	        return null;
+	    }
+        var shader;
+        if (type == "fragment") {
+            shader = gl.createShader(gl.FRAGMENT_SHADER);
+        } else if (type == "vertex") {
+            shader = gl.createShader(gl.VERTEX_SHADER);
+        } else {
+            return null;
+        }
+
+        gl.shaderSource(shader, shaderScript);
+        gl.compileShader(shader);
+
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+
+            console.log(gl.getShaderInfoLog(shader));
+            return null;
+        }
+
+        return shader;
+	}
+
+	/** Pass the shader code text.
 	*/
-	function Texture(id, url) {
-		this.id = id;
-		this.url = url;
-	}
-	Texture.prototype.init = function() {
-		onLoadCallback = function(tex, image) {
-			gl.bindTexture(gl.TEXTURE_2D, tex);
-		    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-		    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-		    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-		    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		    gl.bindTexture(gl.TEXTURE_2D, null);
+	Illusion.Material.prototype.addShader = function(vertex, fragment) {
+		//Compile the shader
+		var vertCompiled = this.compileShader(vertex, "vertex");
+
+		if(!vertCompiled) {
+			console.log("Illusion.Material.prototype.addShader: Failed to compile vertex shader");
+			return;
 		}
-		self = this;
-		self.glTexture = gl.createTexture();
-		image = new Image();
-		image.onload = function () {
-			onLoadCallback(self.glTexture, image);
-			console.log("Loaded texture: " + self.id + " from url: " + self.url);
+
+		var fragCompiled = this.compileShader(fragment, "fragment");
+		if(!fragCompiled) {
+			console.log("Illusion.Material.prototype.addShader: Failed to compile fragment shader");
+			return;
 		}
-		image.src = this.url;
+
+		var program = gl.createProgram();
+		gl.attachShader(program, vertCompiled);
+		gl.attachShader(program, fragCompiled);
+		gl.linkProgram(program);
+
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+			var error = gl.getProgramInfoLog(program)
+	        console.log('FATAL: Unable to LINK shader program: ' + error);
+	    }
+	    this.shaderProgram = program;
+
+	    //Link shader program with uniforms and attributes.
+	    this.addUniform('uniformMatrix4fv', 'uPMatrix', mat4.create());
 	}
 
-	function fetchTexture(id, url) {
-		var tex = new Texture(id, url);
-		tex.init();
-		return tex;
-	}
- 
-	/* public variables and methods (can access private vars and methods ) */
-	return {
-		newMaterial : function(id){
-			return newMaterial(id);
-		},
-		fetchTexture: function(id, url) {
-			return fetchTexture(id, url);
+	Illusion.Material.prototype.addUniform = function(uniformType, uniformName, value) {
+		this.uniforms[uniformName] = {
+			type: uniformType,
+			value: value
+		};
+		if(!this.shaderProgram) return;
+
+		var uniformLocation = gl.getUniformLocation(this.shaderProgram, uniformName);
+
+		if(uniformLocation == gl.INVALID_VALUE ||
+			uniformLocation == gl.INVALID_OPERATION) {
+			console.log('ERROR: Unable to find uniform: ' + uniformName + ' in shader program');
+			return;
 		}
+		this.uniforms[uniformName].programLocation = uniformLocation;
 	}
-}
- 
-var IllusionLibrary = MaterialLibrary();
+
+	Illusion.Material.prototype.renderMaterial = function() {
+		//Render all uniforms
+		for(var uniform in this.uniforms) {
+			gl.useProgram(this.shaderProgram);
+
+			//gl[uniform.type]()
+		}
+	};
+}) ();
