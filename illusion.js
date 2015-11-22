@@ -486,7 +486,7 @@ function initObjects() {
     // tank_object.buildGeometryWithObjFile('scene/mini.obj');
 
 
-    var BoxW = 5.0;
+    var BoxW = 10.0;
     var floor_object = new Illusion.ShapeNode("floor");
     floor_object.material = material1;
     floor_object.addTexture(grassTexture);
@@ -515,7 +515,7 @@ function initObjects() {
 
     //Illusion_ObjectList.push(floor_object);
     Illusion_ObjectList.push(teapot_object);
-    Illusion_ObjectList.push(medival_barrel_object);
+    //Illusion_ObjectList.push(medival_barrel_object);
     Illusion_ObjectList.push(tank_object);
     //Illusion_ObjectList.push(object1);
     //Illusion_Animator_Add(animateLight);

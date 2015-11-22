@@ -101,7 +101,6 @@
         }
 
         gl.useProgram(this.material.shaderProgram);
-        this.material.renderMaterial();
         /*
         if (this.isTransparent) {
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -147,6 +146,11 @@
         mat4.rotate(mMatrix, degToRad(this.rotateY), [0, 1, 0]);
         mat4.rotate(mMatrix, degToRad(this.rotateZ), [0, 0, 1]);
 
+        this.material.setUniformValue('uPMatrix', projection);
+        this.material.setUniformValue('uVMatrix', view);
+        this.material.setUniformValue('uMMatrix', mMatrix);
+
+        this.material.renderMaterial();
         ext.bindVertexArrayOES(this.vao);
         gl.drawElements(gl.TRIANGLES, this.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
         ext.bindVertexArrayOES(null);

@@ -117,6 +117,15 @@
 		}
 	}
 
+	Illusion.Material.prototype.setUniformValue = function(uniformName, value) {
+		var uniform = this.uniforms[uniformName];
+		if(uniform == null) {
+			console.log('ERROR: setUniformValue no uniform found: ' + uniformName);
+			return;
+		}
+		uniform.value = value;
+	}
+
 	Illusion.Material.prototype.addAttribute = function(attribName) {
 		if(!this.shaderProgram) return;
 
