@@ -336,7 +336,7 @@ function initBuffers() {
 function initIllusionLighting() {
     //Set the lighting parameters and pass the buffers to graphics card
     //Apply scene lighting effects
-
+    gl.useProgram(shaderProgram);
     gl.uniform3f(shaderProgram.ambientColorUniform, ambientR, ambientG, ambientB);
 
     //Apply light position
@@ -416,6 +416,10 @@ var Illusion_ObjectList = [];
 var scaleFactor = 1.0;
 
 function initObjects() {
+    //Build Material & Shaders
+    var material1 = new Illusion.Material({});
+    material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
+
     var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
     teapot_object.setSpecularColor(0.2, 0.2, 0.2);
@@ -428,11 +432,13 @@ function initObjects() {
 
     teapot_object.applyScaling([0.5, 0.5, 0.5]);
     teapot_object.buildGeometryWithObjFile('/scene/teapot.txt');
+    teapot_object.material = material1;
 
     var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
     medival_barrel_object.addTexture(hazeTexture);
     medival_barrel_object.applyTransformations([-15.0, 30.0, 8.0]);
     medival_barrel_object.velocity = 0.0;
+    medival_barrel_object.material = material1;
     medival_barrel_object.animationCallback = function() {
         this.rotateY += 2;
         this.scaleMatrix[0] += 0.03 * scaleFactor;
@@ -466,6 +472,7 @@ function initObjects() {
     medival_barrel_object.buildGeometryWithObjFile('scene/MedievalBarrel/MedievalBarrel_OBJ.OBJ');
 
     var tank_object = new Illusion.ShapeNode("tank");
+    tank_object.material = material1;
     //tank_object.addTexture(hazeTexture);
     tank_object.applyTransformations([10.0, -1.0, 8.0]);
     tank_object.setDiffuseColor(0.5, 0.35, 0.15);
@@ -481,6 +488,7 @@ function initObjects() {
 
     var BoxW = 5.0;
     var floor_object = new Illusion.ShapeNode("floor");
+    floor_object.material = material1;
     floor_object.addTexture(grassTexture);
     floor_object.applyTransformations([0.0, 15.0, 8.0]);
     floor_object.geo = basicCube(BoxW);
@@ -499,6 +507,7 @@ function initObjects() {
     ILLUSION_LOADED_OBJECT_COUNT += 1;
 
     var object1 = new Illusion.ShapeNode("object1");
+    object1.material = material1;
     object1.setDiffuseColor(0.3, 0.6, 0.45);
     object1.applyScaling([500.0, 2.0, 500.0]);
     object1.applyTransformations([0.0, -5.0, 0.0]);
@@ -667,12 +676,6 @@ function initIllusion() {
     initGL(canvas);
     //initShaders();
 
-
-    //Build Material & Shaders
-    var mat1 = new Illusion.Material({});
-    mat1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag");
-    
-    
     Illusion.ShaderComposer.getShaderByMask(0, callback);
 
     //initShaderCode(callback);

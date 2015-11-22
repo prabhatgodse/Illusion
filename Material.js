@@ -1,6 +1,7 @@
 (function() {
 	Illusion.Material = function(params) {
 		this.uniforms = {};
+		this.attributes = {};
 		this.shaderProgram = 0;
 	}
 
@@ -73,7 +74,14 @@
 	    this.shaderProgram = program;
 
 	    //Link shader program with uniforms and attributes.
+	    this.addUniform('uniformMatrix4fv', 'uVMatrix', mat4.create());
+	    this.addUniform('uniformMatrix4fv', 'uMMatrix', mat4.create());
 	    this.addUniform('uniformMatrix4fv', 'uPMatrix', mat4.create());
+
+	    //Add basic attributes
+	    this.addAttribute('aVertexPosition');
+	    this.addAttribute('aVertexNormal');
+	    this.addAttribute('aTextureCoord');
 	}
 
 	Illusion.Material.prototype.addUniform = function(uniformType, uniformName, value) {
@@ -81,24 +89,59 @@
 			type: uniformType,
 			value: value
 		};
+
 		if(!this.shaderProgram) return;
 
+		gl.useProgram(this.shaderProgram);
 		var uniformLocation = gl.getUniformLocation(this.shaderProgram, uniformName);
 
-		if(uniformLocation == gl.INVALID_VALUE ||
-			uniformLocation == gl.INVALID_OPERATION) {
+		if(!uniformLocation) {
 			console.log('ERROR: Unable to find uniform: ' + uniformName + ' in shader program');
 			return;
 		}
 		this.uniforms[uniformName].programLocation = uniformLocation;
+
+		gl.useProgram(this.shaderProgram);
+
+		//Render all uniforms
+		for(var key in this.uniforms) {
+			var uniform = this.uniforms[key];
+			//If uniform not linked to program then continue
+			if(!uniform.programLocation) continue;
+
+			if(uniform.type === 'uniformMatrix4fv') {
+				gl[uniform.type](uniform.programLocation, false, uniform.value);
+			}
+			//gl[uniform.type]()
+		}
+	}
+
+	Illusion.Material.prototype.addAttribute = function(attribName) {
+		if(!this.shaderProgram) return;
+
+		var programLocation = gl.getAttribLocation(this.shaderProgram, attribName);
+		if(programLocation == null) {
+			console.log("ERROR: Failed to get attribute location: " + attribName);
+			return;
+		}
+		gl.enableVertexAttribArray(programLocation);
+		this.attributes[attribName] = {programLocation : programLocation};
 	}
 
 	Illusion.Material.prototype.renderMaterial = function() {
-		//Render all uniforms
-		for(var uniform in this.uniforms) {
-			gl.useProgram(this.shaderProgram);
+		gl.useProgram(this.shaderProgram);
 
+		//Render all uniforms
+		for(var key in this.uniforms) {
+			var uniform = this.uniforms[key];
+			//If uniform not linked to program then continue
+			if(!uniform.programLocation) continue;
+
+			if(uniform.type === 'uniformMatrix4fv') {
+				gl[uniform.type](uniform.programLocation, false, uniform.value);
+			}
 			//gl[uniform.type]()
 		}
-	};
+	}
+
 }) ();
