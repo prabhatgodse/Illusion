@@ -496,12 +496,12 @@ function initObjects() {
     floor_object.animationCallback = function() {
         //ext.bindVertexArrayOES(this.vao);
 
-        this.geo.vertices[0] = Math.sin((new Date().getTime())/700.0) * 10.0;
-        this.geo.vertices[1] = Math.cos((new Date().getTime())/700.0) * 10.0;
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
+        // this.geo.vertices[0] = Math.sin((new Date().getTime())/700.0) * 10.0;
+        // this.geo.vertices[1] = Math.cos((new Date().getTime())/700.0) * 10.0;
+        // gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
+        // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
 
-        ext.bindVertexArrayOES(null);
+        // ext.bindVertexArrayOES(null);
     }
 
     ILLUSION_LOADED_OBJECT_COUNT += 1;
@@ -513,11 +513,11 @@ function initObjects() {
     object1.applyTransformations([0.0, -5.0, 0.0]);
     object1.buildGeometryWithObjFile('scene/box.obj');
 
-    Illusion_ObjectList.push(floor_object);
+    //Illusion_ObjectList.push(floor_object);
     Illusion_ObjectList.push(teapot_object);
     Illusion_ObjectList.push(medival_barrel_object);
     Illusion_ObjectList.push(tank_object);
-    Illusion_ObjectList.push(object1);
+    //Illusion_ObjectList.push(object1);
     //Illusion_Animator_Add(animateLight);
 }
 
@@ -543,11 +543,11 @@ function drawScene() {
     for (var idx in Illusion_ObjectList) {
         var iObject = Illusion_ObjectList[idx];
 
-        iObject.renderObject();
-        setMatrixUniforms();
+        iObject.renderObject(pMatrix, vMatrix, mMatrix);
+        //setMatrixUniforms();
         // Illusion_ObjectList[1].renderObject();
-        gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
-        ext.bindVertexArrayOES(null);
+        //gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
+        //ext.bindVertexArrayOES(null);
     }
 }
 
@@ -658,7 +658,7 @@ function webGLStart() {
     //Once all Geometry and textures are loaded. Begin scene drawing.
     if (ILLUSION_LOADED_OBJECT_COUNT == ILLUSION_MAX_OBJECT_COUNT) {
         //Send the object geometry to Graphics Card and begin rendering.
-        initBuffers();
+        //initBuffers();
         initIllusionLighting();
         drawScene();
         tick();

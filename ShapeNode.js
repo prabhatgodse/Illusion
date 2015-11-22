@@ -27,6 +27,8 @@
         this.shaderProgram = 0;
 
         this.material = 0;
+        //Set thing flag to true with linking array buffers to shaders is required.
+        this.bufferLinkRequired = false;
 	}
 
     Illusion.ShapeNode.prototype.setDiffuseColor = function(r, g, b) {
@@ -80,14 +82,27 @@
             thisObj.geo.normals = mesh.vertexNormals;
             thisObj.geo.uvs = mesh.textures;
             thisObj.geo.indices = mesh.indices;
+            thisObj.bufferLinkRequired = true;
             //thisObj.initBuffers();
             ILLUSION_LOADED_OBJECT_COUNT += 1;
             webGLStart();
         });
     }
 
-    Illusion.ShapeNode.prototype.renderObject = function() {
-        gl.useProgram(shaderProgram);
+    Illusion.ShapeNode.prototype.renderObject = function(projection, view, model) {
+        if(this.bufferLinkRequired === true && 
+            this.material.shaderProgram != null) {
+            //Link the buffers to shaders.
+            this.linkBuffers();
+        }
+
+        if(this.material.shaderProgram == null) {
+            return;
+        }
+
+        gl.useProgram(this.material.shaderProgram);
+        this.material.renderMaterial();
+        /*
         if (this.isTransparent) {
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
             gl.enable(gl.BLEND);
@@ -104,9 +119,9 @@
             gl.uniform1i(shaderProgram.useTexture, true);
         }
 
-        gl['uniform3f'](shaderProgram.materialDiffuseColor, this.diffuseColor.r, this.diffuseColor.g, this.diffuseColor.b);
-        gl['uniform3f'](shaderProgram.materialSpecularColor, this.specularColor.r, this.specularColor.g, this.specularColor.b);
-        gl['uniform1f'](shaderProgram.phongComponent, this.phongComponent);
+        // gl['uniform3f'](shaderProgram.materialDiffuseColor, this.diffuseColor.r, this.diffuseColor.g, this.diffuseColor.b);
+        // gl['uniform3f'](shaderProgram.materialSpecularColor, this.specularColor.r, this.specularColor.g, this.specularColor.b);
+        // gl['uniform1f'](shaderProgram.phongComponent, this.phongComponent);
         //Set the textures
         if  (this.textureArray.length > 1) {
             gl.uniform1i(shaderProgram.layerTexture, true);
@@ -123,6 +138,8 @@
                 gl.uniform1i(shaderProgram.samplerDepthUniform, idx);
             tIdx += 1;
         }
+        */
+
         mat4.identity(mMatrix);
         mat4.translate(mMatrix, this.translateMatrix);
         mat4.scale(mMatrix, this.scaleMatrix);
@@ -131,8 +148,55 @@
         mat4.rotate(mMatrix, degToRad(this.rotateZ), [0, 0, 1]);
 
         ext.bindVertexArrayOES(this.vao);
-        //gl.drawElements(gl.TRIANGLES, this.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
-        //ext.bindVertexArrayOES(null);
+        gl.drawElements(gl.TRIANGLES, this.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
+        ext.bindVertexArrayOES(null);
+    }
+
+    Illusion.ShapeNode.prototype.linkBuffers = function() {
+        gl.useProgram(this.material.shaderProgram);
+        ext.bindVertexArrayOES(this.vao);
+
+        if(this.material.attributes.aVertexPosition) {
+            var attribPos = this.material.attributes.aVertexPosition.programLocation;
+
+            this.vertexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.vertices), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(attribPos);
+            gl.vertexAttribPointer(attribPos, 3, gl.FLOAT, false, 0, 0);
+        } else {
+            return;
+        }
+
+        if(this.material.attributes.aVertexNormal) {
+            var attribPos = this.material.attributes.aVertexNormal.programLocation;
+
+            this.normalBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.normals), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(attribPos);
+            gl.vertexAttribPointer(attribPos, 3, gl.FLOAT, false, 0, 0);
+        }
+
+        if(this.material.attributes.aTextureCoord) {
+            var attribPos = this.material.attributes.aTextureCoord.programLocation;
+
+            this.textureBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.textureBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.geo.uvs), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(attribPos);
+            gl.vertexAttribPointer(attribPos, 2, gl.FLOAT, false, 0, 0);
+        }
+
+        this.indexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.geo.indices), gl.STATIC_DRAW);
+
+        //Finished setting up VAO for this object
+        ext.bindVertexArrayOES(null);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+        this.bufferLinkRequired = false;
     }
 
     Illusion.ShapeNode.prototype.initBuffers = function() {

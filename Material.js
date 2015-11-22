@@ -2,7 +2,7 @@
 	Illusion.Material = function(params) {
 		this.uniforms = {};
 		this.attributes = {};
-		this.shaderProgram = 0;
+		this.shaderProgram = null;
 	}
 
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
@@ -74,9 +74,10 @@
 	    this.shaderProgram = program;
 
 	    //Link shader program with uniforms and attributes.
-	    this.addUniform('uniformMatrix4fv', 'uVMatrix', mat4.create());
-	    this.addUniform('uniformMatrix4fv', 'uMMatrix', mat4.create());
-	    this.addUniform('uniformMatrix4fv', 'uPMatrix', mat4.create());
+	    var iden = mat4.identity(mat4.create());
+	    this.addUniform('uniformMatrix4fv', 'uVMatrix', iden);
+	    this.addUniform('uniformMatrix4fv', 'uMMatrix', iden);
+	    this.addUniform('uniformMatrix4fv', 'uPMatrix', iden);
 
 	    //Add basic attributes
 	    this.addAttribute('aVertexPosition');
@@ -124,7 +125,6 @@
 			console.log("ERROR: Failed to get attribute location: " + attribName);
 			return;
 		}
-		gl.enableVertexAttribArray(programLocation);
 		this.attributes[attribName] = {programLocation : programLocation};
 	}
 
