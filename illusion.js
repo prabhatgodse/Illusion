@@ -31,59 +31,59 @@ function handleLoadedTexture(texture) {
 }
 
 
-var hazeTexture;
-var hardWaterTexture;
-var stoneFloorTexture;
-var currentTextureId;
-var raptorTexture;
-var grassTexture;
+// var hazeTexture;
+// var hardWaterTexture;
+// var stoneFloorTexture;
+// var currentTextureId;
+// var raptorTexture;
+// var grassTexture;
 
-function initTexture() {
-    hazeTexture = gl.createTexture();
-    hazeTexture.image = new Image();
-    hazeTexture.image.onload = function () {
-        handleLoadedTexture(hazeTexture)
-    }
+// function initTexture() {
+//     hazeTexture = gl.createTexture();
+//     hazeTexture.image = new Image();
+//     hazeTexture.image.onload = function () {
+//         handleLoadedTexture(hazeTexture)
+//     }
 
-    hazeTexture.image.src = "Textures/haze.jpg";    //"scene/MedievalBarrel/MedBarrelDiffuse.jpg";
+//     hazeTexture.image.src = "Textures/haze.jpg";    //"scene/MedievalBarrel/MedBarrelDiffuse.jpg";
 
-    //
-    //Create 2nd texture
-    hardWaterTexture = gl.createTexture();
-    hardWaterTexture.image = new Image();
-    hardWaterTexture.image.onload = function () {
-        handleLoadedTexture(hardWaterTexture)
-    }
+//     //
+//     //Create 2nd texture
+//     hardWaterTexture = gl.createTexture();
+//     hardWaterTexture.image = new Image();
+//     hardWaterTexture.image.onload = function () {
+//         handleLoadedTexture(hardWaterTexture)
+//     }
 
-    hardWaterTexture.image.src = "Textures/hardWater.jpg";
+//     hardWaterTexture.image.src = "Textures/hardWater.jpg";
 
-    //
-    //Create floor texture.
-    stoneFloorTexture = gl.createTexture();
-    stoneFloorTexture.image = new Image();
-    stoneFloorTexture.image.onload = function() {
-        handleLoadedTexture(stoneFloorTexture);
-    }
-    stoneFloorTexture.image.src = "Textures/stoneFloor.jpg";
+//     //
+//     //Create floor texture.
+//     stoneFloorTexture = gl.createTexture();
+//     stoneFloorTexture.image = new Image();
+//     stoneFloorTexture.image.onload = function() {
+//         handleLoadedTexture(stoneFloorTexture);
+//     }
+//     stoneFloorTexture.image.src = "Textures/stoneFloor.jpg";
 
-    //
-    //Fetch grass texture
-    grassTexture = gl.createTexture();
-    grassTexture.image = new Image();
-    grassTexture.image.onload = function() {
-        handleLoadedTexture(grassTexture);
-    };
-    grassTexture.image.src = "Textures/grass_texture.jpg";
+//     //
+//     //Fetch grass texture
+//     grassTexture = gl.createTexture();
+//     grassTexture.image = new Image();
+//     grassTexture.image.onload = function() {
+//         handleLoadedTexture(grassTexture);
+//     };
+//     grassTexture.image.src = "Textures/grass_texture.jpg";
 
-    //Godzilla's textures
-    raptorTexture = gl.createTexture();
-    raptorTexture.image = new Image();
-    raptorTexture.image.onload = function() {
-        handleLoadedTexture(raptorTexture);
-    }
-    raptorTexture.image.src = "Textures/raptor.jpg";
+//     //Godzilla's textures
+//     raptorTexture = gl.createTexture();
+//     raptorTexture.image = new Image();
+//     raptorTexture.image.onload = function() {
+//         handleLoadedTexture(raptorTexture);
+//     }
+//     raptorTexture.image.src = "Textures/raptor.jpg";
 
-}
+// }
 
 //Frame buffer for reading out the rendered pixels
 var rrtFramebuffer;
@@ -422,13 +422,12 @@ function initObjects() {
     //Build Material & Shaders
     var material1 = new Illusion.Material({});
     material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
-    material1.texture = texture1;
+    material1.addTexture(texture1, "color", "colorTexture0");
 
     var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
     teapot_object.setSpecularColor(0.2, 0.2, 0.2);
     teapot_object.setPhongComponent(20.0);
-    teapot_object.addTexture(stoneFloorTexture);
     teapot_object.isTransparent = false;
     teapot_object.alpha = 0.8;
     //teapot_object.addTexture(hardWaterTexture);
@@ -438,11 +437,18 @@ function initObjects() {
     teapot_object.buildGeometryWithObjFile('/scene/teapot.txt');
     teapot_object.material = material1;
 
+
+    var texture2 = new Illusion.Texture({url : "Textures/hardWater.jpg"});
+    texture2.loadTexture();
+
+    var material2 = new Illusion.Material({});
+    material2.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
+    material2.addTexture(texture2, "color", "colorTexture0");
+
     var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
-    medival_barrel_object.addTexture(hazeTexture);
     medival_barrel_object.applyTransformations([-15.0, 30.0, 8.0]);
     medival_barrel_object.velocity = 0.0;
-    medival_barrel_object.material = material1;
+    medival_barrel_object.material = material2;
     medival_barrel_object.animationCallback = function() {
         this.rotateY += 2;
         this.scaleMatrix[0] += 0.03 * scaleFactor;
@@ -493,7 +499,6 @@ function initObjects() {
     var BoxW = 10.0;
     var floor_object = new Illusion.ShapeNode("floor");
     floor_object.material = material1;
-    floor_object.addTexture(grassTexture);
     floor_object.applyTransformations([0.0, 15.0, 8.0]);
     floor_object.geo = basicCube(BoxW);
 

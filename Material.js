@@ -3,7 +3,7 @@
 		this.uniforms = {};
 		this.attributes = {};
 		this.shaderProgram = null;
-		this.texture = null;
+		this.textures = [];
 	}
 
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
@@ -84,6 +84,14 @@
 	    this.addAttribute('aVertexPosition');
 	    this.addAttribute('aVertexNormal');
 	    this.addAttribute('aTextureCoord');
+
+	    for(var idx in this.textures) {
+	    	var texture = this.textures[idx];
+	    	var location = gl.getUniformLocation(this.shaderProgram, texture.uniform);
+	    	if(location != null) {
+	    		texture.location = location;
+	    	}
+	    }
 	}
 
 	Illusion.Material.prototype.addUniform = function(uniformType, uniformName, value) {
@@ -138,7 +146,20 @@
 		this.attributes[attribName] = {programLocation : programLocation};
 	}
 
+	/** Pass the Illusion.Texture object.
+	@param type The type of texture color, normal, alpha, specular, environment
+	*/
+	Illusion.Material.prototype.addTexture = function(texture, type, uniformName) {
+		this.textures.push({
+			texture : texture, 
+			type: type,
+			uniform : uniformName
+		});
+	}
+
 	Illusion.Material.prototype.renderMaterial = function() {
+		if(this.shaderProgram == null) return;
+
 		gl.useProgram(this.shaderProgram);
 
 		//Render all uniforms
@@ -154,7 +175,16 @@
 		}
 
 		//Render textures
-
+		var tIdx = 0;
+		for(var idx in this.textures) {
+			var texture = this.textures[idx];
+			if(texture.location != null) {
+				gl.activeTexture(gl.TEXTURE0 + tIdx);
+            	gl.bindTexture(gl.TEXTURE_2D, texture.texture.texture);
+                gl.uniform1i(texture.location, idx);
+			}
+			tIdx += 1;
+		}
 	}
 
 }) ();

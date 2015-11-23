@@ -53,6 +53,7 @@
 
     Illusion.ShapeNode.prototype.addTexture = function(tex) {
         this.textureArray.push(tex);
+        
     }
 
     Illusion.ShapeNode.prototype.createAnimation = function() {
