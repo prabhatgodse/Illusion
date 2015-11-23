@@ -3,6 +3,7 @@
 		this.uniforms = {};
 		this.attributes = {};
 		this.shaderProgram = null;
+		this.texture = null;
 	}
 
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
@@ -151,6 +152,9 @@
 			}
 			//gl[uniform.type]()
 		}
+
+		//Render textures
+
 	}
 
 }) ();

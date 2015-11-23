@@ -416,9 +416,13 @@ var Illusion_ObjectList = [];
 var scaleFactor = 1.0;
 
 function initObjects() {
+    var texture1 = new Illusion.Texture({url : "Textures/stoneFloor.jpg"});
+    texture1.loadTexture();
+
     //Build Material & Shaders
     var material1 = new Illusion.Material({});
     material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
+    material1.texture = texture1;
 
     var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
@@ -515,9 +519,9 @@ function initObjects() {
 
     //Illusion_ObjectList.push(floor_object);
     Illusion_ObjectList.push(teapot_object);
-    //Illusion_ObjectList.push(medival_barrel_object);
+    Illusion_ObjectList.push(medival_barrel_object);
     Illusion_ObjectList.push(tank_object);
-    //Illusion_ObjectList.push(object1);
+    Illusion_ObjectList.push(object1);
     //Illusion_Animator_Add(animateLight);
 }
 
@@ -659,7 +663,7 @@ function webGLStart() {
     if (ILLUSION_LOADED_OBJECT_COUNT == ILLUSION_MAX_OBJECT_COUNT) {
         //Send the object geometry to Graphics Card and begin rendering.
         //initBuffers();
-        initIllusionLighting();
+        //initIllusionLighting();
         drawScene();
         tick();
     }
@@ -676,16 +680,16 @@ function initIllusion() {
     initGL(canvas);
     //initShaders();
 
-    Illusion.ShaderComposer.getShaderByMask(0, callback);
+    //Illusion.ShaderComposer.getShaderByMask(0, callback);
 
     //initShaderCode(callback);
-    function callback() {
-        shaderProgram = Illusion.ShaderComposer.shaderProgram;
+    //function callback() {
+        //shaderProgram = Illusion.ShaderComposer.shaderProgram;
         //initTextureFrameBuffer();
         //initFrameBuffer();
-        initTexture();
+        //initTexture();
         initObjects();
-    }
+    //}
     gl.clearColor(0.2265, 0.496, 0.789, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
