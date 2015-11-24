@@ -9,9 +9,7 @@
 		mat4.identity(this.rotateMatrix);
 
 		this.projectionMatrix = mat4.create();
-
-		mat4.perspective(this.viewAngle, gl.viewportWidth / gl.viewportHeight, 
-						 this.nearPlane, this.farPlane, this.projectionMatrix);
+		this.updateProjectionMatrix();
 
 		this.rotateSpeed = 10;
 		this.eye = {x: 0.0, y : 0.0, z : -5.0} ;
@@ -46,4 +44,14 @@
         mat4.multiply(this.matrix, this.rotateMatrix);
 	};
 
+	Illusion.Camera.prototype.updateAspectRatio = function(ratio) {
+		this.aspectRatio = ratio;
+		this.updateProjectionMatrix();
+	}
+
+
+	Illusion.Camera.prototype.updateProjectionMatrix = function() {
+		mat4.perspective(this.viewAngle, this.aspectRatio, 
+						 this.nearPlane, this.farPlane, this.projectionMatrix);
+	}
 }) ();

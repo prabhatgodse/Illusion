@@ -275,6 +275,9 @@ function degToRad(degrees) {
     return degrees * Math.PI / 180;
 }
 
+window.onresize = function(event) {
+    camera.updateAspectRatio(gl.viewportWidth / gl.viewportHeight);
+}
 
 //
 // Movement variables.
