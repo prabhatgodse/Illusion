@@ -36,6 +36,8 @@
 
 	Illusion.Camera.prototype.updateCameraMatrix = function() {
 		//Update matrix
+		this.updateProjectionMatrix();
+
         mat4.identity(this.matrix);
         mat4.translate(this.matrix, [-this.eye.x,
         							 -this.eye.y,
