@@ -7,6 +7,7 @@ var Illusion = {};
 var shaderProgram;
 var ext;
 var canvas;
+var camera;
 
 function initGL(canvas) {
     try {
@@ -242,6 +243,7 @@ function handleMouseMove(event) {
 
         mat4.multiply(newRotationMatrix, cameraRotateMatrix, cameraRotateMatrix);
 
+        camera.rotateWithMouseMove(deltaX, deltaY);
         prevMouseY = position.y;
         prevMouseX = position.x;
     }
@@ -549,10 +551,13 @@ function drawScene() {
     mat4.identity(mMatrix);
     mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
     mat4.multiply(vMatrix, cameraRotateMatrix);
+
+    camera.setEyePosition(xPos, yPos, zPos);
+
     for (var idx in Illusion_ObjectList) {
         var iObject = Illusion_ObjectList[idx];
 
-        iObject.renderObject(pMatrix, vMatrix, mMatrix);
+        iObject.renderObject(camera.projectionMatrix, camera.matrix, mMatrix);
         //setMatrixUniforms();
         // Illusion_ObjectList[1].renderObject();
         //gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
@@ -683,6 +688,7 @@ function initIllusion() {
     //Set default texture file name
     currentTextureId = 0;
     initGL(canvas);
+    camera = new Illusion.Camera(45, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0);
     //initShaders();
 
     //Illusion.ShaderComposer.getShaderByMask(0, callback);
