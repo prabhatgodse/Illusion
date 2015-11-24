@@ -53,7 +53,7 @@
 
     Illusion.ShapeNode.prototype.addTexture = function(tex) {
         this.textureArray.push(tex);
-        
+
     }
 
     Illusion.ShapeNode.prototype.createAnimation = function() {
@@ -90,7 +90,7 @@
         });
     }
 
-    Illusion.ShapeNode.prototype.renderObject = function(projection, view, model) {
+    Illusion.ShapeNode.prototype.renderObject = function(projection, view) {
         if(this.bufferLinkRequired === true && 
             this.material.shaderProgram != null) {
             //Link the buffers to shaders.
@@ -139,17 +139,17 @@
             tIdx += 1;
         }
         */
-
-        mat4.identity(mMatrix);
-        mat4.translate(mMatrix, this.translateMatrix);
-        mat4.scale(mMatrix, this.scaleMatrix);
-        mat4.rotate(mMatrix, degToRad(this.rotateX), [1, 0, 0]);
-        mat4.rotate(mMatrix, degToRad(this.rotateY), [0, 1, 0]);
-        mat4.rotate(mMatrix, degToRad(this.rotateZ), [0, 0, 1]);
+        var modelMatrix = mat4.create();
+        mat4.identity(modelMatrix);
+        mat4.translate(modelMatrix, this.translateMatrix);
+        mat4.scale(modelMatrix, this.scaleMatrix);
+        mat4.rotate(modelMatrix, degToRad(this.rotateX), [1, 0, 0]);
+        mat4.rotate(modelMatrix, degToRad(this.rotateY), [0, 1, 0]);
+        mat4.rotate(modelMatrix, degToRad(this.rotateZ), [0, 0, 1]);
 
         this.material.setUniformValue('uPMatrix', projection);
         this.material.setUniformValue('uVMatrix', view);
-        this.material.setUniformValue('uMMatrix', mMatrix);
+        this.material.setUniformValue('uMMatrix', modelMatrix);
 
         this.material.renderMaterial();
         ext.bindVertexArrayOES(this.vao);

@@ -116,41 +116,41 @@ function initTextureFrameBuffer() {
     gl.bindRenderbuffer(gl.RENDERBUFFER, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 }
-var mMatrix = mat4.create();
-var vMatrix = mat4.create();
-var mMatrixStack = [];
-var pMatrix = mat4.create();
+// var mMatrix = mat4.create();
+// var vMatrix = mat4.create();
+// var mMatrixStack = [];
+// var pMatrix = mat4.create();
 
-function mvPushMatrix() {
-    var copy = mat4.create();
-    mat4.set(mMatrix, copy);
-    mMatrixStack.push(copy);
-}
+// function mvPushMatrix() {
+//     var copy = mat4.create();
+//     mat4.set(mMatrix, copy);
+//     mMatrixStack.push(copy);
+// }
 
-function mvPopMatrix() {
-    if (mMatrixStack.length == 0) {
-        throw "Invalid popMatrix!";
-    }
-    mMatrix = mMatrixStack.pop();
-}
+// function mvPopMatrix() {
+//     if (mMatrixStack.length == 0) {
+//         throw "Invalid popMatrix!";
+//     }
+//     mMatrix = mMatrixStack.pop();
+// }
 
 
-function setMatrixUniforms() {
-    gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
-    gl.uniformMatrix4fv(shaderProgram.vMatrixUniform, false, vMatrix);
-    gl.uniformMatrix4fv(shaderProgram.mMatrixUniform, false, mMatrix);
+// function setMatrixUniforms() {
+//     gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
+//     gl.uniformMatrix4fv(shaderProgram.vMatrixUniform, false, vMatrix);
+//     gl.uniformMatrix4fv(shaderProgram.mMatrixUniform, false, mMatrix);
 
-    var normalMatrix = mat3.create();
-    var mvMatrix = mat4.create();
-    mat4.multiply(vMatrix, mMatrix, mvMatrix);
+//     var normalMatrix = mat3.create();
+//     var mvMatrix = mat4.create();
+//     mat4.multiply(vMatrix, mMatrix, mvMatrix);
 
-    mat4.toInverseMat3( mvMatrix, normalMatrix);
-    mat3.transpose(normalMatrix);
-    gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
+//     mat4.toInverseMat3( mvMatrix, normalMatrix);
+//     mat3.transpose(normalMatrix);
+//     gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
 
-    var lightMatrix = mat4.lookAt([pointLightPositionX, pointLightPositionY, pointLightPositionZ], [0, 0, 0], [0, 1, 0]);
-    gl.uniformMatrix4fv(shaderProgram.lightMVMatrix, false, lightMatrix);
-}
+//     var lightMatrix = mat4.lookAt([pointLightPositionX, pointLightPositionY, pointLightPositionZ], [0, 0, 0], [0, 1, 0]);
+//     gl.uniformMatrix4fv(shaderProgram.lightMVMatrix, false, lightMatrix);
+// }
 
 //
 // Mouse Events
@@ -236,12 +236,12 @@ function handleMouseMove(event) {
         var deltaX = position.clientX - prevMouseX;
         var deltaY = position.clientY - prevMouseY;
 
-        var newRotationMatrix = mat4.create();
-        mat4.identity(newRotationMatrix);
-        mat4.rotate(newRotationMatrix, degToRad(deltaX / 10), [0, 1, 0]);
-        mat4.rotate(newRotationMatrix, degToRad(deltaY / 10), [1, 0, 0]);
+        // var newRotationMatrix = mat4.create();
+        // mat4.identity(newRotationMatrix);
+        // mat4.rotate(newRotationMatrix, degToRad(deltaX / 10), [0, 1, 0]);
+        // mat4.rotate(newRotationMatrix, degToRad(deltaY / 10), [1, 0, 0]);
 
-        mat4.multiply(newRotationMatrix, cameraRotateMatrix, cameraRotateMatrix);
+        // mat4.multiply(newRotationMatrix, cameraRotateMatrix, cameraRotateMatrix);
 
         camera.rotateWithMouseMove(deltaX, deltaY);
         prevMouseY = position.y;
@@ -293,8 +293,8 @@ var yRot = 0;
 var zRot = 0;
 var zoomVal = 0.0;
 var speed = 0;
-var cameraRotateMatrix = mat4.create();
-mat4.identity(cameraRotateMatrix);
+// var cameraRotateMatrix = mat4.create();
+// mat4.identity(cameraRotateMatrix);
 
 //
 //Lighting variables.
@@ -546,18 +546,18 @@ function drawScene() {
     //gl.activeTexture(gl.TEXTURE1);
     //gl.bindTexture(gl.TEXTURE_2D, rrtTexture);
     //gl.uniform1i(shaderProgram.samplerDepthUniform, 1);
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0, pMatrix);
-    mat4.identity(vMatrix);
-    mat4.identity(mMatrix);
-    mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
-    mat4.multiply(vMatrix, cameraRotateMatrix);
+    // mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0, pMatrix);
+    // mat4.identity(vMatrix);
+    // mat4.identity(mMatrix);
+    // mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
+    // mat4.multiply(vMatrix, cameraRotateMatrix);
 
     camera.setEyePosition(xPos, yPos, zPos);
 
     for (var idx in Illusion_ObjectList) {
         var iObject = Illusion_ObjectList[idx];
 
-        iObject.renderObject(camera.projectionMatrix, camera.matrix, mMatrix);
+        iObject.renderObject(camera.projectionMatrix, camera.matrix);
         //setMatrixUniforms();
         // Illusion_ObjectList[1].renderObject();
         //gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
