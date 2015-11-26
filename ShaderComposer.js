@@ -1,110 +1,98 @@
 (function () {
+	Illusion.ShaderComposer = function(params) {
 
-	var ShaderComposer = Illusion.ShaderComposer = {};
-
-	function initShaderCode(callback) {
-
-	    function getShader(shaderScript, type) {
-	        if (!shaderScript) {
-	            return null;
-	        }
-	        var shader;
-	        if (type == "fragment") {
-	            shader = gl.createShader(gl.FRAGMENT_SHADER);
-	        } else if (type == "vertex") {
-	            shader = gl.createShader(gl.VERTEX_SHADER);
-	        } else {
-	            return null;
-	        }
-
-	        gl.shaderSource(shader, shaderScript);
-	        gl.compileShader(shader);
-
-	        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-
-	            console.log(gl.getShaderInfoLog(shader));
-	            return null;
-	        }
-
-	        return shader;
-	    }
-	    var shaderFragmentCode = "";
-	    var shaderVertexCode = "";
-	    jQuery.get("shader_fragment.frag", function(data) {
-	        shaderFragmentCode = data;
-	        jQuery.get("shader_vertex.vert", function(data) {
-	            shaderVertexCode = data;
-	            var frag = getShader(shaderFragmentCode, "fragment");
-	            var vert = getShader(shaderVertexCode, "vertex");
-	            initShaders(vert, frag);
-	            callback();
-	        })
-	    })
 	}
 
-	function initShaders(vertexShader, fragmentShader) {
-	    var shaderProgram = gl.createProgram();
-	    gl.attachShader(shaderProgram, vertexShader);
-	    gl.attachShader(shaderProgram, fragmentShader);
-	    gl.linkProgram(shaderProgram);
+	Illusion.ShaderComposer.prototype.generateVertexShaderCode = function(params) {
+		//Basic attributes
+		var code = [];
 
-	    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-	        alert("Could not initialise shaders");
-	    }
+		var basicVtx = [  
+			"attribute vec3 aVertexPosition;",
+			"attribute vec3 aVertexNormal;",
+			"attribute vec2 aTextureCoord;",
+			"uniform mat4 uVMatrix;",
+			"uniform mat4 uMMatrix;",
+			"uniform mat4 uPMatrix;",
+			"varying vec3 vVertexNormal;",];
 
-	    gl.useProgram(shaderProgram);
-	    shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-	    gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+		code.push(basicVtx.join("\n"));
 
-	    shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
-	    gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+		if(params.colorTexture) {
+			for(var i = 0; i < params.colorTexture.count; i++) {
+				code.push("attribute vec2 aTextureCoordA" + ";");
+				code.push("varying vec2 vUV" + i + ";" + "\n");
+			}
+		}
+		//Add ambient light
+		if(params.ambientLight) {
+			code.push("uniform vec3 ambientLight;");
+		}
 
-	    shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "aVertexNormal");
-	    gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+		//Start main function
+		code.push("");
+		code.push("void main(void) { ");
 
-	    shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
-	    shaderProgram.mMatrixUniform = gl.getUniformLocation(shaderProgram, "uMMatrix");
-	    shaderProgram.vMatrixUniform = gl.getUniformLocation(shaderProgram, "uVMatrix");
-	    shaderProgram.lightMVMatrix =  gl.getUniformLocation(shaderProgram, "lightMVMatrix");
-	    shaderProgram.nMatrixUniform = gl.getUniformLocation(shaderProgram, "uNMatrix");
-	    shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
-	    shaderProgram.samplerDepthUniform = gl.getUniformLocation(shaderProgram, "uDepthSampler");
-	    shaderProgram.alphaUniform = gl.getUniformLocation(shaderProgram, "uAlpha");
-	    shaderProgram.layerTexture = gl.getUniformLocation(shaderProgram, "layerTextures");
-	    shaderProgram.ambientColorUniform = gl.getUniformLocation(shaderProgram, "uAmbientColor");
-	    shaderProgram.pointLightPosition = gl.getUniformLocation(shaderProgram, "pointLightPosition");
-	    shaderProgram.pointLightDiffuseColor = gl.getUniformLocation(shaderProgram, "uPointLightDiffuseColor");
-	    shaderProgram.pointLightSpecularColor = gl.getUniformLocation(shaderProgram, "uPointLightSpecularColor");
-	    shaderProgram.phongComponent = gl.getUniformLocation(shaderProgram, "uPhongComponent");
-	    shaderProgram.materialDiffuseColor = gl.getUniformLocation(shaderProgram, "uMaterialDiffuseColor");
-	    shaderProgram.materialSpecularColor = gl.getUniformLocation(shaderProgram, "uMaterialSpecularColor");
-	    shaderProgram.useTexture = gl.getUniformLocation(shaderProgram, "useTexture");
+		//Pass textures as varying
+		if(params.colorTexture) {
+			for(var i = 0; i < params.colorTexture.count; i++) {
+				code.push("	vUV" + i + " = aTextureCoord" + ";")
+			}
+			code.push("\n");
+		}
 
-	    shaderProgram.pointLights = [];
-	    shaderProgram.pointLights[0] = {position:{}, diffuseColor:{}, specularColor:{}};
-	    shaderProgram.pointLights[0].position = gl.getUniformLocation(shaderProgram, "point_lights[0].position");
-	    shaderProgram.pointLights[0].diffuseColor = gl.getUniformLocation(shaderProgram, "point_lights[0].diffuseColor");
-	    shaderProgram.pointLights[0].specularColor = gl.getUniformLocation(shaderProgram, "point_lights[0].specularColor");
+		//Pass normals as varying
+		code.push("	vVertexNormal = aVertexNormal;");
 
-	    shaderProgram.pointLights[1] = {position:{}, diffuseColor:{}, specularColor:{}};
-	    shaderProgram.pointLights[1].position = gl.getUniformLocation(shaderProgram, "point_lights[1].position");
-	    shaderProgram.pointLights[1].diffuseColor = gl.getUniformLocation(shaderProgram, "point_lights[1].diffuseColor");
-	    shaderProgram.pointLights[1].specularColor = gl.getUniformLocation(shaderProgram, "point_lights[1].specularColor");
 
-	    //Link Spot lights to GLSL code
-	    shaderProgram.spotLights = [];
-	    shaderProgram.spotLights[0] = {position:{}, direction:{}, coneAngle:{}, spotColor:{}, linearAtt:{}};
-	    shaderProgram.spotLights[0].position = gl.getUniformLocation(shaderProgram, "spot_lights[0].position");
-	    shaderProgram.spotLights[0].direction = gl.getUniformLocation(shaderProgram, "spot_lights[0].direction");
-	    shaderProgram.spotLights[0].coneAngle = gl.getUniformLocation(shaderProgram, "spot_lights[0].coneAngle");
-	    shaderProgram.spotLights[0].spotColor = gl.getUniformLocation(shaderProgram, "spot_lights[0].color");
-	    shaderProgram.spotLights[0].linearAtt = gl.getUniformLocation(shaderProgram, "spot_lights[0].linearAtt");
+		//Compute the final vertex position
+		code.push("	gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);");
 
-	    ShaderComposer.shaderProgram = shaderProgram;
+		code.push("}");
+		//End Main function
+
+
+		console.log(code.join("\n"));
+
+		return code.join("\n");
 	}
 
-	ShaderComposer.getShaderByMask = function(mask, callback) {
-		initShaderCode(callback);
-	}
-	
-})();
+	Illusion.ShaderComposer.prototype.generateFragmentShaderCode = function(params) {
+		var code = [];
+
+		code.push("precision highp float;");
+
+		code.push("varying vec3 vVertexNormal;");
+
+		//Check for textures
+		if(params.colorTexture) {
+			for(var i = 0; i < params.colorTexture.count; i++) {
+				code.push("varying vec2 vUV" + i + ";");
+				code.push("uniform sampler2D colorTexture" + i + ";" + "\n");
+			}
+		}
+
+		//Start main function
+		code.push("void main(void) { ");
+
+		code.push("	vec4 fragColor = vec4(0.0);");
+
+		if(params.colorTexture) {
+			code.push("	vec4 colorTexture = vec4(0.0);");
+			for(var i = 0; i < params.colorTexture.count; i++) {
+				code.push("	colorTexture += texture2D(colorTexture" + i + ", vUV" + i + ".xy);");
+			}
+
+			code.push("	fragColor += colorTexture;");
+		}
+
+		code.push("	gl_FragColor = fragColor;");
+		// End main function
+		code.push("}");
+
+		console.log("-----FRAGMENT-----");
+		console.log(code.join("\n"));
+		return code.join("\n");
+	};
+
+}) ();

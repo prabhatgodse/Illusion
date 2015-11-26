@@ -426,8 +426,9 @@ function initObjects() {
 
     //Build Material & Shaders
     var material1 = new Illusion.Material({});
-    material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
     material1.addTexture(texture1, "color", "colorTexture0");
+
+    material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
 
     var teapot_object = new Illusion.ShapeNode("teapot");
     teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
@@ -447,8 +448,8 @@ function initObjects() {
     texture2.loadTexture();
 
     var material2 = new Illusion.Material({});
+     material2.addTexture(texture2, "color", "colorTexture0");
     material2.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
-    material2.addTexture(texture2, "color", "colorTexture0");
 
     var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
     medival_barrel_object.applyTransformations([-15.0, 30.0, 8.0]);

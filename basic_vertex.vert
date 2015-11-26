@@ -7,11 +7,11 @@ uniform mat4 uMMatrix;
 uniform mat4 uPMatrix;
 
 varying vec3 vVertexNormal;
-varying vec2 vUV;
+varying vec2 vUV0;
 
 void main (void) {
 	vVertexNormal = aVertexNormal;
-	vUV = aTextureCoord;
+	vUV0 = aTextureCoord;
 
 	gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
 }

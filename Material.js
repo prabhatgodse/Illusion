@@ -7,18 +7,15 @@
 	}
 
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
-		var shaderFragmentCode = "";
-	    var shaderVertexCode = "";
-	    var self = this;
+		var shader = new Illusion.ShaderComposer({});
 
-	    jQuery.get(fragUrl, function(data) {
-	        shaderFragmentCode = data;
-	        jQuery.get(vertUrl, function(data) {
-	            shaderVertexCode = data;
-	            self.addShader(shaderVertexCode, shaderFragmentCode);
-	            if(ok) ok();
-	        });
+		shaderVertexCode = shader.generateVertexShaderCode({
+	        colorTexture : {count : 1}
 	    });
+	    shaderFragmentCode = shader.generateFragmentShaderCode({
+	        colorTexture : {count : 1}
+	    });
+	    this.addShader(shaderVertexCode, shaderFragmentCode);
 	}
 
 	Illusion.Material.prototype.compileShader = function(shaderScript, type) {
@@ -83,7 +80,7 @@
 	    //Add basic attributes
 	    this.addAttribute('aVertexPosition');
 	    this.addAttribute('aVertexNormal');
-	    this.addAttribute('aTextureCoord');
+	    this.addAttribute("aTextureCoord");
 
 	    for(var idx in this.textures) {
 	    	var texture = this.textures[idx];
