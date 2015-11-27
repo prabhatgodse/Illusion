@@ -281,11 +281,17 @@ var scaleFactor = 1.0;
 function initObjects() {
     scene = new Illusion.Scene({});
 
+    //Add lights
+    scene.addLight({
+        type: "AMBIENT",
+        color: [0.4, 0.4, 0.4]
+    });
+
     var texture1 = new Illusion.Texture({url : "Textures/stoneFloor.jpg"});
     texture1.loadTexture();
 
     //Build Material & Shaders
-    var material1 = new Illusion.Material({});
+    var material1 = new Illusion.Material({scene : scene});
     material1.addTexture(texture1, "color", "colorTexture0");
 
     material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
@@ -300,7 +306,7 @@ function initObjects() {
     var texture2 = new Illusion.Texture({url : "Textures/hardWater.jpg"});
     texture2.loadTexture();
 
-    var material2 = new Illusion.Material({});
+    var material2 = new Illusion.Material({scene : scene});
      material2.addTexture(texture2, "color", "colorTexture0");
     material2.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
 

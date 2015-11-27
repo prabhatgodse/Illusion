@@ -29,10 +29,6 @@
 				code.push("varying vec2 vUV" + i + ";" + "\n");
 			}
 		}
-		//Add ambient light
-		if(params.ambientLight) {
-			code.push("uniform vec3 ambientLight;");
-		}
 
 		//Start main function
 		code.push("");
@@ -77,6 +73,11 @@
 			}
 		}
 
+		//Add ambient light
+		if(params.ambientLight) {
+			code.push("uniform vec3 ambientLight;");
+		}
+
 		//Start main function
 		code.push("void main(void) { ");
 
@@ -89,6 +90,11 @@
 			}
 
 			code.push("	fragColor += colorTexture;");
+		}
+
+		//Compute ambient light
+		if(params.ambientLight) {
+			code.push("	fragColor = vec4(fragColor.rgb * ambientLight.rgb, 1.0);" + "\n");
 		}
 
 		code.push("	gl_FragColor = fragColor;");

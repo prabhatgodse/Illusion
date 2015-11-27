@@ -27,14 +27,14 @@
 	{ambient color}, {cone light...}
 	@params type "DIRECTION", "POINT", "AMBIENT"
 	*/
-	Illusion.Scene.prototype.addLight = function(light, type) {
-		if(type === "DIRECTION") {
+	Illusion.Scene.prototype.addLight = function(light) {
+		if(light.type === "DIRECTION") {
 			this.directionLight.push(light);
 		}
-		else if(type === "POINT") {
+		else if(light.type === "POINT") {
 			this.pointLight.push(light);
 		}
-		else if(type === "AMBIENT") {
+		else if(light.type === "AMBIENT") {
 			this.ambient = light;
 		}
 	}

@@ -4,19 +4,19 @@
 		this.attributes = {};
 		this.shaderProgram = null;
 		this.textures = [];
+		this.scene = params.scene;
 	}
 
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
 		var shader = new Illusion.ShaderComposer({});
 
-		shaderVertexCode = shader.generateVertexShaderCode({
-	        colorTexture : {count : 1}
-	    });
-	    shaderFragmentCode = shader.generateFragmentShaderCode({
-	        colorTexture : {count : 1}
-	    });
+		var shaderParams = {};
+		shaderParams['ambientLight'] = this.scene.ambient;
+		shaderParams['colorTexture'] = {count : this.textures.length};
+
+		shaderVertexCode = shader.generateVertexShaderCode(shaderParams);
+	    shaderFragmentCode = shader.generateFragmentShaderCode(shaderParams);
 	    this.addShader(shaderVertexCode, shaderFragmentCode);
-		
 	}
 
 	Illusion.Material.prototype.compileShader = function(shaderScript, type) {
@@ -90,6 +90,10 @@
 	    		texture.location = location;
 	    	}
 	    }
+
+	    if(this.scene.ambient) {
+	    	this.addUniform('uniform3fv', 'ambientLight', this.scene.ambient.color);
+	    }
 	}
 
 	Illusion.Material.prototype.addUniform = function(uniformType, uniformName, value) {
@@ -119,6 +123,9 @@
 
 			if(uniform.type === 'uniformMatrix4fv') {
 				gl[uniform.type](uniform.programLocation, false, uniform.value);
+			}
+			else if(uniform.type === 'uniform3fv') {
+				gl[uniform.type](uniform.programLocation, uniform.value);
 			}
 			//gl[uniform.type]()
 		}
@@ -169,6 +176,9 @@
 			if(uniform.type === 'uniformMatrix4fv') {
 				gl[uniform.type](uniform.programLocation, false, uniform.value);
 			}
+			else if(uniform.type === 'uniform3fv') {
+				gl[uniform.type](uniform.programLocation, uniform.value);
+			}
 			//gl[uniform.type]()
 		}
 
@@ -183,6 +193,8 @@
 			}
 			tIdx += 1;
 		}
+
+		//Render lights
 	}
 
 }) ();
