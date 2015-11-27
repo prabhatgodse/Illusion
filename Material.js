@@ -16,6 +16,7 @@
 	        colorTexture : {count : 1}
 	    });
 	    this.addShader(shaderVertexCode, shaderFragmentCode);
+		
 	}
 
 	Illusion.Material.prototype.compileShader = function(shaderScript, type) {

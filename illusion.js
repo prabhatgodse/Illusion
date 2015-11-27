@@ -8,6 +8,7 @@ var shaderProgram;
 var ext;
 var canvas;
 var camera;
+var scene;
 
 function initGL(canvas) {
     try {
@@ -195,13 +196,6 @@ var zRot = 0;
 var zoomVal = 0.0;
 var speed = 0;
 
-function initBuffers() {
-    // Start setting up VAO (vertex array object)
-    for (var idx in Illusion_ObjectList) {
-        var each_illusion = Illusion_ObjectList[idx];
-        each_illusion.initBuffers();
-    }
-}
 
 function initIllusionLighting() {
     //Set the lighting parameters and pass the buffers to graphics card
@@ -282,10 +276,11 @@ var animTime = 0;
 var prevTime = 0;
 var G = -9.8;
 
-var Illusion_ObjectList = [];
 var scaleFactor = 1.0;
 
 function initObjects() {
+    scene = new Illusion.Scene({});
+
     var texture1 = new Illusion.Texture({url : "Textures/stoneFloor.jpg"});
     texture1.loadTexture();
 
@@ -379,12 +374,10 @@ function initObjects() {
     object1.applyTransformations([0.0, -5.0, 0.0]);
     object1.buildGeometryWithObjFile('scene/box.obj');
 
-    //Illusion_ObjectList.push(floor_object);
-    Illusion_ObjectList.push(teapot_object);
-    Illusion_ObjectList.push(medival_barrel_object);
-    Illusion_ObjectList.push(tank_object);
-    Illusion_ObjectList.push(object1);
-    //Illusion_Animator_Add(animateLight);
+    scene.addObject(teapot_object);
+    scene.addObject(medival_barrel_object);
+    scene.addObject(tank_object);
+    scene.addObject(object1);
 }
 
 function drawScene() {
@@ -399,18 +392,13 @@ function drawScene() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     camera.setEyePosition(xPos, yPos, zPos);
-
-    for (var idx in Illusion_ObjectList) {
-        var iObject = Illusion_ObjectList[idx];
-        iObject.renderObject(camera.projectionMatrix, camera.matrix);
-    }
+    scene.renderSceneToCamera(camera); 
 }
 
 
 var lastTime = 0;
 var lightTime = 0;
 var sign = 1;
-var Illusion_Animation_Handler = [];
 
 function animateLight() {
     var timeNow = new Date().getTime();
@@ -430,18 +418,6 @@ function animateLight() {
     gl.uniform3f(shaderProgram.pointLights[0].specularColor, pointLightSpecularColorR, pointLightSpecularColorG, pointLightSpecularColorB);
 }
 
-
-function Illusion_Animator_Add(anim) {
-    Illusion_Animation_Handler.push(anim);
-}
-function Illusion_Fire_Animations() {
-    for (var idx in Illusion_ObjectList) {
-        Illusion_ObjectList[idx].animationCallback();
-    }
-    for (var idx in Illusion_Animation_Handler) {
-        //Illusion_Animation_Handler[idx]();
-    }
-}
 function animate() {
     var timeNow = new Date().getTime();
 
@@ -473,8 +449,6 @@ function tick() {
 
     handleKeys();
     drawScene();
-    if(enableAnimation)
-    Illusion_Fire_Animations();
 }
 
 var renderFrameBuffer;
