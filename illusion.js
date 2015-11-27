@@ -431,13 +431,6 @@ function initObjects() {
     material1.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
 
     var teapot_object = new Illusion.ShapeNode("teapot");
-    teapot_object.setDiffuseColor(0.8, 0.8, 0.8);
-    teapot_object.setSpecularColor(0.2, 0.2, 0.2);
-    teapot_object.setPhongComponent(20.0);
-    teapot_object.isTransparent = false;
-    teapot_object.alpha = 0.8;
-    //teapot_object.addTexture(hardWaterTexture);
-    teapot_object.setDiffuseColor(0.4, 0.72, 0.34);
 
     teapot_object.applyScaling([0.5, 0.5, 0.5]);
     teapot_object.buildGeometryWithObjFile('/scene/teapot.txt');
@@ -489,14 +482,10 @@ function initObjects() {
 
     var tank_object = new Illusion.ShapeNode("tank");
     tank_object.material = material1;
-    //tank_object.addTexture(hazeTexture);
-    tank_object.applyTransformations([10.0, -1.0, 8.0]);
-    tank_object.setDiffuseColor(0.5, 0.35, 0.15);
-    tank_object.setSpecularColor(0.15, 0.15, 0.15);
-    tank_object.setPhongComponent(15.0);
     tank_object.rotateX = -90;
     tank_object.rotateZ = -45;
     tank_object.applyScaling([0.5, 0.5, 0.5]);
+    tank_object.applyTransformations([10.0, -1.0, 8.0]);
     //tank_object.buildGeometryWithObjFile('scene/tank/Tiger_I.obj');
     tank_object.buildGeometryWithObjFile('scene/box.obj');
     // tank_object.buildGeometryWithObjFile('scene/mini.obj');
@@ -521,7 +510,6 @@ function initObjects() {
 
     var object1 = new Illusion.ShapeNode("object1");
     object1.material = material1;
-    object1.setDiffuseColor(0.3, 0.6, 0.45);
     object1.applyScaling([500.0, 2.0, 500.0]);
     object1.applyTransformations([0.0, -5.0, 0.0]);
     object1.buildGeometryWithObjFile('scene/box.obj');

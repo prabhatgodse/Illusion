@@ -4,9 +4,6 @@
 		this.vao = ext.createVertexArrayOES();
 	    this.geo = new Illusion_Geometry();
 	    this.id = id;
-	    this.diffuseColor = {r:0.0, g:0.0, b:0.0};
-	    this.specularColor = {r:0.0, g:0.0, b:0.0};
-	    this.phongComponent = 10.0;  //The shineness factor of the specular color.
 	    this.alpha = 1.0;
 	    this.isTransparent = false;
 	    this.textureArray = [];
@@ -31,29 +28,8 @@
         this.bufferLinkRequired = false;
 	}
 
-    Illusion.ShapeNode.prototype.setDiffuseColor = function(r, g, b) {
-        this.diffuseColor.r = r;
-        this.diffuseColor.g = g;
-        this.diffuseColor.b = b;
-    };
-
-    Illusion.ShapeNode.prototype.setSpecularColor = function(r, g, b) {
-        this.specularColor.r = r;
-        this.specularColor.g = g;
-        this.specularColor.b = b;
-    }
-
-    Illusion.ShapeNode.prototype.setPhongComponent = function(p) {
-        self.phongComponent = p;
-    }
-
     Illusion.ShapeNode.prototype.setAlpha = function(a) {
         self.alpha = a;
-    }
-
-    Illusion.ShapeNode.prototype.addTexture = function(tex) {
-        this.textureArray.push(tex);
-
     }
 
     Illusion.ShapeNode.prototype.createAnimation = function() {
