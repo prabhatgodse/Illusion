@@ -519,8 +519,6 @@ function initObjects() {
         // ext.bindVertexArrayOES(null);
     }
 
-    ILLUSION_LOADED_OBJECT_COUNT += 1;
-
     var object1 = new Illusion.ShapeNode("object1");
     object1.material = material1;
     object1.setDiffuseColor(0.3, 0.6, 0.45);
@@ -669,18 +667,9 @@ function initFrameBuffer() {
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 }
 
-var ILLUSION_MAX_OBJECT_COUNT = 5;
-var ILLUSION_LOADED_OBJECT_COUNT = 0;
-
 function webGLStart() {
-    //Once all Geometry and textures are loaded. Begin scene drawing.
-    if (ILLUSION_LOADED_OBJECT_COUNT == ILLUSION_MAX_OBJECT_COUNT) {
-        //Send the object geometry to Graphics Card and begin rendering.
-        //initBuffers();
-        //initIllusionLighting();
-        drawScene();
-        tick();
-    }
+    drawScene();
+    tick();
 }
 
 
@@ -716,4 +705,6 @@ function initIllusion() {
     document.onmouseup = handleMouseUp;
     document.onmousemove = handleMouseMove;
     document.onmousewheel = handleMouseWheel;
+
+    webGLStart();
 }

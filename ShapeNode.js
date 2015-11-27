@@ -85,8 +85,6 @@
             thisObj.geo.indices = mesh.indices;
             thisObj.bufferLinkRequired = true;
             //thisObj.initBuffers();
-            ILLUSION_LOADED_OBJECT_COUNT += 1;
-            webGLStart();
         });
     }
 

@@ -1,7 +1,12 @@
 (function () {
+
 	Illusion.ShaderComposer = function(params) {
 
 	}
+
+	var SHADER_MASK = Illusion.SHADER_MASK = {};
+	SHADER_MASK.textures = 1 << 1;
+	SHADER_MASK.pointLight = 1 << 2;
 
 	Illusion.ShaderComposer.prototype.generateVertexShaderCode = function(params) {
 		//Basic attributes
