@@ -22,70 +22,6 @@ function initGL(canvas) {
     }
 }
 
-// function handleLoadedTexture(texture) {
-//     gl.bindTexture(gl.TEXTURE_2D, texture);
-//     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-//     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
-//     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-//     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-//     gl.bindTexture(gl.TEXTURE_2D, null);
-// }
-
-
-// var hazeTexture;
-// var hardWaterTexture;
-// var stoneFloorTexture;
-// var currentTextureId;
-// var raptorTexture;
-// var grassTexture;
-
-// function initTexture() {
-//     hazeTexture = gl.createTexture();
-//     hazeTexture.image = new Image();
-//     hazeTexture.image.onload = function () {
-//         handleLoadedTexture(hazeTexture)
-//     }
-
-//     hazeTexture.image.src = "Textures/haze.jpg";    //"scene/MedievalBarrel/MedBarrelDiffuse.jpg";
-
-//     //
-//     //Create 2nd texture
-//     hardWaterTexture = gl.createTexture();
-//     hardWaterTexture.image = new Image();
-//     hardWaterTexture.image.onload = function () {
-//         handleLoadedTexture(hardWaterTexture)
-//     }
-
-//     hardWaterTexture.image.src = "Textures/hardWater.jpg";
-
-//     //
-//     //Create floor texture.
-//     stoneFloorTexture = gl.createTexture();
-//     stoneFloorTexture.image = new Image();
-//     stoneFloorTexture.image.onload = function() {
-//         handleLoadedTexture(stoneFloorTexture);
-//     }
-//     stoneFloorTexture.image.src = "Textures/stoneFloor.jpg";
-
-//     //
-//     //Fetch grass texture
-//     grassTexture = gl.createTexture();
-//     grassTexture.image = new Image();
-//     grassTexture.image.onload = function() {
-//         handleLoadedTexture(grassTexture);
-//     };
-//     grassTexture.image.src = "Textures/grass_texture.jpg";
-
-//     //Godzilla's textures
-//     raptorTexture = gl.createTexture();
-//     raptorTexture.image = new Image();
-//     raptorTexture.image.onload = function() {
-//         handleLoadedTexture(raptorTexture);
-//     }
-//     raptorTexture.image.src = "Textures/raptor.jpg";
-
-// }
-
 //Frame buffer for reading out the rendered pixels
 var rrtFramebuffer;
 var rrtTexture;
@@ -116,41 +52,6 @@ function initTextureFrameBuffer() {
     gl.bindRenderbuffer(gl.RENDERBUFFER, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 }
-// var mMatrix = mat4.create();
-// var vMatrix = mat4.create();
-// var mMatrixStack = [];
-// var pMatrix = mat4.create();
-
-// function mvPushMatrix() {
-//     var copy = mat4.create();
-//     mat4.set(mMatrix, copy);
-//     mMatrixStack.push(copy);
-// }
-
-// function mvPopMatrix() {
-//     if (mMatrixStack.length == 0) {
-//         throw "Invalid popMatrix!";
-//     }
-//     mMatrix = mMatrixStack.pop();
-// }
-
-
-// function setMatrixUniforms() {
-//     gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
-//     gl.uniformMatrix4fv(shaderProgram.vMatrixUniform, false, vMatrix);
-//     gl.uniformMatrix4fv(shaderProgram.mMatrixUniform, false, mMatrix);
-
-//     var normalMatrix = mat3.create();
-//     var mvMatrix = mat4.create();
-//     mat4.multiply(vMatrix, mMatrix, mvMatrix);
-
-//     mat4.toInverseMat3( mvMatrix, normalMatrix);
-//     mat3.transpose(normalMatrix);
-//     gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
-
-//     var lightMatrix = mat4.lookAt([pointLightPositionX, pointLightPositionY, pointLightPositionZ], [0, 0, 0], [0, 1, 0]);
-//     gl.uniformMatrix4fv(shaderProgram.lightMVMatrix, false, lightMatrix);
-// }
 
 //
 // Mouse Events
@@ -263,9 +164,6 @@ function handleMouseWheel(event) {
 //
 // Keyboard events
 //Toggle transparency
-function toggleTransparency() {
-    enableTransparency = !enableTransparency;
-}
 var enableAnimation = true;
 function toggleAnimation() {
     enableAnimation = !enableAnimation;
@@ -296,39 +194,6 @@ var yRot = 0;
 var zRot = 0;
 var zoomVal = 0.0;
 var speed = 0;
-// var cameraRotateMatrix = mat4.create();
-// mat4.identity(cameraRotateMatrix);
-
-//
-//Lighting variables.
-var ambientR = 0.02;
-var ambientG = 0.02;
-var ambientB = 0.02;
-
-var enableTransparency = false;
-var enableShadows = true;
-
-var lightingDirection = [-0.25, -0.25, -1.0];
-// var directionColorR = 0.8;
-// var directionColorG = 0.8;
-// var directionColorB = 0.8;
-
-var pointLightDiffuseColorR = 0.8;
-var pointLightDiffuseColorG = 0.8;
-var pointLightDiffuseColorB = 0.8;
-
-var pointLightSpecularColorR = 0.15;
-var pointLightSpecularColorG = 0.15;
-var pointLightSpecularColorB = 0.15;
-
-var pointLightPositionX = 0.0;
-var pointLightPositionY = 10.0;
-var pointLightPositionZ = 0.0;
-
-var transparentAlpha = 1.0;
-var phongComponent = 50.0;
-
-var lightModulator = 1;
 
 function initBuffers() {
     // Start setting up VAO (vertex array object)
@@ -524,34 +389,20 @@ function initObjects() {
 
 function drawScene() {
     //Render scene to texture
-    if(enableShadows) {
+    //if(enableShadows) {
         //gl.bindFramebuffer(gl.FRAMEBUFFER, rrtFramebuffer);
         //drawOrigScene();
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         //gl.uniform1i(shaderProgram.depthCheck, false);
-    }
+    //}
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    //Attach depth buffer
-    //gl.activeTexture(gl.TEXTURE1);
-    //gl.bindTexture(gl.TEXTURE_2D, rrtTexture);
-    //gl.uniform1i(shaderProgram.samplerDepthUniform, 1);
-    // mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0, pMatrix);
-    // mat4.identity(vMatrix);
-    // mat4.identity(mMatrix);
-    // mat4.translate(vMatrix, [-xPos, -yPos, -zPos]);
-    // mat4.multiply(vMatrix, cameraRotateMatrix);
 
     camera.setEyePosition(xPos, yPos, zPos);
 
     for (var idx in Illusion_ObjectList) {
         var iObject = Illusion_ObjectList[idx];
-
         iObject.renderObject(camera.projectionMatrix, camera.matrix);
-        //setMatrixUniforms();
-        // Illusion_ObjectList[1].renderObject();
-        //gl.drawElements(gl.TRIANGLES, iObject.geo.indices.length, gl.UNSIGNED_SHORT, 0);//Illusion_ObjectList[idx].geo.indices * 2);
-        //ext.bindVertexArrayOES(null);
     }
 }
 
@@ -670,18 +521,8 @@ function initIllusion() {
     currentTextureId = 0;
     initGL(canvas);
     camera = new Illusion.Camera(45, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0);
-    //initShaders();
+    initObjects();
 
-    //Illusion.ShaderComposer.getShaderByMask(0, callback);
-
-    //initShaderCode(callback);
-    //function callback() {
-        //shaderProgram = Illusion.ShaderComposer.shaderProgram;
-        //initTextureFrameBuffer();
-        //initFrameBuffer();
-        //initTexture();
-        initObjects();
-    //}
     gl.clearColor(0.2265, 0.496, 0.789, 1.0);
     gl.enable(gl.DEPTH_TEST);
 

@@ -46,11 +46,6 @@
         this.scaleMatrix = mat;
     }
 
-    Illusion.ShapeNode.prototype.makeTransparentWithAlpha = function(a) {
-        this.isTransparent = true;
-        this.alpha = a;
-    }
-
     Illusion.ShapeNode.prototype.buildGeometryWithObjFile = function(obj_file_path) {
         var thisObj = this;
         jQuery.get(obj_file_path, function(data) {
