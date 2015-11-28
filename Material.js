@@ -7,12 +7,20 @@
 		this.scene = params.scene;
 	}
 
+	Illusion.Material.prototype.addBaseColor = function(color) {
+		this.baseColor = color;
+	};
+
 	Illusion.Material.prototype.fetchShaderFromUrl = function(vertUrl, fragUrl, ok) {
 		var shader = new Illusion.ShaderComposer({});
 
 		var shaderParams = {};
 		shaderParams['ambientLight'] = this.scene.ambient;
 		shaderParams['colorTexture'] = {count : this.textures.length};
+
+		if(this.baseColor) {
+			shaderParams.baseColor = this.baseColor;
+		}
 
 		shaderVertexCode = shader.generateVertexShaderCode(shaderParams);
 	    shaderFragmentCode = shader.generateFragmentShaderCode(shaderParams);
@@ -94,6 +102,14 @@
 	    if(this.scene.ambient) {
 	    	this.addUniform('uniform3fv', 'ambientLight', this.scene.ambient.color);
 	    }
+
+	    if (this.baseColor) {
+	    	this.addUniform('uniform4fv', 'baseColor', this.baseColor);
+	    };
+
+	    if(this.scene.pointLights.length > 0) {
+	    	
+	    }
 	}
 
 	Illusion.Material.prototype.addUniform = function(uniformType, uniformName, value) {
@@ -125,6 +141,9 @@
 				gl[uniform.type](uniform.programLocation, false, uniform.value);
 			}
 			else if(uniform.type === 'uniform3fv') {
+				gl[uniform.type](uniform.programLocation, uniform.value);
+			}
+			else if(uniform.type === 'uniform4fv') {
 				gl[uniform.type](uniform.programLocation, uniform.value);
 			}
 			//gl[uniform.type]()
@@ -176,7 +195,8 @@
 			if(uniform.type === 'uniformMatrix4fv') {
 				gl[uniform.type](uniform.programLocation, false, uniform.value);
 			}
-			else if(uniform.type === 'uniform3fv') {
+			else if(uniform.type === 'uniform3fv' ||
+					uniform.type === 'uniform4fv') {
 				gl[uniform.type](uniform.programLocation, uniform.value);
 			}
 			//gl[uniform.type]()

@@ -73,6 +73,10 @@
 			}
 		}
 
+		if (params.baseColor) {
+			code.push("uniform vec4 baseColor;");
+		}
+
 		//Add ambient light
 		if(params.ambientLight) {
 			code.push("uniform vec3 ambientLight;");
@@ -82,6 +86,10 @@
 		code.push("void main(void) { ");
 
 		code.push("	vec4 fragColor = vec4(0.0);");
+
+		if(params.baseColor) {
+			code.push("	fragColor += baseColor;");
+		}
 
 		if(params.colorTexture) {
 			code.push("	vec4 colorTexture = vec4(0.0);");

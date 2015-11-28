@@ -3,7 +3,7 @@
 		this.objects = [] || params.objects;
 		this.ambient = {};
 		this.directionLight = [];
-		this.pointLight = [];
+		this.pointLights = [];
 	}
 
 	Illusion.Scene.prototype.addObject = function(object) {
@@ -32,7 +32,7 @@
 			this.directionLight.push(light);
 		}
 		else if(light.type === "POINT") {
-			this.pointLight.push(light);
+			this.pointLights.push(light);
 		}
 		else if(light.type === "AMBIENT") {
 			this.ambient = light;

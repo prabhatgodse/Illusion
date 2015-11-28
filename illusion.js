@@ -287,6 +287,12 @@ function initObjects() {
         color: [0.4, 0.4, 0.4]
     });
 
+    scene.addLight({
+        type : "POINT",
+        color : [0.3, 0.3, 0.05],
+        position : [0.0, 3.0, -5.0]
+    });
+
     var texture1 = new Illusion.Texture({url : "Textures/stoneFloor.jpg"});
     texture1.loadTexture();
 
@@ -307,7 +313,7 @@ function initObjects() {
     texture2.loadTexture();
 
     var material2 = new Illusion.Material({scene : scene});
-     material2.addTexture(texture2, "color", "colorTexture0");
+    material2.addTexture(texture2, "color", "colorTexture0");
     material2.fetchShaderFromUrl("basic_vertex.vert", "basic_fragment.frag", 0);
 
     var medival_barrel_object = new Illusion.ShapeNode("medival-barrel");
@@ -346,11 +352,16 @@ function initObjects() {
     }
     medival_barrel_object.buildGeometryWithObjFile('scene/MedievalBarrel/MedievalBarrel_OBJ.OBJ');
 
+
+    var material3 = new Illusion.Material({scene : scene});
+    material3.addBaseColor([0.5, 0.6, 0.4, 1.0]);
+    material3.fetchShaderFromUrl("", "", 0);
+
     var tank_object = new Illusion.ShapeNode("tank");
-    tank_object.material = material1;
+    tank_object.material = material3;
     tank_object.rotateX = -90;
     tank_object.rotateZ = -45;
-    tank_object.applyScaling([0.5, 0.5, 0.5]);
+    tank_object.applyScaling([2.0, 2.0, 2.0]);
     tank_object.applyTransformations([10.0, -1.0, 8.0]);
     //tank_object.buildGeometryWithObjFile('scene/tank/Tiger_I.obj');
     tank_object.buildGeometryWithObjFile('scene/box.obj');
@@ -360,7 +371,8 @@ function initObjects() {
     var BoxW = 10.0;
     var floor_object = new Illusion.ShapeNode("floor");
     floor_object.material = material1;
-    floor_object.applyTransformations([0.0, 15.0, 8.0]);
+    floor_object.applyTransformations([10.0, 15.0, 8.0]);
+    floor_object.applyScaling([50.0, 50.0, 50.0]);
     floor_object.geo = basicCube(BoxW);
 
     floor_object.animationCallback = function() {
