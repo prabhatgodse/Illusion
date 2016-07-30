@@ -1,5 +1,5 @@
 #version 330 core
-layout(location=0) out float color;
+layout(location=0) out vec3 color;
 in vec3 vertWorldSpace;
 in vec3 transformedNormal;
 in vec2 uvs;
@@ -24,7 +24,5 @@ void main()
 
     float lightVal = max(dot(dirLightVec, transformedNormal), 0);
     
-//    color = texture(myTexture, uvs).rgb + dirLightColor * lightVal * vertWorldSpace;
-    
-    color = gl_FragCoord.z;
+    color = texture(myTexture, uvs).rgb + dirLightColor * lightVal * vertWorldSpace;
 }

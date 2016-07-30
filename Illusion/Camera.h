@@ -36,6 +36,7 @@ class Camera {
     float _width, _height;
     int _prevX, _prevY;
     float _orbitSpeed;
+    
 public:
     
     Camera(CameraType type, float width, float height);
@@ -48,6 +49,20 @@ public:
     void addObject(Object *obj);
     
     virtual void renderCamera();
+    
+    //Depth
+    bool renderDepth = false;
+    GLuint depthFrameBuffer = 0;
+    GLuint depthTexture = 0;
+    GLuint depthProgram = 0;
+    
+    //Depth shader uniforms
+    GLuint lightMVPUniform,
+    modelMatrixUniform;
+    
+    //Quad
+    GLuint quadProgrm;
+    GLuint depthQuadBuffer, depthTextureUniform;
 };
 
 #endif /* defined(__Illusion__Camera__) */

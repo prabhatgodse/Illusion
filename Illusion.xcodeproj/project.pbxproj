@@ -12,6 +12,10 @@
 		0D06C7BD1D4A7D610093FA50 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D06C7B21D4A7D610093FA50 /* image_helper.c */; };
 		0D06C7BE1D4A7D610093FA50 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D06C7B51D4A7D610093FA50 /* SOIL.c */; };
 		0D06C7BF1D4A7D610093FA50 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D06C7B71D4A7D610093FA50 /* stb_image_aug.c */; };
+		0D06C7C61D4D43D00093FA50 /* DepthVertexShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C21D4C42360093FA50 /* DepthVertexShader.frag */; };
+		0D06C7C71D4D43D00093FA50 /* DepthFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */; };
+		0D06C7C91D4D43D00093FA50 /* QuadFragment.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */; };
+		0D06C7CB1D4D447F0093FA50 /* QuadVertex.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */; };
 		0D573D451D48FDB5002A1473 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D573D441D48FDB5002A1473 /* ImageIO.framework */; };
 		0D7BFCBE1AC84C3600323D47 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BFCBC1AC84C3600323D47 /* shader.cpp */; };
 		0D7BFCC51AC8539300323D47 /* SimpleFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D7BFCBF1AC84CB000323D47 /* SimpleFragmentShader.frag */; };
@@ -31,6 +35,10 @@
 			dstPath = usr/share/man/man1;
 			dstSubfolderSpec = 7;
 			files = (
+				0D06C7CB1D4D447F0093FA50 /* QuadVertex.frag in CopyFiles */,
+				0D06C7C61D4D43D00093FA50 /* DepthVertexShader.frag in CopyFiles */,
+				0D06C7C71D4D43D00093FA50 /* DepthFragmentShader.frag in CopyFiles */,
+				0D06C7C91D4D43D00093FA50 /* QuadFragment.frag in CopyFiles */,
 				0D06C7AC1D4A7BB10093FA50 /* stb_image.h in CopyFiles */,
 				0D7BFCC51AC8539300323D47 /* SimpleFragmentShader.frag in CopyFiles */,
 				0D7BFCC61AC8539300323D47 /* SimpleVertexShader.frag in CopyFiles */,
@@ -55,6 +63,8 @@
 		0D06C7C11D4A7E040093FA50 /* moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moon.jpg; sourceTree = "<group>"; };
 		0D06C7C21D4C42360093FA50 /* DepthVertexShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = DepthVertexShader.frag; sourceTree = "<group>"; };
 		0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = DepthFragmentShader.frag; sourceTree = "<group>"; };
+		0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = QuadFragment.frag; sourceTree = "<group>"; };
+		0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = QuadVertex.frag; sourceTree = "<group>"; };
 		0D573D441D48FDB5002A1473 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0D7BFCBC1AC84C3600323D47 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		0D7BFCBD1AC84C3600323D47 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
@@ -316,7 +326,7 @@
 		0D7BFDCE1AC8754F00323D47 /* trigonometric.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = trigonometric.hpp; sourceTree = "<group>"; };
 		0D7BFDCF1AC8754F00323D47 /* vec2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vec2.hpp; sourceTree = "<group>"; };
 		0D7BFDD01AC8754F00323D47 /* vec3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vec3.hpp; sourceTree = "<group>"; };
-		0D7BFDD11AC8754F00323D47 /* vec4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vec4.hpp; sourceTree = "<group>"; };
+		0D7BFDD11AC8754F00323D47 /* vec4.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = vec4.hpp; path = glm/vec4.hpp; sourceTree = "<group>"; };
 		0D7BFDD21AC8754F00323D47 /* vector_relational.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vector_relational.hpp; sourceTree = "<group>"; };
 		0D7BFDD31AC878EE00323D47 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		0D7BFDD41AC878EE00323D47 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -402,7 +412,6 @@
 				0D7BFDCE1AC8754F00323D47 /* trigonometric.hpp */,
 				0D7BFDCF1AC8754F00323D47 /* vec2.hpp */,
 				0D7BFDD01AC8754F00323D47 /* vec3.hpp */,
-				0D7BFDD11AC8754F00323D47 /* vec4.hpp */,
 				0D7BFDD21AC8754F00323D47 /* vector_relational.hpp */,
 			);
 			path = glm;
@@ -713,6 +722,9 @@
 				0D7BFCC01AC84CB000323D47 /* SimpleVertexShader.frag */,
 				0D06C7C21D4C42360093FA50 /* DepthVertexShader.frag */,
 				0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */,
+				0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */,
+				0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */,
+				0D7BFDD11AC8754F00323D47 /* vec4.hpp */,
 				0D7BFCBC1AC84C3600323D47 /* shader.cpp */,
 				0D7BFCBD1AC84C3600323D47 /* shader.hpp */,
 				0D7BFCCB1AC85F8C00323D47 /* Object.cpp */,

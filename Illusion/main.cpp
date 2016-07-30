@@ -70,6 +70,7 @@ int main(int argc, char** argv)
     glutCreateWindow("GLUT Program");
     
     camera = new Camera(CAMERA_ORBIT, W, H);
+    camera->renderDepth = true;
     
     glutDisplayFunc(display);
     

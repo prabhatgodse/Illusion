@@ -2,14 +2,12 @@
 
 in vec2 UV;
 
-out vec3 color;
-
-uniform sampler2D renderedTexture;
+layout(location=0) out float color;
 
 void main() {
-    
-    float depth = texture(renderedTexture, UV).r;
-    color = vec3(depth, depth, depth);
+    color = gl_FragCoord.z;
+//    float depth = texture(renderedTexture, UV).r;
+//    color = vec3(depth, depth, depth);
     
 //    color += texture(renderedTexture, UV*1.07).xyz * 0.25;
 //    color += texture(renderedTexture, UV*(-1.07)).xyz * 0.25;

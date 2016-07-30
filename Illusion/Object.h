@@ -34,13 +34,18 @@ public:
     Object(std::string vertexSource, std::string fragmentSource);
     
     void setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat);
-    virtual void drawObject();
     
     GLuint depthFrameBuffer = 0;
     GLuint depthProgram = 0;
     GLuint depthQuadBuffer = 0;
     GLuint depthTexture = 0;
     GLuint depthTextureUniform = 0;
+    
+    //Shadertype: standard :: uses regular color texture
+    // depth:: renders to depth texture.
+    
+    virtual void drawObject();
+    void drawObjectType(std::string type);
     void drawObjectDepth();
     
     void initGeometry();

@@ -154,6 +154,36 @@ void Object::drawObject() {
     glDisableVertexAttribArray(2);
     
 }
+
+//Draw geometry and associated textures
+void Object::drawObjectType(std::string type) {
+    // 1st attribute buffers : vertex
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    
+    // 2nd attribute buffers: normals
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    
+    // 3rd attribute uvs
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, uvsBuffer);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    
+    //Apply textures
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture0);
+    glUniform1i(texture0Uniform, 0);
+    
+    glDrawArrays(GL_TRIANGLES, 0, _polyCount);
+    
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+}
+
 int W = 900;
 
 void Object::drawObjectDepth() {
