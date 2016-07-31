@@ -109,8 +109,7 @@ void Object::setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat) {
     _viewMatrix = viewMat;
     _projMat = projMat;
     _projView = projMat * viewMat;
-    _normalMatrix = glm::inverse(modelMatrix);
-    _normalMatrix = glm::transpose(_normalMatrix);
+    _normalMatrix = glm::transpose(glm::inverse(modelMatrix));
 }
 
 glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
@@ -182,6 +181,7 @@ void Object::drawObject() {
 
 //Draw geometry and associated textures
 void Object::drawObjectType(std::string type) {
+    glCullFace(GL_FRONT);
     // 1st attribute buffers : vertex
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -207,6 +207,7 @@ void Object::drawObjectType(std::string type) {
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
+    glCullFace(GL_BACK);
 }
 
 int W = 900;

@@ -12,9 +12,7 @@ uniform vec3 baseColor;
 uniform sampler2D myTexture;
 uniform sampler2D depthTexture;
 
-void main()
-{
-    //Depth
+float getShadowFactor() {
     vec3 projCoord = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoord = projCoord * 0.5 + 0.5;
     float depthFromTex = texture(depthTexture, projCoord.xy).r;
@@ -23,13 +21,17 @@ void main()
     float bias = 0.005;
     float shadow = currentDepth - bias > depthFromTex ? 0.0 : 1.0;
     
-    
-    //----Depth complete
-    
+    return shadow;
+}
+
+void main()
+{
+    float shadow = getShadowFactor();
     
     float lightVal = max(dot(dirLightVec, transformedNormal), 0);
     
     float depth = texture(depthTexture, uvs).r;
-    color = baseColor * dirLightColor; //texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
+    color = baseColor * dirLightColor * lightVal; //texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
     color *= shadow;
+    color += vec3(0.15, 0.01, 0.09);
 }
