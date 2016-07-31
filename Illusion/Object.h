@@ -23,10 +23,13 @@ public:
     GLuint uvsBuffer;
     int _polyCount;
     //Uniforms
-    GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat;
-    GLuint dirVecUniform, dirColorUniform, texture0Uniform;
-    glm::mat4 _projView, _viewMatrix, _normalMatrix, modelMatrix;
-    GLuint texture0;
+    GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat, uniformLightMat,
+    uniformBaseColor;
+    
+    GLuint dirVecUniform, dirColorUniform, texture0Uniform, depthTextureUniform;
+    glm::mat4 _projMat, _projView, _viewMatrix, _normalMatrix, modelMatrix;
+    glm::vec3 baseColor;
+    GLuint texture0, depthTexture;
     
     void destroy();
 
@@ -38,8 +41,6 @@ public:
     GLuint depthFrameBuffer = 0;
     GLuint depthProgram = 0;
     GLuint depthQuadBuffer = 0;
-    GLuint depthTexture = 0;
-    GLuint depthTextureUniform = 0;
     
     //Shadertype: standard :: uses regular color texture
     // depth:: renders to depth texture.

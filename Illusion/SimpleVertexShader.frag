@@ -13,13 +13,18 @@ uniform mat4 normalMatrix;
 out vec3 vertWorldSpace;
 out vec3 transformedNormal;
 out vec2 uvs;
+out vec4 fragPosLightSpace;
 
 uniform vec3 dirLightVec;
 uniform vec3 dirLightColor;
+
+uniform mat4 uniformLightMat;
 
 void main(){
     vertWorldSpace = (modelMatrix * vec4(vertexPosition_modelspace, 1.0)).xyz;
     transformedNormal = (normalMatrix * normalize(vec4(normalVector, 1.0))).xyz;
     uvs = uvsVector;
     gl_Position = MVP * vec4(vertWorldSpace, 1);
+    
+    fragPosLightSpace = uniformLightMat * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
 }

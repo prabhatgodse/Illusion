@@ -5,7 +5,7 @@ in vec2 UV;
 layout(location=0) out float color;
 
 void main() {
-    color = gl_FragCoord.z;
+//    color = gl_FragCoord.z;
 //    float depth = texture(renderedTexture, UV).r;
 //    color = vec3(depth, depth, depth);
     

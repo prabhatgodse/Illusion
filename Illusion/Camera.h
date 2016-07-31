@@ -20,6 +20,7 @@ enum CameraType {
 };
 
 class Camera {
+public:
     std::vector<Object*> sceneObjects;
     CameraType _type;
     
@@ -36,8 +37,6 @@ class Camera {
     float _width, _height;
     int _prevX, _prevY;
     float _orbitSpeed;
-    
-public:
     
     Camera(CameraType type, float width, float height);
     virtual void destroy();

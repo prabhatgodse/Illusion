@@ -23,6 +23,7 @@ Object::Object() {
 
 Object::Object(std::string vertexSource, std::string fragmentSource) {
     shaderProgram = LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
+    baseColor = glm::vec3(0.5, 0.5, 0.5);
     
     initGeometry();
     std::string texName = "moon.jpg";
@@ -86,12 +87,15 @@ void Object::initGeometry() {
     uniformMVP = glGetUniformLocation(shaderProgram, "MVP");
     uniformModelMat = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformViewMat = glGetUniformLocation(shaderProgram, "viewMatrix");
+    uniformLightMat = glGetUniformLocation(shaderProgram, "uniformLightMat");
+    uniformBaseColor = glGetUniformLocation(shaderProgram, "baseColor");
     
     uniformNormalMat = glGetUniformLocation(shaderProgram, "normalMatrix");
     dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
     dirVecUniform = glGetUniformLocation(shaderProgram, "dirLightVec");
     
     texture0Uniform = glGetUniformLocation(shaderProgram, "myTexture");
+    depthTextureUniform = glGetUniformLocation(shaderProgram, "depthTexture");
 }
 
 void Object::destroy() {
@@ -103,17 +107,31 @@ void Object::destroy() {
 
 void Object::setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat) {
     _viewMatrix = viewMat;
+    _projMat = projMat;
     _projView = projMat * viewMat;
     _normalMatrix = glm::inverse(modelMatrix);
     _normalMatrix = glm::transpose(_normalMatrix);
 }
 
-glm::vec3 lightDir = glm::vec3(-1.0, 0.5, 0.3);
+glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
 glm::vec3 lightColor = glm::vec3(0.4, 0.5, 0.6);
 
 void Object::drawObject() {
     //Compute model matrix
     glm::mat4 modelViewMatrix = _projView * modelMatrix;
+    
+    glm::mat4 biasMatrix(
+                         0.5, 0.0, 0.0, 0.0,
+                         0.0, 0.5, 0.0, 0.0,
+                         0.0, 0.0, 0.5, 0.0,
+                         0.5, 0.5, 0.5, 1.0
+                         );
+    glm::mat4 lightMat4 = glm::lookAt(lightDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
+    
+    GLfloat near_plane = 1.0f, far_plane = 7.5f;
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    
+    lightMat4 = _projMat * lightMat4;
     
     //Use the shader
     glUseProgram(shaderProgram);
@@ -139,11 +157,18 @@ void Object::drawObject() {
     glBindTexture(GL_TEXTURE_2D, texture0);
     glUniform1i(texture0Uniform, 0);
     
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, depthTexture);
+    glUniform1i(depthTextureUniform, 1);
+    
     //Apply uniform variables
     glUniformMatrix4fv(uniformMVP, 1, GL_FALSE, &_projView[0][0]);
     glUniformMatrix4fv(uniformModelMat, 1, GL_FALSE, &modelMatrix[0][0]);
     glUniformMatrix4fv(uniformViewMat, 1, GL_FALSE, &_viewMatrix[0][0]);
     glUniformMatrix4fv(uniformNormalMat, 1, GL_FALSE, &_normalMatrix[0][0]);
+    glUniformMatrix4fv(uniformLightMat, 1, GL_FALSE, &lightMat4[0][0]);
+    glUniform3fv(uniformBaseColor, 1, &baseColor[0]);
+    
     glUniform3f(dirColorUniform, lightColor.x, lightColor.y, lightColor.z);
     glUniform3f(dirVecUniform, lightDir.x, lightDir.y, lightDir.z);
     

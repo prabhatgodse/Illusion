@@ -14,10 +14,12 @@
 
 Camera::Camera(CameraType type, float width, float height) {
     _type = type;
-    eyeZ = -5.0;
+    eyeZ = -10.0;
     _eyePosition = glm::vec3(0, 0, eyeZ);
     _orbitSpeed = 0.2;
     cameraRotation = glm::mat4();
+    _prevX = 0;
+    _prevY = 0.0;
     initMatrix(width, height);
 }
 void Camera::destroy() {
@@ -78,6 +80,8 @@ void Camera::addObject(Object *obj) {
     sceneObjects.push_back(obj);
 }
 
+glm::vec3 lightPos = glm::vec3(0.0, -3.5, -1.2);
+
 void Camera::renderCamera() {
     //Draw Scene depth to texture.
     if (renderDepth) {
@@ -97,9 +101,11 @@ void Camera::renderCamera() {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             
-            glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTexture, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
             
             glDrawBuffer(GL_NONE); // No color buffer is drawn to.
+            glReadBuffer(GL_NONE);
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
             
             //Compile shader
             depthProgram = LoadShaders( "DepthVertexShader.frag", "DepthFragmentShader.frag" );
@@ -133,13 +139,13 @@ void Camera::renderCamera() {
         //Render scene to our framebuffer
         glBindFramebuffer(GL_FRAMEBUFFER, depthFrameBuffer);
         glViewport(0, 0, _width, _height);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_DEPTH_BUFFER_BIT);
         
         glUseProgram(depthProgram);
         
         //Draw Geometry from light's perspective
-        glm::mat4 lightMatrix = glm::lookAt(glm::vec3(-1.0, -0.5, 0.3), glm::vec3(0,0,0), glm::vec3(0,1,0));
-        lightMatrix = projectionMatrix * viewMatrix;
+        glm::mat4 lightMatrix = glm::lookAt(lightPos, glm::vec3(0,0,0), glm::vec3(0,1,0));
+        lightMatrix = projectionMatrix * lightMatrix;
         
         std::vector<Object*>::iterator itr = sceneObjects.begin();
         while (itr < sceneObjects.end()) {
@@ -155,34 +161,39 @@ void Camera::renderCamera() {
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+        //Draw the Object with
+        
         //Render depth texture to quad.
-        glUseProgram(quadProgrm);
-        
-        //Bind the rendered texture
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, depthTexture);
-        
-        glUniform1i(depthTextureUniform, 0);
-        
-        //Enable the quad buffer
-        glEnableVertexAttribArray(0);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        glDisableVertexAttribArray(0);
+        if(false) {
+            glUseProgram(quadProgrm);
+            
+            //Bind the rendered texture
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, depthTexture);
+            
+            glUniform1i(depthTextureUniform, 0);
+            
+            //Enable the quad buffer
+            glEnableVertexAttribArray(0);
+            
+            glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+            
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            glDisableVertexAttribArray(0);
+        }
     }
     
     //Get the depth texture.
     //Apply the depth texture to ShadowMaterial.
-//    glViewport(0, 0, _width, _height);
-//    std::vector<Object*>::iterator itr = sceneObjects.begin();
-//    while (itr < sceneObjects.end()) {
-//        (*itr)->setProjectionViewMatrix(projectionMatrix, viewMatrix);
-//        (*itr)->drawObjectDepth();
-//        itr++;
-//    }
+    glViewport(0, 0, _width, _height);
+    std::vector<Object*>::iterator itr = sceneObjects.begin();
+    while (itr < sceneObjects.end()) {
+        (*itr)->setProjectionViewMatrix(projectionMatrix, viewMatrix);
+        (*itr)->depthTexture = depthTexture;
+        (*itr)->drawObject();
+        itr++;
+    }
     
 }
