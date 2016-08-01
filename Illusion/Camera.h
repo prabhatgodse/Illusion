@@ -48,6 +48,7 @@ public:
     void addObject(Object *obj);
     
     virtual void renderCamera();
+    void postProcessing();
     
     //Depth
     bool renderDepth = false;
@@ -62,6 +63,12 @@ public:
     //Quad
     GLuint quadProgrm;
     GLuint depthQuadBuffer, depthTextureUniform;
+    
+    //Post process
+    GLuint programPostProcess;
+    GLuint texturePostProcess;
+    GLuint bufferPostProcess;
+    GLuint uniformPostProcessTexture;
 };
 
 #endif /* defined(__Illusion__Camera__) */

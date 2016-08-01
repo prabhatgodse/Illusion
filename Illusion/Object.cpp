@@ -21,8 +21,9 @@ Object::Object() {
     
 }
 
-Object::Object(std::string vertexSource, std::string fragmentSource) {
-    shaderProgram = LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
+Object::Object(std::string vertexSource, std::string fragmentSource,
+               GLuint shader) {
+    shaderProgram = shader; //LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
     baseColor = glm::vec3(0.5, 0.5, 0.5);
     
     initGeometry();
@@ -89,6 +90,7 @@ void Object::initGeometry() {
     uniformViewMat = glGetUniformLocation(shaderProgram, "viewMatrix");
     uniformLightMat = glGetUniformLocation(shaderProgram, "uniformLightMat");
     uniformBaseColor = glGetUniformLocation(shaderProgram, "baseColor");
+    uniformViewInverseMat = glGetUniformLocation(shaderProgram, "viewInverseMat");
     
     uniformNormalMat = glGetUniformLocation(shaderProgram, "normalMatrix");
     dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
@@ -129,6 +131,7 @@ void Object::drawObject() {
     
     GLfloat near_plane = 1.0f, far_plane = 7.5f;
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    glm::mat4 viewInverseM = glm::inverse(_viewMatrix);
     
     lightMat4 = _projMat * lightMat4;
     
@@ -166,6 +169,7 @@ void Object::drawObject() {
     glUniformMatrix4fv(uniformViewMat, 1, GL_FALSE, &_viewMatrix[0][0]);
     glUniformMatrix4fv(uniformNormalMat, 1, GL_FALSE, &_normalMatrix[0][0]);
     glUniformMatrix4fv(uniformLightMat, 1, GL_FALSE, &lightMat4[0][0]);
+    glUniformMatrix4fv(uniformViewInverseMat, 1, GL_FALSE, &viewInverseM[0][0]);
     glUniform3fv(uniformBaseColor, 1, &baseColor[0]);
     
     glUniform3f(dirColorUniform, lightColor.x, lightColor.y, lightColor.z);

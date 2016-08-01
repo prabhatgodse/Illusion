@@ -12,6 +12,7 @@
 #include <GLUT/glut.h>
 #include "Object.h"
 #include "Camera.h"
+#include "shader.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -20,7 +21,8 @@ Camera *camera;
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    camera->renderCamera();
+//    camera->renderCamera();
+    camera->postProcessing();
     glFlush();
 }
 
@@ -39,22 +41,24 @@ void keyboard(unsigned char c, int a, int b) {
     glutPostRedisplay();
 }
 
-void myinit() {
-    Object *object = new Object("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
+void buildScene() {
+    GLuint shaderProgram = LoadShaders("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
+    
+    Object *object = new Object("", "", shaderProgram);
     object->modelMatrix = glm::translate(object->modelMatrix, glm::vec3(0.0, -3.0, -1.2));
 //    object->modelMatrix = glm::scale(object->modelMatrix, glm::vec3(1.0, 2.0, 1.0));
     object->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
     object->baseColor = glm::vec3(0.4, 0.26, 0.21);
     camera->addObject(object);
     
-    Object *object2 = new Object("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
+    Object *object2 = new Object("", "", shaderProgram);
     object2->modelMatrix = glm::translate(object2->modelMatrix, glm::vec3(0.0, -3.0, 0.0));
     object2->modelMatrix = glm::scale(object2->modelMatrix, glm::vec3(10, 10, 0.2));
     object2->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
     object2->baseColor = glm::vec3(0.3, 0.34, 0.25);
     camera->addObject(object2);
     
-    Object *object3 = new Object("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
+    Object *object3 = new Object("", "", shaderProgram);
     object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -1.2));
     object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.5, 1.3, 0.78));
     object3->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
@@ -84,7 +88,7 @@ int main(int argc, char** argv)
     
     camera = new Camera(CAMERA_ORBIT, W, H);
     camera->renderDepth = true;
-    myinit();
+    buildScene();
     
     glutDisplayFunc(display);
     
@@ -94,5 +98,6 @@ int main(int argc, char** argv)
     glutKeyboardFunc(keyboard);
     
     glutMainLoop();
+    
     return 0;
 }

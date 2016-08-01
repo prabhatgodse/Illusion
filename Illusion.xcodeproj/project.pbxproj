@@ -65,6 +65,8 @@
 		0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = DepthFragmentShader.frag; sourceTree = "<group>"; };
 		0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = QuadFragment.frag; sourceTree = "<group>"; };
 		0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = QuadVertex.frag; sourceTree = "<group>"; };
+		0D06C7CC1D4E8B6D0093FA50 /* PostProcVertex.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PostProcVertex.frag; sourceTree = "<group>"; };
+		0D06C7CD1D4E8B850093FA50 /* PostProcFragment.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PostProcFragment.frag; sourceTree = "<group>"; };
 		0D573D441D48FDB5002A1473 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0D7BFCBC1AC84C3600323D47 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		0D7BFCBD1AC84C3600323D47 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
@@ -724,6 +726,8 @@
 				0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */,
 				0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */,
 				0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */,
+				0D06C7CC1D4E8B6D0093FA50 /* PostProcVertex.frag */,
+				0D06C7CD1D4E8B850093FA50 /* PostProcFragment.frag */,
 				0D7BFDD11AC8754F00323D47 /* vec4.hpp */,
 				0D7BFCBC1AC84C3600323D47 /* shader.cpp */,
 				0D7BFCBD1AC84C3600323D47 /* shader.hpp */,

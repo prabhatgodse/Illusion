@@ -8,12 +8,14 @@ layout(location = 2) in vec2 uvsVector;
 uniform mat4 MVP;   //TODO: this is just ViewProjectionMartix
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
+uniform mat4 viewInverseMat;
 uniform mat4 normalMatrix;
 
 out vec3 vertWorldSpace;
 out vec3 transformedNormal;
 out vec2 uvs;
 out vec4 fragPosLightSpace;
+out vec3 eyePos;
 
 uniform vec3 dirLightVec;
 uniform vec3 dirLightColor;
@@ -27,4 +29,7 @@ void main(){
     gl_Position = MVP * vec4(vertWorldSpace, 1);
     
     fragPosLightSpace = uniformLightMat * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
+    
+    //Get camera vector
+    eyePos = viewInverseMat[3].xyz;
 }

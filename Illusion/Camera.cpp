@@ -159,12 +159,11 @@ void Camera::renderCamera() {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, _width, _height);
         
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
         //Draw the Object with
         
         //Render depth texture to quad.
         if(false) {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glUseProgram(quadProgrm);
             
             //Bind the rendered texture
@@ -185,9 +184,41 @@ void Camera::renderCamera() {
         }
     }
     
+    
+    //Create post processing color buffer
+    if(bufferPostProcess == 0) {
+        glGenFramebuffers(1, &bufferPostProcess);
+        glBindFramebuffer(GL_FRAMEBUFFER, bufferPostProcess);
+        
+        // Create a depth texture
+        glGenTextures(1, &texturePostProcess);
+        glBindTexture(GL_TEXTURE_2D, texturePostProcess);
+        
+        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, _width, _height, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texturePostProcess, 0);
+        
+        GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+        glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+        
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        
+        programPostProcess = LoadShaders("PostProcVertex.frag", "PostProcFragment.frag");
+        uniformPostProcessTexture = glGetUniformLocation(programPostProcess, "renderedTexture");
+    }
+    
     //Get the depth texture.
     //Apply the depth texture to ShadowMaterial.
+    if(bufferPostProcess != 0) {
+        glBindFramebuffer(GL_FRAMEBUFFER, bufferPostProcess);
+    }
     glViewport(0, 0, _width, _height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     std::vector<Object*>::iterator itr = sceneObjects.begin();
     while (itr < sceneObjects.end()) {
         (*itr)->setProjectionViewMatrix(projectionMatrix, viewMatrix);
@@ -195,5 +226,38 @@ void Camera::renderCamera() {
         (*itr)->drawObject();
         itr++;
     }
+    
+}
+
+
+void Camera::postProcessing() {
+    this->renderCamera();
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, _width, _height);
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    //render the scene to texture
+    glUseProgram(programPostProcess);
+    
+    //Bind the rendered texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texturePostProcess);
+    
+    glUniform1i(uniformPostProcessTexture, 0);
+    
+    //Enable the quad buffer
+    glEnableVertexAttribArray(0);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    glDisableVertexAttribArray(0);
+    
+//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//    glViewport(0, 0, _width, _height);
     
 }

@@ -24,7 +24,7 @@ public:
     int _polyCount;
     //Uniforms
     GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat, uniformLightMat,
-    uniformBaseColor;
+    uniformBaseColor, uniformViewInverseMat;
     
     GLuint dirVecUniform, dirColorUniform, texture0Uniform, depthTextureUniform;
     glm::mat4 _projMat, _projView, _viewMatrix, _normalMatrix, modelMatrix;
@@ -34,7 +34,7 @@ public:
     void destroy();
 
     Object();
-    Object(std::string vertexSource, std::string fragmentSource);
+    Object(std::string vertexSource, std::string fragmentSource, GLuint shader);
     
     void setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat);
     
