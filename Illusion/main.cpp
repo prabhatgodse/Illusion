@@ -62,7 +62,7 @@ void buildScene() {
     object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -1.2));
     object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.5, 1.3, 0.78));
     object3->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object3->baseColor = glm::vec3(0.2, 0.7, 0.81);
+    object3->baseColor = glm::vec3(0.2, 0.7, 0.41);
     camera->addObject(object3);
     
     glEnable(GL_DEPTH_TEST);

@@ -83,6 +83,24 @@ void Camera::addObject(Object *obj) {
 glm::vec3 lightPos = glm::vec3(0.0, -3.5, -1.2);
 
 void Camera::renderCamera() {
+    //Build a full screen quad
+    GLuint quad_VertexArrayID;
+    glGenVertexArrays(1, &quad_VertexArrayID);
+    glBindVertexArray(quad_VertexArrayID);
+    
+    static const GLfloat g_quad_vertex_buffer_data[] = {
+        -1.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
+        1.0f, -1.0f, 0.0f,
+        1.0f,  1.0f, 0.0f,
+    };
+    
+    glGenBuffers(1, &depthQuadBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_quad_vertex_buffer_data), g_quad_vertex_buffer_data, GL_STATIC_DRAW);
+    
     //Draw Scene depth to texture.
     if (renderDepth) {
         //Check if depth buffer and texture created.
@@ -111,25 +129,6 @@ void Camera::renderCamera() {
             depthProgram = LoadShaders( "DepthVertexShader.frag", "DepthFragmentShader.frag" );
             lightMVPUniform = glGetUniformLocation(depthProgram, "MVP");
             modelMatrixUniform = glGetUniformLocation(depthProgram, "modelMatrix");
-            
-            
-            //Build a full screen quad
-            GLuint quad_VertexArrayID;
-            glGenVertexArrays(1, &quad_VertexArrayID);
-            glBindVertexArray(quad_VertexArrayID);
-            
-            static const GLfloat g_quad_vertex_buffer_data[] = {
-                -1.0f, -1.0f, 0.0f,
-                1.0f, -1.0f, 0.0f,
-                -1.0f,  1.0f, 0.0f,
-                -1.0f,  1.0f, 0.0f,
-                1.0f, -1.0f, 0.0f,
-                1.0f,  1.0f, 0.0f,
-            };
-            
-            glGenBuffers(1, &depthQuadBuffer);
-            glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(g_quad_vertex_buffer_data), g_quad_vertex_buffer_data, GL_STATIC_DRAW);
             
             // Create and compile our GLSL program from the shaders
             quadProgrm = LoadShaders( "QuadVertex.frag", "QuadFragment.frag" );
@@ -200,21 +199,30 @@ void Camera::renderCamera() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
+        //Render to texture requires depth buffer too.
+        GLuint depthrenderbuffer;
+        glGenRenderbuffers(1, &depthrenderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, _width, _height);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
+        
         glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texturePostProcess, 0);
         
         GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
         glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
         
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         
         programPostProcess = LoadShaders("PostProcVertex.frag", "PostProcFragment.frag");
-        uniformPostProcessTexture = glGetUniformLocation(programPostProcess, "renderedTexture");
+        uniformPostProcessTexture = glGetUniformLocation(programPostProcess, "quadTexture");
     }
     
     //Get the depth texture.
     //Apply the depth texture to ShadowMaterial.
     if(bufferPostProcess != 0) {
         glBindFramebuffer(GL_FRAMEBUFFER, bufferPostProcess);
+    } else {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
     glViewport(0, 0, _width, _height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -226,7 +234,6 @@ void Camera::renderCamera() {
         (*itr)->drawObject();
         itr++;
     }
-    
 }
 
 

@@ -70,9 +70,8 @@ void main()
     
     float lightVal = max(dot(dirLightVec, transformedNormal), 0);
     
-    float depth = texture(depthTexture, uvs).r;
     color = baseColor * dirLightColor * lightVal; //texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
-    color *= shadow;
+//    color *= shadow;
     color += vec3(0.15, 0.01, 0.09);
 //    color += computeVolumetric();
 }

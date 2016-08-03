@@ -67,7 +67,7 @@ public:
     //Post process
     GLuint programPostProcess;
     GLuint texturePostProcess;
-    GLuint bufferPostProcess;
+    GLuint bufferPostProcess = 0;
     GLuint uniformPostProcessTexture;
 };
 
