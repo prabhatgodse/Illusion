@@ -29,8 +29,7 @@ public:
     glm::mat4 cameraMatrix;
     glm::mat4 cameraRotation;
     
-    glm::vec3 _eyePosition;
-    float eyeZ;
+    glm::vec3 _eyePosition, lookAt, upVector;
     
     void initMatrix(float width, float height);
     
@@ -44,6 +43,7 @@ public:
     void mouseMove(int x, int y);
     void mouseEvent(int button, int state, int x, int y);
     void keyboardEvent(unsigned char c, int a, int b);
+    void keyboardSpecialEvent(int key, int x, int y);
     
     void addObject(Object *obj);
     

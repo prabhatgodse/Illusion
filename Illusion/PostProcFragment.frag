@@ -2,7 +2,7 @@
 
 in vec2 UV;
 
-layout(location=0) out vec3 color;
+layout(location=0) out vec4 color;
 uniform sampler2D testTexture;
 uniform sampler2D quadTexture;
 
@@ -15,5 +15,6 @@ void main() {
     renderColor += texture(quadTexture, vec2(UV.x + factor, UV.y - factor)).xyz;
     renderColor /= 4.0;
     
-    color = renderColor;
+//    color = renderColor;
+    color = texture(quadTexture, UV).rgba;
 }

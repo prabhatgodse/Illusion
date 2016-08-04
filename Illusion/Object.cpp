@@ -24,9 +24,9 @@ Object::Object() {
 Object::Object(std::string vertexSource, std::string fragmentSource,
                GLuint shader) {
     shaderProgram = shader; //LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
-    baseColor = glm::vec3(0.5, 0.5, 0.5);
+    baseColor = glm::vec4(0.5, 0.5, 0.5, 1.0);
     
-    initGeometry();
+    
     std::string texName = "moon.jpg";
     
     int width, height, channels;
@@ -53,7 +53,8 @@ Object::Object(std::string vertexSource, std::string fragmentSource,
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Object::initGeometry() {
+void Object::initGeometry(std::string fileName) {
+    objFile = fileName;
     _projView = glm::mat4(1.0);
     modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, .5, .5));
     
@@ -64,7 +65,7 @@ void Object::initGeometry() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals; // Won't be used at the moment.
-    bool res = loadOBJ("box.obj", vertices, uvs, normals);
+    bool res = loadOBJ(objFile.c_str(), vertices, uvs, normals);
     
     _polyCount = sizeof(vertices) / sizeof(GL_FLOAT);
     _polyCount = (int)vertices.size(); //For triangles
@@ -137,7 +138,15 @@ void Object::drawObject() {
     
     //Use the shader
     glUseProgram(shaderProgram);
-    glEnable(GL_DEPTH);
+    
+    if(blending) {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        glBlendEquation(GL_FUNC_ADD);
+    } else {
+        glDisable(GL_BLEND);
+        glEnable(GL_DEPTH);
+    }
     
     // 1st attribute buffers : vertex
     glEnableVertexAttribArray(0);

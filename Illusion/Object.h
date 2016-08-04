@@ -17,6 +17,11 @@
 
 class Object {
 public:
+    Object();
+    Object(std::string vertexSource, std::string fragmentSource, GLuint shader);
+    
+    std::string objFile;
+    
     GLuint shaderProgram;
     GLuint vertexBuffer;
     GLuint normalBuffer;
@@ -28,19 +33,19 @@ public:
     
     GLuint dirVecUniform, dirColorUniform, texture0Uniform, depthTextureUniform;
     glm::mat4 _projMat, _projView, _viewMatrix, _normalMatrix, modelMatrix;
-    glm::vec3 baseColor;
+    glm::vec4 baseColor;
     GLuint texture0, depthTexture;
     
     void destroy();
-
-    Object();
-    Object(std::string vertexSource, std::string fragmentSource, GLuint shader);
     
     void setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat);
     
     GLuint depthFrameBuffer = 0;
     GLuint depthProgram = 0;
     GLuint depthQuadBuffer = 0;
+    
+    //Blending functions
+    bool blending = false;
     
     //Shadertype: standard :: uses regular color texture
     // depth:: renders to depth texture.
@@ -49,7 +54,7 @@ public:
     void drawObjectType(std::string type);
     void drawObjectDepth();
     
-    void initGeometry();
+    void initGeometry(std::string fileName);
     
 };
 #endif /* defined(__Illusion__Object__) */

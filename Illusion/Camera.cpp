@@ -14,8 +14,9 @@
 
 Camera::Camera(CameraType type, float width, float height) {
     _type = type;
-    eyeZ = -10.0;
-    _eyePosition = glm::vec3(0, 0, eyeZ);
+    _eyePosition = glm::vec3(0, 0, -7.0);
+    lookAt = glm::vec3(0,0,0);
+    upVector = glm::vec3(0,1,0);
     _orbitSpeed = 0.2;
     cameraRotation = glm::mat4();
     _prevX = 0;
@@ -31,16 +32,16 @@ void Camera::initMatrix(float width, float height) {
     _width = width; _height = height;
     projectionMatrix = glm::perspective(45.0f, width / height, 0.1f, 100.0f);
     viewMatrix = glm::lookAt(_eyePosition,
-                             glm::vec3(0, 0, 0),
-                             glm::vec3(0, 1, 0));
+                             lookAt,
+                             upVector);
     glm::quat a;
 }
 
 void Camera::mouseEvent(int button, int state, int x, int y) {
     if(button == 3) {
-        eyeZ += 0.5;
+        _eyePosition.z += 0.5;
     } else if(button == 4) {
-        eyeZ -= 0.5;
+        _eyePosition.z -= 0.5;
     }else {
         _prevX = x; _prevY = y;
     }
@@ -48,11 +49,15 @@ void Camera::mouseEvent(int button, int state, int x, int y) {
 
 void Camera::keyboardEvent(unsigned char c, int a, int b) {
     if (c == 'a' || c=='A') {
-        eyeZ += 0.5;
+        _eyePosition.z += 0.5;
     } else if (c == 'z' || c == 'Z') {
-        eyeZ -= 0.5;
+        _eyePosition.z -= 0.5;
     }
     mouseMove(_prevX, _prevY);
+}
+
+void Camera::keyboardSpecialEvent(int key, int x, int y) {
+    
 }
 
 double degToRad(double deg) {
@@ -65,8 +70,13 @@ void Camera::mouseMove(int x, int y) {
     _prevX = x;
     _prevY = y;
     
+    glm::mat4 newViewMatrix = glm::mat4();
+//    viewMatrix = glm::lookAt(_eyePosition,
+//                             lookAt,
+//                             upVector);
+//    viewMatrix = newViewMatrix * viewMatrix;
     viewMatrix = glm::mat4();
-    viewMatrix = glm::translate(viewMatrix, glm::vec3(0, 0, eyeZ));
+    viewMatrix = glm::translate(viewMatrix, _eyePosition);
     
     glm::mat4 newRotation = glm::mat4();
     newRotation = glm::rotate(newRotation, _horizontalAngle, glm::vec3(0, 1, 0));
@@ -185,7 +195,7 @@ void Camera::renderCamera() {
     
     
     //Create post processing color buffer
-    if(bufferPostProcess == 0) {
+    if(bufferPostProcess == 0 && false) {
         glGenFramebuffers(1, &bufferPostProcess);
         glBindFramebuffer(GL_FRAMEBUFFER, bufferPostProcess);
         
@@ -193,7 +203,7 @@ void Camera::renderCamera() {
         glGenTextures(1, &texturePostProcess);
         glBindTexture(GL_TEXTURE_2D, texturePostProcess);
         
-        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, _width, _height, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA, _width, _height, 0,GL_RGBA, GL_UNSIGNED_BYTE, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -240,30 +250,31 @@ void Camera::renderCamera() {
 void Camera::postProcessing() {
     this->renderCamera();
     
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glViewport(0, 0, _width, _height);
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    //render the scene to texture
-    glUseProgram(programPostProcess);
-    
-    //Bind the rendered texture
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texturePostProcess);
-    
-    glUniform1i(uniformPostProcessTexture, 0);
-    
-    //Enable the quad buffer
-    glEnableVertexAttribArray(0);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    
-    glDisableVertexAttribArray(0);
-    
+    if(bufferPostProcess != 0) {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0, _width, _height);
+        
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        //render the scene to texture
+        glUseProgram(programPostProcess);
+        
+        //Bind the rendered texture
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texturePostProcess);
+        
+        glUniform1i(uniformPostProcessTexture, 0);
+        
+        //Enable the quad buffer
+        glEnableVertexAttribArray(0);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, depthQuadBuffer);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        glDisableVertexAttribArray(0);
+    }
 //    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 //    glViewport(0, 0, _width, _height);
     

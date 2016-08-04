@@ -1,5 +1,5 @@
 #version 330 core
-layout(location=0) out vec3 color;
+layout(location=0) out vec4 color;
 in vec3 vertWorldSpace;
 in vec3 transformedNormal;
 in vec2 uvs;
@@ -8,7 +8,7 @@ in vec3 eyePos;
 
 uniform vec3 dirLightVec;
 uniform vec3 dirLightColor;
-uniform vec3 baseColor;
+uniform vec4 baseColor;
 
 uniform sampler2D myTexture;
 uniform sampler2D depthTexture;
@@ -29,7 +29,7 @@ float getShadowFactor() {
 
 float ComputeScattering(float lightDotView)
 {
-    float G_SCATTERING = 0.2;
+    float G_SCATTERING = 0.5;
     float result = 1.0f - G_SCATTERING;
     result *= result;
     result /= (4.0f * PI * pow(1.0f + G_SCATTERING * G_SCATTERING - (2.0f * G_SCATTERING) *      lightDotView, 1.5f));
@@ -50,12 +50,14 @@ vec3 computeVolumetric() {
     vec3 currentPos = vertWorldSpace;
     
     vec3 lightFog = vec3(0.0);
+    vec3 dirLightVecNorm = normalize(dirLightVec);
+    
     for(int i = 0; i < NB_STEPS; i++) {
         //Shadow:1 indicates the light is visible
         float shadow = getShadowFactor();
         if(shadow == 1.0) {
             //Compute the scattering from light
-            float scatter = ComputeScattering(dot(rayDir, dirLightVec));
+            float scatter = ComputeScattering(dot(rayDir, dirLightVecNorm));
             lightFog += dirLightColor * scatter;
         }
         currentPos += stepRay;
@@ -68,10 +70,12 @@ void main()
 {
     float shadow = getShadowFactor();
     
-    float lightVal = max(dot(dirLightVec, transformedNormal), 0);
+    float lightVal = max(dot(normalize(dirLightVec), normalize(transformedNormal)), 0);
     
-    color = baseColor * dirLightColor * lightVal; //texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
-//    color *= shadow;
-    color += vec3(0.15, 0.01, 0.09);
+    vec3 matColor = baseColor.rgb;
+    vec3 fragColor = matColor * dirLightColor * lightVal; // texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
+    fragColor *= shadow;
+    fragColor += vec3(0.10, 0.09, 0.11);
 //    color += computeVolumetric();
+    color = vec4(fragColor.rgb, baseColor.a);
 }

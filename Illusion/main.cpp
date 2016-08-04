@@ -41,28 +41,39 @@ void keyboard(unsigned char c, int a, int b) {
     glutPostRedisplay();
 }
 
+void keyboardSpecial(int key, int x, int y) {
+    int a = 0;
+}
+
 void buildScene() {
     GLuint shaderProgram = LoadShaders("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
     
     Object *object = new Object("", "", shaderProgram);
+    object->initGeometry("box.obj");
     object->modelMatrix = glm::translate(object->modelMatrix, glm::vec3(0.0, -3.0, -1.2));
 //    object->modelMatrix = glm::scale(object->modelMatrix, glm::vec3(1.0, 2.0, 1.0));
     object->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object->baseColor = glm::vec3(0.4, 0.26, 0.21);
+    object->baseColor = glm::vec4(0.4, 0.26, 0.21, 1.0);
     camera->addObject(object);
     
     Object *object2 = new Object("", "", shaderProgram);
+    object2->initGeometry("box.obj");
+    
     object2->modelMatrix = glm::translate(object2->modelMatrix, glm::vec3(0.0, -3.0, 0.0));
     object2->modelMatrix = glm::scale(object2->modelMatrix, glm::vec3(10, 10, 0.2));
     object2->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object2->baseColor = glm::vec3(0.3, 0.34, 0.25);
+    object2->baseColor = glm::vec4(0.3, 0.34, 0.25, 1.0);
     camera->addObject(object2);
     
     Object *object3 = new Object("", "", shaderProgram);
+    object3->initGeometry("teapot.obj");
     object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -1.2));
-    object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.5, 1.3, 0.78));
+    object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.05, 0.05, 0.05));
+    object3->modelMatrix = glm::rotate(object3->modelMatrix, (float)180.5, glm::vec3(1,0,0));
+    
     object3->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object3->baseColor = glm::vec3(0.2, 0.7, 0.41);
+    object3->baseColor = glm::vec4(0.2, 0.7, 0.41, 0.6);
+    object3->blending = true;
     camera->addObject(object3);
     
     glEnable(GL_DEPTH_TEST);
@@ -96,6 +107,7 @@ int main(int argc, char** argv)
     glutMotionFunc(motionFunction);
     glutMouseFunc(mouseEvent);
     glutKeyboardFunc(keyboard);
+    glutSpecialFunc(keyboardSpecial);
     
     glutMainLoop();
     
