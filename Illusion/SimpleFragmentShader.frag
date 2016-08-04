@@ -72,7 +72,7 @@ void main()
     
     float lightVal = max(dot(normalize(dirLightVec), normalize(transformedNormal)), 0);
     
-    vec3 matColor = baseColor.rgb;
+    vec3 matColor = mix(texture(myTexture, uvs).rgb, baseColor.rgb, 0.5);
     vec3 fragColor = matColor * dirLightColor * lightVal; // texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
     fragColor *= shadow;
     fragColor += vec3(0.10, 0.09, 0.11);

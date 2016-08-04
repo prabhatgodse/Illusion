@@ -3,7 +3,6 @@
 in vec2 UV;
 
 layout(location=0) out vec4 color;
-uniform sampler2D testTexture;
 uniform sampler2D quadTexture;
 
 void main() {

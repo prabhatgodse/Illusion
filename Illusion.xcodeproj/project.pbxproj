@@ -17,6 +17,7 @@
 		0D06C7C91D4D43D00093FA50 /* QuadFragment.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */; };
 		0D06C7CB1D4D447F0093FA50 /* QuadVertex.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */; };
 		0D573D451D48FDB5002A1473 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D573D441D48FDB5002A1473 /* ImageIO.framework */; };
+		0D615C0D1D53E7C4007D8E2C /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D615C0B1D53E7C4007D8E2C /* Material.cpp */; };
 		0D7BFCBE1AC84C3600323D47 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BFCBC1AC84C3600323D47 /* shader.cpp */; };
 		0D7BFCC51AC8539300323D47 /* SimpleFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D7BFCBF1AC84CB000323D47 /* SimpleFragmentShader.frag */; };
 		0D7BFCC61AC8539300323D47 /* SimpleVertexShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D7BFCC01AC84CB000323D47 /* SimpleVertexShader.frag */; };
@@ -69,6 +70,8 @@
 		0D06C7CD1D4E8B850093FA50 /* PostProcFragment.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PostProcFragment.frag; sourceTree = "<group>"; };
 		0D06C7CE1D52B4780093FA50 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		0D573D441D48FDB5002A1473 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0D615C0B1D53E7C4007D8E2C /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
+		0D615C0C1D53E7C4007D8E2C /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		0D7BFCBC1AC84C3600323D47 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		0D7BFCBD1AC84C3600323D47 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		0D7BFCBF1AC84CB000323D47 /* SimpleFragmentShader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = SimpleFragmentShader.frag; sourceTree = "<group>"; };
@@ -733,6 +736,8 @@
 				0D7BFDD11AC8754F00323D47 /* vec4.hpp */,
 				0D7BFCBC1AC84C3600323D47 /* shader.cpp */,
 				0D7BFCBD1AC84C3600323D47 /* shader.hpp */,
+				0D615C0B1D53E7C4007D8E2C /* Material.cpp */,
+				0D615C0C1D53E7C4007D8E2C /* Material.h */,
 				0D7BFCCB1AC85F8C00323D47 /* Object.cpp */,
 				0D7BFCCC1AC85F8C00323D47 /* Object.h */,
 				0D7BFDD31AC878EE00323D47 /* Camera.cpp */,
@@ -806,6 +811,7 @@
 				0D7BFDD91AC8D4B400323D47 /* objloader.cpp in Sources */,
 				0D06C7BF1D4A7D610093FA50 /* stb_image_aug.c in Sources */,
 				0D06C7BE1D4A7D610093FA50 /* SOIL.c in Sources */,
+				0D615C0D1D53E7C4007D8E2C /* Material.cpp in Sources */,
 				0D7BFCCD1AC85F8C00323D47 /* Object.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

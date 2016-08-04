@@ -195,7 +195,7 @@ void Camera::renderCamera() {
     
     
     //Create post processing color buffer
-    if(bufferPostProcess == 0 && false) {
+    if(bufferPostProcess == 0) {
         glGenFramebuffers(1, &bufferPostProcess);
         glBindFramebuffer(GL_FRAMEBUFFER, bufferPostProcess);
         
@@ -203,7 +203,7 @@ void Camera::renderCamera() {
         glGenTextures(1, &texturePostProcess);
         glBindTexture(GL_TEXTURE_2D, texturePostProcess);
         
-        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA, _width, _height, 0,GL_RGBA, GL_UNSIGNED_BYTE, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, _width, _height, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -259,6 +259,7 @@ void Camera::postProcessing() {
         //render the scene to texture
         glUseProgram(programPostProcess);
         
+        glDisable(GL_BLEND);
         //Bind the rendered texture
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texturePostProcess);

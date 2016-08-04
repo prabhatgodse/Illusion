@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <OpenGL/gl3.h>
 #include <iostream>
+#include "Material.h"
+
 #include "glm/fwd.hpp"
 #include "glm/glm.hpp"
 
@@ -19,6 +21,8 @@ class Object {
 public:
     Object();
     Object(std::string vertexSource, std::string fragmentSource, GLuint shader);
+    
+    Material *material;
     
     std::string objFile;
     
@@ -29,9 +33,10 @@ public:
     int _polyCount;
     //Uniforms
     GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat, uniformLightMat,
-    uniformBaseColor, uniformViewInverseMat;
+    uniformViewInverseMat;
     
-    GLuint dirVecUniform, dirColorUniform, texture0Uniform, depthTextureUniform;
+//    GLuint dirVecUniform, dirColorUniformuniformBaseColor ,
+    GLuint texture0Uniform, depthTextureUniform;
     glm::mat4 _projMat, _projView, _viewMatrix, _normalMatrix, modelMatrix;
     glm::vec4 baseColor;
     GLuint texture0, depthTexture;

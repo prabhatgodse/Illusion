@@ -45,6 +45,10 @@ void keyboardSpecial(int key, int x, int y) {
     int a = 0;
 }
 
+void screenRespace(int width, int height) {
+    
+}
+
 void buildScene() {
     GLuint shaderProgram = LoadShaders("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
     
@@ -67,12 +71,12 @@ void buildScene() {
     
     Object *object3 = new Object("", "", shaderProgram);
     object3->initGeometry("teapot.obj");
-    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -1.2));
+    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -0.8));
     object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.05, 0.05, 0.05));
     object3->modelMatrix = glm::rotate(object3->modelMatrix, (float)180.5, glm::vec3(1,0,0));
     
     object3->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object3->baseColor = glm::vec4(0.2, 0.7, 0.41, 0.6);
+    object3->baseColor = glm::vec4(0.2, 0.7, 0.41, 0.8);
     object3->blending = true;
     camera->addObject(object3);
     
@@ -100,7 +104,7 @@ int main(int argc, char** argv)
     camera = new Camera(CAMERA_ORBIT, W, H);
     camera->renderDepth = true;
     buildScene();
-    
+    std::cout << glGetString(GL_VERSION) << std::endl;
     glutDisplayFunc(display);
     
     //Mouse events
@@ -108,6 +112,7 @@ int main(int argc, char** argv)
     glutMouseFunc(mouseEvent);
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(keyboardSpecial);
+    glutReshapeFunc(screenRespace);
     
     glutMainLoop();
     

@@ -53,6 +53,9 @@ Object::Object(std::string vertexSource, std::string fragmentSource,
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
+glm::vec3 lightColor = glm::vec3(0.7, 0.65, 0.6);
+
 void Object::initGeometry(std::string fileName) {
     objFile = fileName;
     _projView = glm::mat4(1.0);
@@ -90,15 +93,20 @@ void Object::initGeometry(std::string fileName) {
     uniformModelMat = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformViewMat = glGetUniformLocation(shaderProgram, "viewMatrix");
     uniformLightMat = glGetUniformLocation(shaderProgram, "uniformLightMat");
-    uniformBaseColor = glGetUniformLocation(shaderProgram, "baseColor");
+//    uniformBaseColor = glGetUniformLocation(shaderProgram, "baseColor");
     uniformViewInverseMat = glGetUniformLocation(shaderProgram, "viewInverseMat");
     
     uniformNormalMat = glGetUniformLocation(shaderProgram, "normalMatrix");
-    dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
-    dirVecUniform = glGetUniformLocation(shaderProgram, "dirLightVec");
+//    dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
+//    dirVecUniform = glGetUniformLocation(shaderProgram, "dirLightVec");
     
     texture0Uniform = glGetUniformLocation(shaderProgram, "myTexture");
     depthTextureUniform = glGetUniformLocation(shaderProgram, "depthTexture");
+    
+    this->material = new Material(shaderProgram);
+    this->material->addUniform3fv("dirLightColor", lightColor);
+    this->material->addUniform3fv("dirLightVec", lightDir);
+    this->material->addUniform4f("baseColor", baseColor);
 }
 
 void Object::destroy() {
@@ -115,8 +123,7 @@ void Object::setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat) {
     _normalMatrix = glm::transpose(glm::inverse(modelMatrix));
 }
 
-glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
-glm::vec3 lightColor = glm::vec3(0.4, 0.5, 0.6);
+
 
 void Object::drawObject() {
     //Compute model matrix
@@ -179,10 +186,8 @@ void Object::drawObject() {
     glUniformMatrix4fv(uniformNormalMat, 1, GL_FALSE, &_normalMatrix[0][0]);
     glUniformMatrix4fv(uniformLightMat, 1, GL_FALSE, &lightMat4[0][0]);
     glUniformMatrix4fv(uniformViewInverseMat, 1, GL_FALSE, &viewInverseM[0][0]);
-    glUniform3fv(uniformBaseColor, 1, &baseColor[0]);
     
-    glUniform3f(dirColorUniform, lightColor.x, lightColor.y, lightColor.z);
-    glUniform3f(dirVecUniform, lightDir.x, lightDir.y, lightDir.z);
+    this->material->applyMaterial();
     
     glDrawArrays(GL_TRIANGLES, 0, _polyCount);
     
