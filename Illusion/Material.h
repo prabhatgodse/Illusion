@@ -34,6 +34,11 @@ public:
     std::map<std::string, Uniform4fPair> uniform4fMap;
     void addUniform4f(std::string name, glm::vec4 vec4);
     
+    //Matrix
+    typedef std::pair<glm::mat4, GLuint> UniformMatrix4fv;
+    std::map<std::string, UniformMatrix4fv> uniformMatrix4fvMap;
+    void addUniformMatrix4fv(std::string name, glm::mat4 mat4);
+    
     //Pair the texture to uniform location on shader program
     typedef std::pair<Texture*, GLuint> UniformTexturePair;
     std::map<std::string, UniformTexturePair> uniformTextureMap;

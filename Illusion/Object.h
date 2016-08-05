@@ -31,9 +31,6 @@ public:
     GLuint normalBuffer;
     GLuint uvsBuffer;
     int _polyCount;
-    //Uniforms
-    GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat, uniformLightMat,
-    uniformViewInverseMat;
     
 //    GLuint dirVecUniform, dirColorUniformuniformBaseColor , texture0Uniform, texture0
     GLuint depthTextureUniform;

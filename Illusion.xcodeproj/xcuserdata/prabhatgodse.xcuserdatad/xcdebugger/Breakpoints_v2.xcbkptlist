@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Illusion/Object.cpp"
-            timestampString = "491959773.047265"
+            timestampString = "492127581.973844"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "Object::initGeometry(std::string fileName)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Illusion/Object.cpp"
-            timestampString = "492124099.720878"
+            timestampString = "492127581.973844"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "Object::destroy()"
             landmarkType = "5">
          </BreakpointContent>
@@ -169,22 +169,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Illusion/Object.cpp"
-            timestampString = "492124273.551563"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "Object::drawObject()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Illusion/Texture.cpp"
             timestampString = "492124099.720878"
             startingColumnNumber = "9223372036854775807"
@@ -202,12 +186,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Illusion/Material.cpp"
-            timestampString = "492124191.203406"
+            timestampString = "492127412.588912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "Material::applyMaterial()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Illusion/Material.cpp"
+            timestampString = "492127603.895529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "Material::addUniformTexture(std::string name, Texture *texture)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Illusion/Material.cpp"
+            timestampString = "492127609.608718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "Material::addUniformMatrix4fv(std::string name, glm::mat4 mat4)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

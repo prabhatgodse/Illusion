@@ -69,6 +69,26 @@ void Material::addUniform4f(std::string name, glm::vec4 vec4) {
     }
 }
 
+//Matrix
+void Material::addUniformMatrix4fv(std::string name, glm::mat4 mat4) {
+    if(uniformMatrix4fvMap.find(name) != uniformMatrix4fvMap.end()) {
+        //Uniform already encoded.
+        //Update the existing value
+        uniformMatrix4fvMap[name].first = mat4;
+    }
+    else {
+        //Find uniform in shader
+        GLuint uniLocation = glGetUniformLocation(shaderLocation, name.c_str());
+        if(uniLocation == -1) {
+            std::cout << "Uniform4f not found: " << name << std::endl;
+            return;
+        }
+        
+        UniformMatrix4fv p(mat4, uniLocation);
+        uniformMatrix4fvMap[name] = p;
+    }
+}
+
 void Material::addUniformTexture(std::string name, Texture *texture) {
     if(uniformTextureMap.find(name) != uniformTextureMap.end()) {
         uniformTextureMap[name].first = texture;
@@ -99,6 +119,12 @@ void Material::applyMaterial() {
     for(auto const &itr : uniform4fMap) {
         Uniform4fPair pair = itr.second;
         glUniform4f(pair.second, pair.first.x, pair.first.y, pair.first.z, pair.first.w);
+    }
+    
+    //Matrix
+    for(auto const &itr : uniformMatrix4fvMap) {
+        UniformMatrix4fv pair = itr.second;
+        glUniformMatrix4fv(pair.second, 1, GL_FALSE, &pair.first[0][0]);
     }
     
     int tex = 0;

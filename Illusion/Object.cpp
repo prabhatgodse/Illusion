@@ -25,32 +25,6 @@ Object::Object(std::string vertexSource, std::string fragmentSource,
                GLuint shader) {
     shaderProgram = shader; //LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
     baseColor = glm::vec4(0.5, 0.5, 0.5, 1.0);
-    
-    
-//    std::string texName = "moon.jpg";
-//    
-//    int width, height, channels;
-//    unsigned char *ht_map = SOIL_load_image
-//    (
-//     texName.c_str(),
-//     &width, &height, &channels,
-//     SOIL_LOAD_RGBA
-//     );
-//    
-//    cout << width << " " << height << endl;
-//    
-//    //Create texture reference
-//    glGenTextures(1, &texture0);
-//    
-//    glBindTexture(GL_TEXTURE_2D, texture0);
-//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ht_map);
-//    
-//    //It'sa good practice to unbind and dealloc textures.
-//    SOIL_free_image_data(ht_map);
-//    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
@@ -88,25 +62,13 @@ void Object::initGeometry(std::string fileName) {
     glBindBuffer(GL_ARRAY_BUFFER, uvsBuffer);
     glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
     
-    //Get uniform locations
-    uniformMVP = glGetUniformLocation(shaderProgram, "MVP");
-    uniformModelMat = glGetUniformLocation(shaderProgram, "modelMatrix");
-    uniformViewMat = glGetUniformLocation(shaderProgram, "viewMatrix");
-    uniformLightMat = glGetUniformLocation(shaderProgram, "uniformLightMat");
-//    uniformBaseColor = glGetUniformLocation(shaderProgram, "baseColor");
-    uniformViewInverseMat = glGetUniformLocation(shaderProgram, "viewInverseMat");
-    
-    uniformNormalMat = glGetUniformLocation(shaderProgram, "normalMatrix");
-//    dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
-//    dirVecUniform = glGetUniformLocation(shaderProgram, "dirLightVec");
-    
-//    texture0Uniform = glGetUniformLocation(shaderProgram, "myTexture");
     depthTextureUniform = glGetUniformLocation(shaderProgram, "depthTexture");
     
     this->material = new Material(shaderProgram);
     this->material->addUniform3fv("dirLightColor", lightColor);
     this->material->addUniform3fv("dirLightVec", lightDir);
     this->material->addUniform4f("baseColor", baseColor);
+    
     //Create generic texture
     Texture *mainTex = new Texture("moon.jpg");
     this->material->addUniformTexture("myTexture", mainTex);
@@ -132,12 +94,6 @@ void Object::drawObject() {
     //Compute model matrix
     glm::mat4 modelViewMatrix = _projView * modelMatrix;
     
-    glm::mat4 biasMatrix(
-                         0.5, 0.0, 0.0, 0.0,
-                         0.0, 0.5, 0.0, 0.0,
-                         0.0, 0.0, 0.5, 0.0,
-                         0.5, 0.5, 0.5, 1.0
-                         );
     glm::mat4 lightMat4 = glm::lookAt(lightDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
     
     GLfloat near_plane = 1.0f, far_plane = 7.5f;
@@ -145,6 +101,13 @@ void Object::drawObject() {
     glm::mat4 viewInverseM = glm::inverse(_viewMatrix);
     
     lightMat4 = _projMat * lightMat4;
+    
+    this->material->addUniformMatrix4fv("uniformLightMat", lightMat4);
+    this->material->addUniformMatrix4fv("MVP", _projView);
+    this->material->addUniformMatrix4fv("modelMatrix", modelMatrix);
+    this->material->addUniformMatrix4fv("viewMatrix", _viewMatrix);
+    this->material->addUniformMatrix4fv("normalMatrix", _normalMatrix);
+    this->material->addUniformMatrix4fv("viewInverseMat", viewInverseM);
     
     //Use the shader
     glUseProgram(shaderProgram);
@@ -182,14 +145,6 @@ void Object::drawObject() {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthTexture);
     glUniform1i(depthTextureUniform, 1);
-    
-    //Apply uniform variables
-    glUniformMatrix4fv(uniformMVP, 1, GL_FALSE, &_projView[0][0]);
-    glUniformMatrix4fv(uniformModelMat, 1, GL_FALSE, &modelMatrix[0][0]);
-    glUniformMatrix4fv(uniformViewMat, 1, GL_FALSE, &_viewMatrix[0][0]);
-    glUniformMatrix4fv(uniformNormalMat, 1, GL_FALSE, &_normalMatrix[0][0]);
-    glUniformMatrix4fv(uniformLightMat, 1, GL_FALSE, &lightMat4[0][0]);
-    glUniformMatrix4fv(uniformViewInverseMat, 1, GL_FALSE, &viewInverseM[0][0]);
     
     glDrawArrays(GL_TRIANGLES, 0, _polyCount);
     

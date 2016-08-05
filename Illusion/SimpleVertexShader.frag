@@ -23,6 +23,7 @@ uniform vec3 dirLightColor;
 uniform mat4 uniformLightMat;
 
 void main(){
+    mat4 vM = viewMatrix;
     vertWorldSpace = (modelMatrix * vec4(vertexPosition_modelspace, 1.0)).xyz;
     transformedNormal = (normalMatrix * normalize(vec4(normalVector, 1.0))).xyz;
     uvs = uvsVector;
