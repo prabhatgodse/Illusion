@@ -69,6 +69,21 @@ void Material::addUniform4f(std::string name, glm::vec4 vec4) {
     }
 }
 
+void Material::addUniformTexture(std::string name, Texture *texture) {
+    if(uniformTextureMap.find(name) != uniformTextureMap.end()) {
+        uniformTextureMap[name].first = texture;
+    } else {
+        GLuint uniLocation = glGetUniformLocation(shaderLocation, name.c_str());
+        if(uniLocation == -1) {
+            std::cout << "Uniform1i not found: " << name << std::endl;
+            return;
+        }
+        
+        UniformTexturePair p(texture, uniLocation);
+        uniformTextureMap[name] = p;
+    }
+}
+
 void Material::applyMaterial() {
     //TODO: Apply use program.
     for(auto const &itr : uniform3fMap) {
@@ -84,5 +99,18 @@ void Material::applyMaterial() {
     for(auto const &itr : uniform4fMap) {
         Uniform4fPair pair = itr.second;
         glUniform4f(pair.second, pair.first.x, pair.first.y, pair.first.z, pair.first.w);
+    }
+    
+    int tex = 0;
+    for(auto const &itr : uniformTextureMap) {
+        UniformTexturePair pair = itr.second;
+        glActiveTexture(GL_TEXTURE0 + tex);
+        if(pair.first->type == Texture::BASE_COLOR) {
+            //Bind the texture buffer
+            glBindTexture(GL_TEXTURE_2D, pair.first->textureId);
+            //Apply the uniform
+            glUniform1i(pair.second, 0);
+        }
+        tex++;
     }
 }

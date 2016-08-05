@@ -13,6 +13,7 @@
 #include "Object.h"
 #include "Camera.h"
 #include "shader.hpp"
+#include "Texture.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -51,6 +52,17 @@ void screenRespace(int width, int height) {
 
 void buildScene() {
     GLuint shaderProgram = LoadShaders("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
+    
+    //Create cube map
+    std::vector<std::string> cubeList;
+    cubeList.push_back("textures/cottoncandy_bk.tga");
+    cubeList.push_back("textures/cottoncandy_dn.tga");
+    cubeList.push_back("textures/cottoncandy_ft.tga");
+    cubeList.push_back("textures/cottoncandy_lf.tga");
+    cubeList.push_back("textures/cottoncandy_rt.tga");
+    cubeList.push_back("textures/cottoncandy_up.tga");
+    Texture *skyboxTexture = new Texture(cubeList);
+    
     
     Object *object = new Object("", "", shaderProgram);
     object->initGeometry("box.obj");

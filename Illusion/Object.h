@@ -35,11 +35,11 @@ public:
     GLuint uniformMVP, uniformModelMat, uniformViewMat, uniformNormalMat, uniformLightMat,
     uniformViewInverseMat;
     
-//    GLuint dirVecUniform, dirColorUniformuniformBaseColor ,
-    GLuint texture0Uniform, depthTextureUniform;
+//    GLuint dirVecUniform, dirColorUniformuniformBaseColor , texture0Uniform, texture0
+    GLuint depthTextureUniform;
     glm::mat4 _projMat, _projView, _viewMatrix, _normalMatrix, modelMatrix;
     glm::vec4 baseColor;
-    GLuint texture0, depthTexture;
+    GLuint depthTexture;
     
     void destroy();
     

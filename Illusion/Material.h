@@ -13,6 +13,7 @@
 #include <iostream>
 #include <map>
 #include "glm/glm.hpp"
+#include "Texture.hpp"
 
 class Material {
 public:
@@ -32,6 +33,11 @@ public:
     typedef std::pair <glm::vec4, GLuint> Uniform4fPair;
     std::map<std::string, Uniform4fPair> uniform4fMap;
     void addUniform4f(std::string name, glm::vec4 vec4);
+    
+    //Pair the texture to uniform location on shader program
+    typedef std::pair<Texture*, GLuint> UniformTexturePair;
+    std::map<std::string, UniformTexturePair> uniformTextureMap;
+    void addUniformTexture(std::string name, Texture *texture);
     
     void applyMaterial();
 };

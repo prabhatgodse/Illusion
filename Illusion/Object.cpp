@@ -27,30 +27,30 @@ Object::Object(std::string vertexSource, std::string fragmentSource,
     baseColor = glm::vec4(0.5, 0.5, 0.5, 1.0);
     
     
-    std::string texName = "moon.jpg";
-    
-    int width, height, channels;
-    unsigned char *ht_map = SOIL_load_image
-    (
-     texName.c_str(),
-     &width, &height, &channels,
-     SOIL_LOAD_RGBA
-     );
-    
-    cout << width << " " << height << endl;
-    
-    //Create texture reference
-    glGenTextures(1, &texture0);
-    
-    glBindTexture(GL_TEXTURE_2D, texture0);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ht_map);
-    
-    //It'sa good practice to unbind and dealloc textures.
-    SOIL_free_image_data(ht_map);
-    glBindTexture(GL_TEXTURE_2D, 0);
+//    std::string texName = "moon.jpg";
+//    
+//    int width, height, channels;
+//    unsigned char *ht_map = SOIL_load_image
+//    (
+//     texName.c_str(),
+//     &width, &height, &channels,
+//     SOIL_LOAD_RGBA
+//     );
+//    
+//    cout << width << " " << height << endl;
+//    
+//    //Create texture reference
+//    glGenTextures(1, &texture0);
+//    
+//    glBindTexture(GL_TEXTURE_2D, texture0);
+//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ht_map);
+//    
+//    //It'sa good practice to unbind and dealloc textures.
+//    SOIL_free_image_data(ht_map);
+//    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
@@ -100,13 +100,16 @@ void Object::initGeometry(std::string fileName) {
 //    dirColorUniform = glGetUniformLocation(shaderProgram, "dirLightColor");
 //    dirVecUniform = glGetUniformLocation(shaderProgram, "dirLightVec");
     
-    texture0Uniform = glGetUniformLocation(shaderProgram, "myTexture");
+//    texture0Uniform = glGetUniformLocation(shaderProgram, "myTexture");
     depthTextureUniform = glGetUniformLocation(shaderProgram, "depthTexture");
     
     this->material = new Material(shaderProgram);
     this->material->addUniform3fv("dirLightColor", lightColor);
     this->material->addUniform3fv("dirLightVec", lightDir);
     this->material->addUniform4f("baseColor", baseColor);
+    //Create generic texture
+    Texture *mainTex = new Texture("moon.jpg");
+    this->material->addUniformTexture("myTexture", mainTex);
 }
 
 void Object::destroy() {
@@ -170,10 +173,11 @@ void Object::drawObject() {
     glBindBuffer(GL_ARRAY_BUFFER, uvsBuffer);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
     
+    this->material->applyMaterial();
     //Apply textures
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture0);
-    glUniform1i(texture0Uniform, 0);
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindTexture(GL_TEXTURE_2D, texture0);
+//    glUniform1i(texture0Uniform, 0);
     
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthTexture);
@@ -186,8 +190,6 @@ void Object::drawObject() {
     glUniformMatrix4fv(uniformNormalMat, 1, GL_FALSE, &_normalMatrix[0][0]);
     glUniformMatrix4fv(uniformLightMat, 1, GL_FALSE, &lightMat4[0][0]);
     glUniformMatrix4fv(uniformViewInverseMat, 1, GL_FALSE, &viewInverseM[0][0]);
-    
-    this->material->applyMaterial();
     
     glDrawArrays(GL_TRIANGLES, 0, _polyCount);
     
@@ -216,9 +218,9 @@ void Object::drawObjectType(std::string type) {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
     
     //Apply textures
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture0);
-    glUniform1i(texture0Uniform, 0);
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindTexture(GL_TEXTURE_2D, texture0);
+//    glUniform1i(texture0Uniform, 0);
     
     glDrawArrays(GL_TRIANGLES, 0, _polyCount);
     
