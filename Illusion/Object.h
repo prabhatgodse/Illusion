@@ -20,7 +20,7 @@
 class Object {
 public:
     Object();
-    Object(std::string vertexSource, std::string fragmentSource, GLuint shader);
+    Object(GLuint shader);
     
     Material *material;
     
@@ -48,6 +48,7 @@ public:
     
     //Blending functions
     bool blending = false;
+    bool skybox = false;
     
     //Shadertype: standard :: uses regular color texture
     // depth:: renders to depth texture.

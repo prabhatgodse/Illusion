@@ -53,18 +53,30 @@ void screenRespace(int width, int height) {
 void buildScene() {
     GLuint shaderProgram = LoadShaders("SimpleVertexShader.frag", "SimpleFragmentShader.frag");
     
+    GLuint skyboxShader = LoadShaders("SkyboxVertex.frag", "SkyboxFrag.frag");
+    
     //Create cube map
     std::vector<std::string> cubeList;
-    cubeList.push_back("textures/cottoncandy_bk.tga");
-    cubeList.push_back("textures/cottoncandy_dn.tga");
-    cubeList.push_back("textures/cottoncandy_ft.tga");
-    cubeList.push_back("textures/cottoncandy_lf.tga");
+    
     cubeList.push_back("textures/cottoncandy_rt.tga");
+    cubeList.push_back("textures/cottoncandy_lf.tga");
     cubeList.push_back("textures/cottoncandy_up.tga");
+    cubeList.push_back("textures/cottoncandy_dn.tga");
+    cubeList.push_back("textures/cottoncandy_bk.tga");
+    cubeList.push_back("textures/cottoncandy_ft.tga");
     Texture *skyboxTexture = new Texture(cubeList);
+    Material *skyboxMaterial = new Material(skyboxShader);
+    skyboxMaterial->addUniformTexture("skybox", skyboxTexture);
     
+    Object *skybox = new Object(skyboxShader);
+    skybox->material = skyboxMaterial;
+    skybox->initGeometry("cube.obj");
+    skybox->modelMatrix = glm::scale(skybox->modelMatrix, glm::vec3(25, 25, 25));
+    skybox->skybox = true;
+    skybox->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
+    camera->addObject(skybox);
     
-    Object *object = new Object("", "", shaderProgram);
+    Object *object = new Object(shaderProgram);
     object->initGeometry("box.obj");
     object->modelMatrix = glm::translate(object->modelMatrix, glm::vec3(0.0, -3.0, -1.2));
 //    object->modelMatrix = glm::scale(object->modelMatrix, glm::vec3(1.0, 2.0, 1.0));
@@ -72,7 +84,7 @@ void buildScene() {
     object->baseColor = glm::vec4(0.4, 0.26, 0.21, 1.0);
     camera->addObject(object);
     
-    Object *object2 = new Object("", "", shaderProgram);
+    Object *object2 = new Object(shaderProgram);
     object2->initGeometry("box.obj");
     
     object2->modelMatrix = glm::translate(object2->modelMatrix, glm::vec3(0.0, -3.0, 0.0));
@@ -81,9 +93,9 @@ void buildScene() {
     object2->baseColor = glm::vec4(0.3, 0.34, 0.25, 1.0);
     camera->addObject(object2);
     
-    Object *object3 = new Object("", "", shaderProgram);
+    Object *object3 = new Object(shaderProgram);
     object3->initGeometry("teapot.obj");
-    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(2.0, -3.0, -0.8));
+    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(1.6, -3.0, -0.8));
     object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.05, 0.05, 0.05));
     object3->modelMatrix = glm::rotate(object3->modelMatrix, (float)180.5, glm::vec3(1,0,0));
     

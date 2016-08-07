@@ -76,6 +76,6 @@ void main()
     vec3 fragColor = matColor * dirLightColor * lightVal; // texture(myTexture, uvs).rgb * ; //+ dirLightColor * lightVal * vertWorldSpace;
     fragColor *= shadow;
     fragColor += vec3(0.10, 0.09, 0.11);
-//    color += computeVolumetric();
+    color.rgb += computeVolumetric();
     color = vec4(fragColor.rgb, baseColor.a);
 }

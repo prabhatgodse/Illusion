@@ -12,6 +12,7 @@
 #include <iostream>
 
 Texture::Texture(std::vector<std::string> cubeList) {
+    glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &textureId);
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
     
@@ -25,9 +26,8 @@ Texture::Texture(std::vector<std::string> cubeList) {
          &width, &height, &channels,
          SOIL_LOAD_RGBA
          );
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, cubeBuffer);
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, cubeBuffer);
         i++;
-        SOIL_free_image_data(cubeBuffer);
     }
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

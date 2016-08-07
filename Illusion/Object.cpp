@@ -21,10 +21,11 @@ Object::Object() {
     
 }
 
-Object::Object(std::string vertexSource, std::string fragmentSource,
-               GLuint shader) {
+Object::Object(GLuint shader) {
     shaderProgram = shader; //LoadShaders(vertexSource.c_str(), fragmentSource.c_str());
     baseColor = glm::vec4(0.5, 0.5, 0.5, 1.0);
+    material = NULL;
+    modelMatrix = glm::mat4(1.0);
 }
 
 glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
@@ -33,7 +34,7 @@ glm::vec3 lightColor = glm::vec3(0.7, 0.65, 0.6);
 void Object::initGeometry(std::string fileName) {
     objFile = fileName;
     _projView = glm::mat4(1.0);
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, .5, .5));
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, .4, .4));
     
     GLuint vertexArrayId;
     glGenVertexArrays(1, &vertexArrayId);
@@ -64,7 +65,9 @@ void Object::initGeometry(std::string fileName) {
     
     depthTextureUniform = glGetUniformLocation(shaderProgram, "depthTexture");
     
-    this->material = new Material(shaderProgram);
+    if(material == NULL) {
+        this->material = new Material(shaderProgram);
+    }
     this->material->addUniform3fv("dirLightColor", lightColor);
     this->material->addUniform3fv("dirLightVec", lightDir);
     this->material->addUniform4f("baseColor", baseColor);
@@ -82,9 +85,13 @@ void Object::destroy() {
 }
 
 void Object::setProjectionViewMatrix(glm::mat4 projMat, glm::mat4 viewMat) {
-    _viewMatrix = viewMat;
+    if(skybox) {
+        _viewMatrix = glm::mat4(glm::mat3(viewMat));
+    } else {
+        _viewMatrix = viewMat;
+    }
     _projMat = projMat;
-    _projView = projMat * viewMat;
+    _projView = projMat * _viewMatrix;
     _normalMatrix = glm::transpose(glm::inverse(modelMatrix));
 }
 
@@ -96,19 +103,20 @@ void Object::drawObject() {
     
     glm::mat4 lightMat4 = glm::lookAt(lightDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
     
-    GLfloat near_plane = 1.0f, far_plane = 7.5f;
+    GLfloat near_plane = 0.1f, far_plane = 100.0f;
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
     glm::mat4 viewInverseM = glm::inverse(_viewMatrix);
     
     lightMat4 = _projMat * lightMat4;
     
-    this->material->addUniformMatrix4fv("uniformLightMat", lightMat4);
     this->material->addUniformMatrix4fv("MVP", _projView);
     this->material->addUniformMatrix4fv("modelMatrix", modelMatrix);
-    this->material->addUniformMatrix4fv("viewMatrix", _viewMatrix);
-    this->material->addUniformMatrix4fv("normalMatrix", _normalMatrix);
-    this->material->addUniformMatrix4fv("viewInverseMat", viewInverseM);
-    
+    if(!skybox) {
+        this->material->addUniformMatrix4fv("uniformLightMat", lightMat4);
+        this->material->addUniformMatrix4fv("viewMatrix", _viewMatrix);
+        this->material->addUniformMatrix4fv("normalMatrix", _normalMatrix);
+        this->material->addUniformMatrix4fv("viewInverseMat", viewInverseM);
+    }
     //Use the shader
     glUseProgram(shaderProgram);
     
@@ -120,7 +128,9 @@ void Object::drawObject() {
         glDisable(GL_BLEND);
         glEnable(GL_DEPTH);
     }
-    
+    if(skybox) {
+        glDepthFunc(GL_LEQUAL);
+    }
     // 1st attribute buffers : vertex
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -142,9 +152,11 @@ void Object::drawObject() {
 //    glBindTexture(GL_TEXTURE_2D, texture0);
 //    glUniform1i(texture0Uniform, 0);
     
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, depthTexture);
-    glUniform1i(depthTextureUniform, 1);
+    if(!skybox) {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, depthTexture);
+        glUniform1i(depthTextureUniform, 1);
+    }
     
     glDrawArrays(GL_TRIANGLES, 0, _polyCount);
     
@@ -152,10 +164,15 @@ void Object::drawObject() {
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
     
+    if(skybox) {
+        glDepthFunc(GL_LESS);
+    }
 }
 
 //Draw geometry and associated textures
 void Object::drawObjectType(std::string type) {
+    if(skybox) return;
+    
     glCullFace(GL_FRONT);
     // 1st attribute buffers : vertex
     glEnableVertexAttribArray(0);

@@ -16,6 +16,7 @@
 		0D06C7C71D4D43D00093FA50 /* DepthFragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C31D4C42B10093FA50 /* DepthFragmentShader.frag */; };
 		0D06C7C91D4D43D00093FA50 /* QuadFragment.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */; };
 		0D06C7CB1D4D447F0093FA50 /* QuadVertex.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7CA1D4D446C0093FA50 /* QuadVertex.frag */; };
+		0D06C7D21D56B6C60093FA50 /* cube.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D06C7D11D56B6870093FA50 /* cube.obj */; };
 		0D573D451D48FDB5002A1473 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D573D441D48FDB5002A1473 /* ImageIO.framework */; };
 		0D615C0D1D53E7C4007D8E2C /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D615C0B1D53E7C4007D8E2C /* Material.cpp */; };
 		0D615C101D54D55D007D8E2C /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D615C0E1D54D55D007D8E2C /* Texture.cpp */; };
@@ -38,6 +39,7 @@
 			dstPath = usr/share/man/man1;
 			dstSubfolderSpec = 7;
 			files = (
+				0D06C7D21D56B6C60093FA50 /* cube.obj in CopyFiles */,
 				0D615C191D54D896007D8E2C /* textures in CopyFiles */,
 				0D06C7CB1D4D447F0093FA50 /* QuadVertex.frag in CopyFiles */,
 				0D06C7C61D4D43D00093FA50 /* DepthVertexShader.frag in CopyFiles */,
@@ -72,6 +74,9 @@
 		0D06C7CC1D4E8B6D0093FA50 /* PostProcVertex.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PostProcVertex.frag; sourceTree = "<group>"; };
 		0D06C7CD1D4E8B850093FA50 /* PostProcFragment.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PostProcFragment.frag; sourceTree = "<group>"; };
 		0D06C7CE1D52B4780093FA50 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		0D06C7CF1D567FB30093FA50 /* SkyboxVertex.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SkyboxVertex.frag; sourceTree = "<group>"; };
+		0D06C7D01D5681450093FA50 /* SkyboxFrag.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SkyboxFrag.frag; sourceTree = "<group>"; };
+		0D06C7D11D56B6870093FA50 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		0D573D441D48FDB5002A1473 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0D615C0B1D53E7C4007D8E2C /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		0D615C0C1D53E7C4007D8E2C /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
@@ -704,6 +709,7 @@
 				0D06C7CE1D52B4780093FA50 /* teapot.obj */,
 				0D06C7C11D4A7E040093FA50 /* moon.jpg */,
 				0D7BFDDB1AC8D50B00323D47 /* box.obj */,
+				0D06C7D11D56B6870093FA50 /* cube.obj */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -740,6 +746,8 @@
 				0D06C7C51D4D3DC20093FA50 /* QuadFragment.frag */,
 				0D06C7CC1D4E8B6D0093FA50 /* PostProcVertex.frag */,
 				0D06C7CD1D4E8B850093FA50 /* PostProcFragment.frag */,
+				0D06C7CF1D567FB30093FA50 /* SkyboxVertex.frag */,
+				0D06C7D01D5681450093FA50 /* SkyboxFrag.frag */,
 				0D7BFDD11AC8754F00323D47 /* vec4.hpp */,
 				0D7BFCBC1AC84C3600323D47 /* shader.cpp */,
 				0D7BFCBD1AC84C3600323D47 /* shader.hpp */,
