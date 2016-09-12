@@ -11,7 +11,7 @@ uniform mat4 normalMatrix;
 void main() {
     vec4 vertWorldSpace = modelMatrix * vec4(vertexPosition_modelspace, 1.0);
     vec4 position = MVP * vertWorldSpace;
-    gl_Position = position.xyww;
+    gl_Position = position;
     
     UV = normalize(vertexPosition_modelspace.xyz);
 }

@@ -58,12 +58,12 @@ void buildScene() {
     //Create cube map
     std::vector<std::string> cubeList;
     
-    cubeList.push_back("textures/cottoncandy_rt.tga");
-    cubeList.push_back("textures/cottoncandy_lf.tga");
-    cubeList.push_back("textures/cottoncandy_up.tga");
-    cubeList.push_back("textures/cottoncandy_dn.tga");
-    cubeList.push_back("textures/cottoncandy_bk.tga");
-    cubeList.push_back("textures/cottoncandy_ft.tga");
+    cubeList.push_back("textures/ss_rt.tga");
+    cubeList.push_back("textures/ss_lf.tga");
+    cubeList.push_back("textures/ss_up.tga");
+    cubeList.push_back("textures/ss_dn.tga");
+    cubeList.push_back("textures/ss_bk.tga");
+    cubeList.push_back("textures/ss_ft.tga");
     Texture *skyboxTexture = new Texture(cubeList);
     Material *skyboxMaterial = new Material(skyboxShader);
     skyboxMaterial->addUniformTexture("skybox", skyboxTexture);
@@ -78,7 +78,7 @@ void buildScene() {
     
     Object *object = new Object(shaderProgram);
     object->initGeometry("box.obj");
-    object->modelMatrix = glm::translate(object->modelMatrix, glm::vec3(0.0, -3.0, -1.2));
+    object->modelMatrix = glm::translate(object->modelMatrix, glm::vec3(0.0, 1.0, -1.2));
 //    object->modelMatrix = glm::scale(object->modelMatrix, glm::vec3(1.0, 2.0, 1.0));
     object->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
     object->baseColor = glm::vec4(0.4, 0.26, 0.21, 1.0);
@@ -87,20 +87,20 @@ void buildScene() {
     Object *object2 = new Object(shaderProgram);
     object2->initGeometry("box.obj");
     
-    object2->modelMatrix = glm::translate(object2->modelMatrix, glm::vec3(0.0, -3.0, 0.0));
-    object2->modelMatrix = glm::scale(object2->modelMatrix, glm::vec3(10, 10, 0.2));
+//    object2->modelMatrix = glm::translate(object2->modelMatrix, glm::vec3(0.0, -3.0, 0.0));
+    object2->modelMatrix = glm::scale(object2->modelMatrix, glm::vec3(10, 0.2, 10));
     object2->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
     object2->baseColor = glm::vec4(0.3, 0.34, 0.25, 1.0);
     camera->addObject(object2);
     
     Object *object3 = new Object(shaderProgram);
     object3->initGeometry("teapot.obj");
-    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(1.6, -3.0, -0.8));
-    object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.05, 0.05, 0.05));
-    object3->modelMatrix = glm::rotate(object3->modelMatrix, (float)180.5, glm::vec3(1,0,0));
+    object3->modelMatrix = glm::translate(object3->modelMatrix, glm::vec3(0, 1.0, 0.0));
+    object3->modelMatrix = glm::scale(object3->modelMatrix, glm::vec3(0.09, 0.09, 0.09));
+//    object3->modelMatrix = glm::rotate(object3->modelMatrix, (float)180.5, glm::vec3(1,0,0));
     
     object3->setProjectionViewMatrix(camera->projectionMatrix, camera->viewMatrix);
-    object3->baseColor = glm::vec4(0.2, 0.7, 0.41, 0.8);
+    object3->baseColor = glm::vec4(0.2, 0.7, 0.41, 0.4);
     object3->blending = true;
     camera->addObject(object3);
     

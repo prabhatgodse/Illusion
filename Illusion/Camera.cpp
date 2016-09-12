@@ -30,10 +30,12 @@ void Camera::destroy() {
 
 void Camera::initMatrix(float width, float height) {
     _width = width; _height = height;
-    projectionMatrix = glm::perspective(45.0f, width / height, 0.001f, 10000.0f);
-    viewMatrix = glm::lookAt(_eyePosition,
-                             lookAt,
-                             upVector);
+    projectionMatrix = glm::perspective(45.0f, width / height, 0.1f, 100.0f);
+//    viewMatrix = glm::lookAt(_eyePosition,
+//                             lookAt,
+//                             upVector);
+    viewMatrix = glm::mat4();
+    viewMatrix = glm::translate(viewMatrix, _eyePosition);
     glm::quat a;
 }
 

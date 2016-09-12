@@ -28,13 +28,13 @@ Object::Object(GLuint shader) {
     modelMatrix = glm::mat4(1.0);
 }
 
-glm::vec3 lightDir = glm::vec3(0.0, -3.5, -1.2);
+glm::vec3 lightDir = glm::vec3(0.0, 1.0, 0.0);
 glm::vec3 lightColor = glm::vec3(0.7, 0.65, 0.6);
 
 void Object::initGeometry(std::string fileName) {
     objFile = fileName;
     _projView = glm::mat4(1.0);
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, .4, .4));
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, .5, .5));
     
     GLuint vertexArrayId;
     glGenVertexArrays(1, &vertexArrayId);
@@ -122,14 +122,19 @@ void Object::drawObject() {
     
     if(blending) {
         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glBlendEquation(GL_FUNC_ADD);
     } else {
         glDisable(GL_BLEND);
         glEnable(GL_DEPTH);
     }
     if(skybox) {
-        glDepthFunc(GL_LEQUAL);
+//        glDepthFunc(GL_LEQUAL);
+//        glDepthMask(GL_FALSE);
+        glDisable(GL_CULL_FACE);
+        glDepthMask(GL_FALSE);
+    } else {
+        glDepthMask(GL_TRUE);
     }
     // 1st attribute buffers : vertex
     glEnableVertexAttribArray(0);
@@ -165,7 +170,7 @@ void Object::drawObject() {
     glDisableVertexAttribArray(2);
     
     if(skybox) {
-        glDepthFunc(GL_LESS);
+//        glDepthFunc(GL_LESS);
     }
 }
 
